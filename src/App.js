@@ -6,7 +6,7 @@ const OMDB_KEY = process.env.REACT_APP_OMDB_KEY;
 function App() {
   const [query, setQuery] = useState("");
   // const [page, setPage] = useState(1);
-  const [movies, setMovies] = useState([]);
+  // const [movies, setMovies] = useState([]);
 
   async function searchMovies(query) {
     try {
@@ -32,6 +32,9 @@ function App() {
           type="text"
           name="search"
           onChange={(e) => setQuery(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") searchMovies(query);
+          }}
           placeholder="e.g. Iron Man"
           value={query}
         />
