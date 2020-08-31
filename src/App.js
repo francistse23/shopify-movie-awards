@@ -7,11 +7,12 @@ function App() {
   const [query, setQuery] = useState("");
   // const [page, setPage] = useState(1);
   // const [movies, setMovies] = useState([]);
+  const [movie, setMovie] = useState({});
 
   async function searchMovies(query) {
     try {
       const res = await fetch(
-        `http://www.omdbapi.com/?apikey=${OMDB_KEY}&t=${query}&type=movie&plot=full`
+        `http://www.omdbapi.com/?apikey=${OMDB_KEY}&s=${query}&type=movie&plot=full`
       );
       const result = await res.json();
 
