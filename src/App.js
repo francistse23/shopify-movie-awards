@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import debounce from "./lib/debounce";
 import "./App.css";
 
 const OMDB_KEY = process.env.REACT_APP_OMDB_KEY;
@@ -7,7 +8,7 @@ function App() {
   const [query, setQuery] = useState("");
   // const [page, setPage] = useState(1);
   // const [movies, setMovies] = useState([]);
-  const [movie, setMovie] = useState({});
+  // const [movie, setMovie] = useState({});
 
   async function searchMovies(query) {
     try {
@@ -21,6 +22,9 @@ function App() {
       throw new Error(err);
     }
   }
+  useEffect(() => {
+    if (query.length > 2) debounce(searchMovies(query), 1000);
+  }, [query]);
 
   return (
     <div className="App">
