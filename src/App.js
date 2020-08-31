@@ -27,8 +27,6 @@ function App() {
     }
   }
 
-  console.log(nominations);
-
   function editNominations({ Title, Year, Poster, imdbID }) {
     if (nominations.has(imdbID)) {
       setNominations((nominations) => {
@@ -81,6 +79,7 @@ function App() {
                   flex: 2,
                   margin: "1rem",
                   padding: "1rem",
+                  boxSizing: "border-box",
                   border: isInNominations ? "5px solid #50B83C" : "",
                   borderRadius: "12px",
                 }}
@@ -98,6 +97,7 @@ function App() {
                     {Title} ({Year})
                   </h3>
                   <button
+                    disabled={nominations.size >= 5 && !isInNominations}
                     onClick={() =>
                       editNominations({ Title, Year, Poster, imdbID })
                     }
