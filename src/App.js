@@ -1,30 +1,32 @@
-import React, { useEffect, useState } from "react";
-import debounce from "./lib/debounce";
+import React, { useState } from "react";
 import "./App.css";
+import useDebouncedSearch from "./components/useDebouncedSearch";
 
 const OMDB_KEY = process.env.REACT_APP_OMDB_KEY;
 
 function App() {
-  const [query, setQuery] = useState("");
   // const [page, setPage] = useState(1);
   // const [movies, setMovies] = useState([]);
   // const [movie, setMovie] = useState({});
 
-  async function searchMovies(query) {
-    try {
-      const res = await fetch(
-        `http://www.omdbapi.com/?apikey=${OMDB_KEY}&s=${query}&type=movie&plot=full`
-      );
-      const result = await res.json();
+  const useSearchOMDB = () => useDebouncedSearch((text) => searchMovies(text));
+  const { inputText, setInputText, searchResults } = useSearchOMDB();
 
-      console.log(result);
+  async function searchMovies(text) {
+    try {
+      const res = (
+        await fetch(
+          `http://www.omdbapi.com/?apikey=${OMDB_KEY}&s=${text}&type=movie&plot=full`
+        )
+      ).json();
+
+      return res;
     } catch (err) {
       throw new Error(err);
     }
   }
-  useEffect(() => {
-    if (query.length > 2) debounce(searchMovies(query), 1000);
-  }, [query]);
+
+  console.log(searchResults);
 
   return (
     <div className="App">
@@ -36,14 +38,23 @@ function App() {
           inputMode="search"
           type="text"
           name="search"
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={(e) => setInputText(e.target.value)}
           onKeyDown={(e) => {
-            if (e.key === "Enter") searchMovies(query);
+            if (e.key === "Enter") searchMovies(inputText);
           }}
           placeholder="e.g. Iron Man"
-          value={query}
+          value={inputText}
         />
-        <button onClick={() => searchMovies(query)}>Search</button>
+        <button onClick={() => searchMovies(inputText)}>Search</button>
+      </div>
+      <div>
+        {searchResults?.result?.Search?.map(({ Title, Year, Poster }) => (
+          <div>
+            <h3>{Title}</h3>
+            <h3>{Year}</h3>
+            <img src={Poster} alt={`${Title} Poster`} />
+          </div>
+        ))}
       </div>
     </div>
   );
