@@ -1,8 +1,10 @@
 .App {
+  background-color: #212b36;
+  color: #108043;
   text-align: center;
-}
-
-.Search {
-  display: flex;
-  flex-direction: column;
+  min-height: 100vh;
+  height: 100%;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1600px;
 }
