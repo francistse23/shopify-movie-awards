@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import useDebouncedSearch from "./components/useDebouncedSearch";
 
@@ -32,19 +32,22 @@ function App() {
   function editNominations({ Title, Year, Poster, imdbID }) {
     if (nominations.has(imdbID)) {
       setNominations((nominations) => {
-        const newNominations = nominations;
+        const newNominations = new Map(nominations);
         nominations.delete(imdbID);
 
         return newNominations;
       });
     } else {
-      const newNominations = nominations;
-      newNominations.set(imdbID, { Title, Year, Poster, imdbID });
-      setNominations(newNominations);
+      setNominations((nominations) => {
+        const newNominations = new Map(nominations);
+        newNominations.set(imdbID, { Title, Year, Poster, imdbID });
+
+        return newNominations;
+      });
     }
   }
 
-  console.log(searchResults);
+  useEffect(() => {}, [nominations]);
 
   return (
     <div className="App">
@@ -68,48 +71,55 @@ function App() {
       </div>
       <div style={{ margin: "0 auto", maxWidth: "600px" }}>
         {searchResults?.result?.Search?.map(
-          ({ Title, Year, Poster, imdbID }) => (
-            <div
-              style={{
-                display: "flex",
-                flex: 2,
-                margin: "1rem",
-              }}
-            >
+          ({ Title, Year, Poster, imdbID }) => {
+            const isInNominations = nominations.has(imdbID);
+
+            return (
               <div
                 style={{
                   display: "flex",
-                  flex: 1,
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
+                  flex: 2,
+                  margin: "1rem",
+                  padding: "1rem",
+                  border: isInNominations ? "5px solid #50B83C" : "",
+                  borderRadius: "12px",
                 }}
               >
-                <h3>
-                  {Title} ({Year})
-                </h3>
-                <button
-                  onClick={() =>
-                    editNominations({ Title, Year, Poster, imdbID })
-                  }
-                >{`${
-                  nominations.has(imdbID) ? "Remove from" : "Add to"
-                } Nominations`}</button>
+                <div
+                  style={{
+                    display: "flex",
+                    flex: 1,
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <h3>
+                    {Title} ({Year})
+                  </h3>
+                  <button
+                    onClick={() =>
+                      editNominations({ Title, Year, Poster, imdbID })
+                    }
+                  >{`${
+                    isInNominations ? "Remove from" : "Add to"
+                  } Nominations`}</button>
+                </div>
+                <div
+                  style={{
+                    flex: 1,
+                    justifyContent: "center",
+                  }}
+                >
+                  <img
+                    src={Poster}
+                    alt={`${Title} Poster`}
+                    style={{ height: 223, width: 150 }}
+                  />
+                </div>
               </div>
-              <div
-                style={{
-                  flex: 1,
-                  justifyContent: "center",
-                }}
-              >
-                <img
-                  src={Poster}
-                  alt={`${Title} Poster`}
-                  style={{ height: 223, width: 150 }}
-                />
-              </div>
-            </div>
-          )
+            );
+          }
         )}
       </div>
     </div>
