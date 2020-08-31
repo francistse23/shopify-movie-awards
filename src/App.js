@@ -11,11 +11,11 @@ function App() {
   async function searchMovies(query) {
     try {
       const res = await fetch(
-        `http://www.omdbapi.com/?apikey=${OMDB_KEY}&s=${query}&type=movie&plot=full`
+        `http://www.omdbapi.com/?apikey=${OMDB_KEY}&t=${query}&type=movie&plot=full`
       );
-      const movies = await res.json();
+      const result = await res.json();
 
-      console.log(movies);
+      console.log(result);
     } catch (err) {
       throw new Error(err);
     }
@@ -24,17 +24,19 @@ function App() {
   return (
     <div className="App">
       <h1>The Shoppies Nominations</h1>
-      <form className="Seach" onSubmit={() => searchMovies(query)}>
+
+      <div>
         <label for="search">Movie Name </label>
         <input
-          // inputMode="search"
+          inputMode="search"
           type="text"
           name="search"
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="movie name"
+          placeholder="e.g. Iron Man"
           value={query}
         />
-      </form>
+        <button onClick={() => searchMovies(query)}>Search</button>
+      </div>
     </div>
   );
 }
