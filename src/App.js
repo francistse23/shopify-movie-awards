@@ -47,6 +47,7 @@ function App() {
           margin: "1rem auto",
           padding: "2rem",
           borderRadius: "12px",
+          boxShadow: "0px 0px 20px 5px #FFFFFF",
         }}
       >
         <label
@@ -82,9 +83,9 @@ function App() {
             style={{
               border: "none",
               borderRadius: "6px",
-              padding: "1.5rem",
+              padding: "1.1rem",
               flex: 3,
-              fontSize: "1.5rem",
+              fontSize: "1.15rem",
             }}
             value={inputText}
           />
@@ -97,19 +98,21 @@ function App() {
       <div
         style={{
           display: "flex",
-          flex: 3,
-          justifyContent: "space-around",
-          margin: "1rem auto",
+          flex: 5,
+          justifyContent: "space-between",
+          margin: "2rem auto",
           maxWidth: "1200px",
+          width: "100%",
         }}
       >
         {/* movies list */}
         <div
           style={{
             margin: "0 1rem",
-            flex: 2,
+            flex: 3,
             backgroundColor: "#212b36",
             borderRadius: "12px",
+            boxShadow: "0px 0px 20px 5px #FFFFFF",
           }}
         >
           {inputText && (
@@ -134,11 +137,12 @@ function App() {
         {/* nominations list */}
         <div
           style={{
-            flex: 1,
+            flex: 2,
             backgroundColor: "#212b36",
             borderRadius: "12px",
             margin: "0 1rem",
             padding: "1rem",
+            boxShadow: "0px 0px 20px 5px #FFFFFF",
           }}
         >
           <h3>
