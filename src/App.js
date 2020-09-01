@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import useDebouncedSearch from "./components/useDebouncedSearch";
+import Movie from "./components/Movie";
 
 const OMDB_KEY = process.env.REACT_APP_OMDB_KEY;
 
@@ -27,32 +28,14 @@ function App() {
     }
   }
 
-  function editNominations({ Title, Year, Poster, imdbID }) {
-    if (nominations.has(imdbID)) {
-      setNominations((nominations) => {
-        const newNominations = new Map(nominations);
-        nominations.delete(imdbID);
-
-        return newNominations;
-      });
-    } else {
-      setNominations((nominations) => {
-        const newNominations = new Map(nominations);
-        newNominations.set(imdbID, { Title, Year, Poster, imdbID });
-
-        return newNominations;
-      });
-    }
-  }
-
-  useEffect(() => {}, [nominations]);
-
   return (
     <div className="App">
-      <h1 style={{ fontSize: "3rem" }}>The Shoppies Nominations</h1>
+      <h1 style={{ fontSize: "3rem" }}>The Shoppies</h1>
 
-      <div>
-        <label for="search">Movie Name </label>
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <label for="search" style={{ fontSize: "2rem" }}>
+          Movie Name{" "}
+        </label>
         <input
           inputMode="search"
           type="text"
@@ -67,59 +50,42 @@ function App() {
         />
         <button onClick={() => searchMovies(inputText)}>Search</button>
       </div>
-      <div style={{ margin: "0 auto", maxWidth: "600px" }}>
-        {searchResults?.result?.Search?.map(
-          ({ Title, Year, Poster, imdbID }) => {
-            const isInNominations = nominations.has(imdbID);
 
-            return (
-              <div
-                style={{
-                  display: "flex",
-                  flex: 2,
-                  margin: "1rem",
-                  padding: "1rem",
-                  boxSizing: "border-box",
-                  border: isInNominations ? "5px solid #50B83C" : "",
-                  borderRadius: "12px",
-                }}
-              >
-                <div
-                  style={{
-                    display: "flex",
-                    flex: 1,
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <h3>
-                    {Title} ({Year})
-                  </h3>
-                  <button
-                    disabled={nominations.size >= 5 && !isInNominations}
-                    onClick={() =>
-                      editNominations({ Title, Year, Poster, imdbID })
-                    }
-                  >{`${
-                    isInNominations ? "Remove from" : "Add to"
-                  } Nominations`}</button>
-                </div>
-                <div
-                  style={{
-                    flex: 1,
-                    justifyContent: "center",
-                  }}
-                >
-                  <img
-                    src={Poster}
-                    alt={`${Title} Poster`}
-                    style={{ height: 223, width: 150 }}
-                  />
-                </div>
-              </div>
-            );
-          }
+      <div style={{ display: "flex", flex: 3, justifyContent: "space-around" }}>
+        {/* movies list */}
+        <div style={{ margin: "0 auto", flex: 2 }}>
+          {inputText && <h3>{`Results for ${inputText}`}</h3>}
+          {searchResults?.result?.Search?.map(
+            ({ Title, Year, Poster, imdbID }) => (
+              <Movie
+                Title={Title}
+                Year={Year}
+                Poster={Poster}
+                imdbID={imdbID}
+                nominations={nominations}
+                setNominations={setNominations}
+              />
+            )
+          )}
+        </div>
+
+        {/* nominations list */}
+        {nominations.size > 0 && (
+          <div style={{ flex: 1, border: "2px solid " }}>
+            <h3>Your Nominations 🏆</h3>
+            {[...nominations.values()].map(
+              ({ Title, Year, Poster, imdbID }) => (
+                <Movie
+                  Title={Title}
+                  Year={Year}
+                  Poster={Poster}
+                  imdbID={imdbID}
+                  nominations={nominations}
+                  setNominations={setNominations}
+                />
+              )
+            )}
+          </div>
         )}
       </div>
     </div>
