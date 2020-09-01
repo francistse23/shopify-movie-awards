@@ -38,12 +38,15 @@ function App() {
 
       <div
         style={{
+          backgroundColor: "#212b36",
           alignItems: "space-between",
           display: "flex",
           flexDirection: "column",
-          maxWidth: "600px",
+          maxWidth: "1200px",
           justifyContent: "center",
           margin: "1rem auto",
+          padding: "1rem",
+          borderRadius: "12px",
         }}
       >
         <label
@@ -84,9 +87,9 @@ function App() {
             }}
             value={inputText}
           />
-          <button onClick={() => searchMovies(inputText)} style={{ flex: 1 }}>
+          {/* <button onClick={() => searchMovies(inputText)} style={{ flex: 1 }}>
             Search
-          </button>
+          </button> */}
         </div>
       </div>
 
@@ -95,8 +98,8 @@ function App() {
           display: "flex",
           flex: 3,
           justifyContent: "space-around",
-          margin: "1rem",
-          padding: "1rem",
+          margin: "1rem auto",
+          maxWidth: "1200px",
         }}
       >
         {/* movies list */}
@@ -163,6 +166,20 @@ function App() {
           )}
         </div>
       </div>
+
+      {nominations.size === 5 && (
+        <footer
+          style={{
+            backgroundColor: "white",
+            position: "sticky",
+            bottom: 0,
+            lineHeight: "10vh",
+            height: "10vh",
+          }}
+        >
+          <h1>You've made all 5 nominations!</h1>
+        </footer>
+      )}
     </div>
   );
 }
