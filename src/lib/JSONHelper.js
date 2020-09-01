@@ -3,7 +3,7 @@ export const replacer = function (key, value) {
   if (originalObject instanceof Map) {
     return {
       dataType: "Map",
-      value: [...originalObject.entries()],
+      value: [...originalObject],
     };
   } else {
     return value;
