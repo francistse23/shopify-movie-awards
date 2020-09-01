@@ -30,7 +30,11 @@ function App() {
 
   return (
     <div className="App">
-      <h1 style={{ fontSize: "3rem" }}>The Shoppies</h1>
+      <h1
+        style={{ fontSize: "3rem", fontFamily: "Architects Daughter, cursive" }}
+      >
+        The Shoppies
+      </h1>
 
       <div
         style={{
@@ -115,7 +119,7 @@ function App() {
           )}
         </div>
         {/* nominations list */}
-        <div style={{ flex: 1 }}>
+        <div style={{ flex: 1, backgroundColor: "#212b36" }}>
           <h3>
             Your Nominations{" "}
             <span aria-label="trophy" role="img">
