@@ -7,8 +7,6 @@ const OMDB_KEY = process.env.REACT_APP_OMDB_KEY;
 
 function App() {
   // const [page, setPage] = useState(1);
-  // const [movies, setMovies] = useState([]);
-  // const [movie, setMovie] = useState({});
   const [nominations, setNominations] = useState(new Map());
 
   const useSearchOMDB = () => useDebouncedSearch((text) => searchMovies(text));
@@ -36,14 +34,13 @@ function App() {
         The Shoppies
       </h1>
 
+      {/* search bar */}
       <div
         style={{
           backgroundColor: "#212b36",
-          alignItems: "space-between",
           display: "flex",
           flexDirection: "column",
           maxWidth: "1200px",
-          justifyContent: "center",
           margin: "1rem auto",
           padding: "2rem",
           borderRadius: "12px",
@@ -101,13 +98,15 @@ function App() {
           flex: 5,
           justifyContent: "space-between",
           margin: "2rem auto",
-          maxWidth: "1200px",
+          maxWidth: "1300px",
           width: "100%",
         }}
       >
         {/* movies list */}
         <div
           style={{
+            alignItems: "center",
+            justifyContent: "center",
             margin: "0 1rem",
             flex: 3,
             backgroundColor: "#212b36",
@@ -115,22 +114,31 @@ function App() {
             boxShadow: "0px 0px 20px 5px #FFFFFF",
           }}
         >
-          {inputText && (
-            <h3
-              style={{ textAlign: "center", marginLeft: "2rem" }}
-            >{`Results for "${inputText}"`}</h3>
-          )}
-          {searchResults?.result?.Search?.map(
-            ({ Title, Year, Poster, imdbID }) => (
-              <Movie
-                Title={Title}
-                Year={Year}
-                Poster={Poster}
-                imdbID={imdbID}
-                nominations={nominations}
-                setNominations={setNominations}
-              />
-            )
+          {searchResults?.result?.Search?.length ? (
+            <>
+              {" "}
+              {inputText && (
+                <h3
+                  style={{ textAlign: "center", marginLeft: "2rem" }}
+                >{`Results for "${inputText}"`}</h3>
+              )}
+              {searchResults?.result?.Search?.map(
+                ({ Title, Year, Poster, imdbID }) => (
+                  <Movie
+                    Title={Title}
+                    Year={Year}
+                    Poster={Poster}
+                    imdbID={imdbID}
+                    nominations={nominations}
+                    setNominations={setNominations}
+                  />
+                )
+              )}
+            </>
+          ) : (
+            <p style={{ height: "100%" }}>
+              Try searching and adding some movies to your nominations list!
+            </p>
           )}
         </div>
 
@@ -143,6 +151,7 @@ function App() {
             margin: "0 1rem",
             padding: "1rem",
             boxShadow: "0px 0px 20px 5px #FFFFFF",
+            height: "100%",
           }}
         >
           <h3>
@@ -166,7 +175,6 @@ function App() {
           ) : (
             <>
               <p>You don't have any nominations for The Shoppies yet.</p>
-              <p>Try searching and adding some movies to the list!</p>
               <p>You made add at most 5 nominations</p>
             </>
           )}
