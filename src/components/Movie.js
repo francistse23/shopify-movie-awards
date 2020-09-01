@@ -9,6 +9,7 @@ const buttonStyle = {
   borderRadius: "12px",
   border: "none",
   margin: "0 0.5rem",
+  padding: "0.5rem",
 };
 
 export default function Movie({
@@ -67,7 +68,7 @@ export default function Movie({
           margin: "0 0.5rem",
         }}
       >
-        <div style={{ flex: 2 }}>
+        <div style={{ flex: 3 }}>
           <h3 style={{ fontSize: "1.5rem" }}>
             {Title} ({Year})
           </h3>
@@ -76,7 +77,7 @@ export default function Movie({
         <div
           style={{
             display: "flex",
-            flex: 2,
+            flex: 1,
             justifyContent: "space-around",
             width: "100%",
           }}
