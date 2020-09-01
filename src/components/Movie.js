@@ -55,7 +55,9 @@ export default function Movie({
         <button
           disabled={nominations.size >= 5 && !isInNominations}
           onClick={() => editNominations({ Title, Year, Poster, imdbID })}
-        >{`${isInNominations ? "Remove from" : "Add to"} Nominations`}</button>
+        >{`${
+          isInNominations ? `❌ Remove from` : `🗳️ Add to`
+        } Nominations`}</button>
       </div>
       <div
         style={{

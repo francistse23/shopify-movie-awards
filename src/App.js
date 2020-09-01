@@ -32,29 +32,75 @@ function App() {
     <div className="App">
       <h1 style={{ fontSize: "3rem" }}>The Shoppies</h1>
 
-      <div style={{ display: "flex", flexDirection: "column" }}>
-        <label for="search" style={{ fontSize: "2rem" }}>
-          Movie Name{" "}
-        </label>
-        <input
-          inputMode="search"
-          type="text"
-          name="search"
-          onChange={(e) => setInputText(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") searchMovies(inputText);
+      <div
+        style={{
+          alignItems: "space-between",
+          display: "flex",
+          flexDirection: "column",
+          maxWidth: "600px",
+          justifyContent: "center",
+          margin: "1rem auto",
+        }}
+      >
+        <label
+          for="search"
+          style={{
+            textAlign: "left",
+            fontSize: "2rem",
+            fontWeight: "700",
+            margin: "1rem 0",
           }}
-          placeholder="e.g. Iron Man"
-          style={{ border: "none", borderRadius: "6px", padding: "8px" }}
-          value={inputText}
-        />
-        <button onClick={() => searchMovies(inputText)}>Search</button>
+        >
+          Movie Name
+        </label>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            flex: 4,
+            width: "100%",
+          }}
+        >
+          <input
+            aria-label="Search bar"
+            role="search"
+            inputMode="search"
+            type="text"
+            name="search"
+            onChange={(e) => setInputText(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") searchMovies(inputText);
+            }}
+            placeholder="e.g. Iron Man"
+            style={{
+              border: "none",
+              borderRadius: "6px",
+              padding: "8px",
+              flex: 3,
+            }}
+            value={inputText}
+          />
+          <button onClick={() => searchMovies(inputText)} style={{ flex: 1 }}>
+            Search
+          </button>
+        </div>
       </div>
 
-      <div style={{ display: "flex", flex: 3, justifyContent: "space-around" }}>
+      <div
+        style={{
+          display: "flex",
+          flex: 3,
+          justifyContent: "space-around",
+          margin: "1rem",
+        }}
+      >
         {/* movies list */}
         <div style={{ margin: "0 auto", flex: 2 }}>
-          {inputText && <h3>{`Results for ${inputText}`}</h3>}
+          {inputText && (
+            <h3
+              style={{ textAlign: "center", marginLeft: "2rem" }}
+            >{`Results for "${inputText}"`}</h3>
+          )}
           {searchResults?.result?.Search?.map(
             ({ Title, Year, Poster, imdbID }) => (
               <Movie
@@ -68,25 +114,32 @@ function App() {
             )
           )}
         </div>
-
         {/* nominations list */}
-        {nominations.size > 0 && (
-          <div style={{ flex: 1, border: "2px solid " }}>
-            <h3>Your Nominations 🏆</h3>
-            {[...nominations.values()].map(
-              ({ Title, Year, Poster, imdbID }) => (
-                <Movie
-                  Title={Title}
-                  Year={Year}
-                  Poster={Poster}
-                  imdbID={imdbID}
-                  nominations={nominations}
-                  setNominations={setNominations}
-                />
-              )
-            )}
-          </div>
-        )}
+        <div style={{ flex: 1 }}>
+          <h3>
+            Your Nominations{" "}
+            <span aria-label="trophy" role="img">
+              🏆
+            </span>
+          </h3>
+          {nominations.size > 0 ? (
+            [...nominations.values()].map(({ Title, Year, Poster, imdbID }) => (
+              <Movie
+                Title={Title}
+                Year={Year}
+                Poster={Poster}
+                imdbID={imdbID}
+                nominations={nominations}
+                setNominations={setNominations}
+              />
+            ))
+          ) : (
+            <>
+              <p>You don't have any nominations for The Shoppies yet.</p>
+              <p>Try searching and adding some movies to the list!</p>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );
