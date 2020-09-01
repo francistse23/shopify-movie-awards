@@ -96,10 +96,18 @@ function App() {
           flex: 3,
           justifyContent: "space-around",
           margin: "1rem",
+          padding: "1rem",
         }}
       >
         {/* movies list */}
-        <div style={{ margin: "0 auto", flex: 2 }}>
+        <div
+          style={{
+            margin: "0 1rem",
+            flex: 2,
+            backgroundColor: "#212b36",
+            borderRadius: "12px",
+          }}
+        >
           {inputText && (
             <h3
               style={{ textAlign: "center", marginLeft: "2rem" }}
@@ -118,8 +126,17 @@ function App() {
             )
           )}
         </div>
+
         {/* nominations list */}
-        <div style={{ flex: 1, backgroundColor: "#212b36" }}>
+        <div
+          style={{
+            flex: 1,
+            backgroundColor: "#212b36",
+            borderRadius: "12px",
+            margin: "0 1rem",
+            padding: "1rem",
+          }}
+        >
           <h3>
             Your Nominations{" "}
             <span aria-label="trophy" role="img">
@@ -135,6 +152,7 @@ function App() {
                 imdbID={imdbID}
                 nominations={nominations}
                 setNominations={setNominations}
+                isNominations={true}
               />
             ))
           ) : (

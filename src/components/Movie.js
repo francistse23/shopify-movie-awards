@@ -1,5 +1,10 @@
 import React from "react";
 
+const buttonStyle = {
+  fontSize: "1rem",
+  flexGrow: 1,
+};
+
 export default function Movie({
   nominations,
   Title,
@@ -7,8 +12,20 @@ export default function Movie({
   Poster,
   imdbID,
   setNominations,
+  isNominations = false,
 }) {
-  function editNominations({ Title, Year, Poster, imdbID }) {
+  function addToNominations({ Title, Year, Poster, imdbID }) {
+    if (!nominations.has(imdbID)) {
+      setNominations((nominations) => {
+        const newNominations = new Map(nominations);
+        newNominations.set(imdbID, { Title, Year, Poster, imdbID });
+
+        return newNominations;
+      });
+    }
+  }
+
+  function removeFromNominations({ imdbID }) {
     if (nominations.has(imdbID)) {
       setNominations((nominations) => {
         const newNominations = new Map(nominations);
@@ -17,12 +34,6 @@ export default function Movie({
         return newNominations;
       });
     } else {
-      setNominations((nominations) => {
-        const newNominations = new Map(nominations);
-        newNominations.set(imdbID, { Title, Year, Poster, imdbID });
-
-        return newNominations;
-      });
     }
   }
 
@@ -52,12 +63,30 @@ export default function Movie({
         <h3>
           {Title} ({Year})
         </h3>
-        <button
-          disabled={nominations.size >= 5 && !isInNominations}
-          onClick={() => editNominations({ Title, Year, Poster, imdbID })}
-        >{`${
-          isInNominations ? `❌ Remove from` : `🗳️ Add to`
-        } Nominations`}</button>
+        <div style={{ display: "flex", flex: 2 }}>
+          {!isNominations && (
+            <button
+              disabled={isInNominations}
+              onClick={() => addToNominations({ Title, Year, Poster, imdbID })}
+              style={buttonStyle}
+            >
+              <span role="img" aria-label="Ballot box emoji">
+                🗳️
+              </span>{" "}
+              Add to Nominations
+            </button>
+          )}
+          <button
+            disabled={!isInNominations}
+            onClick={() => removeFromNominations({ imdbID })}
+            style={buttonStyle}
+          >
+            <span role="img" aria-label="Remove emoji">
+              ❌
+            </span>{" "}
+            Remove from Nominations
+          </button>
+        </div>
       </div>
       <div
         style={{
