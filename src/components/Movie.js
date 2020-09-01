@@ -40,7 +40,6 @@ export default function Movie({
 
         return newNominations;
       });
-    } else {
     }
   }
 
@@ -54,7 +53,7 @@ export default function Movie({
         margin: "1rem",
         padding: "1rem",
         boxSizing: "border-box",
-        border: isInNominations ? "3px solid #50B83C" : "",
+        border: isInNominations && !isNominations ? "3px solid #50B83C" : "",
         borderRadius: "12px",
       }}
     >
@@ -64,6 +63,7 @@ export default function Movie({
           flex: 2,
           flexDirection: "column",
           alignItems: "center",
+          alignContent: "center",
           justifyContent: "center",
           margin: "0 0.5rem",
         }}
