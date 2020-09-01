@@ -31,7 +31,7 @@ function App() {
   return (
     <div className="App">
       <h1
-        style={{ fontSize: "3rem", fontFamily: "Architects Daughter, cursive" }}
+        style={{ fontSize: "5rem", fontFamily: "Architects Daughter, cursive" }}
       >
         The Shoppies
       </h1>
@@ -45,7 +45,7 @@ function App() {
           maxWidth: "1200px",
           justifyContent: "center",
           margin: "1rem auto",
-          padding: "1rem",
+          padding: "2rem",
           borderRadius: "12px",
         }}
       >
@@ -82,8 +82,9 @@ function App() {
             style={{
               border: "none",
               borderRadius: "6px",
-              padding: "8px",
+              padding: "1.5rem",
               flex: 3,
+              fontSize: "1.5rem",
             }}
             value={inputText}
           />
@@ -162,6 +163,7 @@ function App() {
             <>
               <p>You don't have any nominations for The Shoppies yet.</p>
               <p>Try searching and adding some movies to the list!</p>
+              <p>You made add at most 5 nominations</p>
             </>
           )}
         </div>
