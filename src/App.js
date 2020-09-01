@@ -30,8 +30,6 @@ function App() {
     }
   }
 
-  console.log(nominations);
-
   useEffect(() => {
     if (
       localStorage.length === 0 ||
