@@ -108,6 +108,7 @@ function App() {
             alignItems: "center",
             justifyContent: "center",
             margin: "0 1rem",
+            padding: "0 1rem",
             flex: 3,
             backgroundColor: "#212b36",
             borderRadius: "12px",
@@ -136,7 +137,14 @@ function App() {
               )}
             </>
           ) : (
-            <p style={{ height: "100%" }}>
+            <p
+              style={{
+                alignSelf: "center",
+                fontSize: "1.5rem",
+                lineHeight: "10vh",
+                height: "10vh",
+              }}
+            >
               Try searching and adding some movies to your nominations list!
             </p>
           )}
@@ -154,7 +162,7 @@ function App() {
             height: "100%",
           }}
         >
-          <h3>
+          <h3 style={{ fontSize: "2rem" }}>
             Your Nominations{" "}
             <span aria-label="trophy" role="img">
               🏆
@@ -175,7 +183,7 @@ function App() {
           ) : (
             <>
               <p>You don't have any nominations for The Shoppies yet.</p>
-              <p>You made add at most 5 nominations</p>
+              <p>You can make add at most 5 nominations</p>
             </>
           )}
         </div>
@@ -189,9 +197,15 @@ function App() {
             bottom: 0,
             lineHeight: "10vh",
             height: "10vh",
+            borderRadius: "12px 12px 0 0",
           }}
         >
-          <h1>You've made all 5 nominations!</h1>
+          <h1>
+            You have made all 5 nominations!{" "}
+            <span aria-label="trophy" role="img">
+              🏆
+            </span>
+          </h1>
         </footer>
       )}
     </div>
