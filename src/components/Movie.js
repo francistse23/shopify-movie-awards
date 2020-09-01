@@ -53,7 +53,7 @@ export default function Movie({
         margin: "1rem",
         padding: "1rem",
         boxSizing: "border-box",
-        border: isInNominations ? "5px solid #50B83C" : "",
+        border: isInNominations ? "3px solid #50B83C" : "",
         borderRadius: "12px",
       }}
     >
