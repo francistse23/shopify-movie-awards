@@ -1,8 +1,14 @@
 import React from "react";
 
 const buttonStyle = {
+  color: "#3E4155",
   fontSize: "1rem",
-  flexGrow: 1,
+  fontWeight: "600",
+  flex: 1,
+  backgroundColor: "#50B83C",
+  borderRadius: "12px",
+  border: "none",
+  margin: "0 0.5rem",
 };
 
 export default function Movie({
@@ -54,21 +60,38 @@ export default function Movie({
       <div
         style={{
           display: "flex",
-          flex: 1,
+          flex: 2,
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
+          margin: "0 0.5rem",
         }}
       >
-        <h3>
-          {Title} ({Year})
-        </h3>
-        <div style={{ display: "flex", flex: 2 }}>
+        <div style={{ flex: 2 }}>
+          <h3 style={{ fontSize: "1.5rem" }}>
+            {Title} ({Year})
+          </h3>
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            flex: 2,
+            justifyContent: "space-around",
+            width: "100%",
+          }}
+        >
           {!isNominations && (
             <button
-              disabled={isInNominations}
+              disabled={nominations.size >= 5 || isInNominations}
               onClick={() => addToNominations({ Title, Year, Poster, imdbID })}
-              style={buttonStyle}
+              style={{
+                ...buttonStyle,
+                backgroundColor:
+                  nominations.size >= 5 || isInNominations
+                    ? "#919EAB"
+                    : "#50B83C",
+              }}
             >
               <span role="img" aria-label="Ballot box emoji">
                 🗳️
@@ -79,7 +102,10 @@ export default function Movie({
           <button
             disabled={!isInNominations}
             onClick={() => removeFromNominations({ imdbID })}
-            style={buttonStyle}
+            style={{
+              ...buttonStyle,
+              backgroundColor: !isInNominations ? "#919EAB" : "#50B83C",
+            }}
           >
             <span role="img" aria-label="Remove emoji">
               ❌
