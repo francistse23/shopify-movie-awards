@@ -1,4 +1,5 @@
 import React from "react";
+import { replacer } from "../lib/JSONHelper";
 
 const buttonStyle = {
   color: "#3E4155",
@@ -26,6 +27,8 @@ export default function Movie({
       setNominations((nominations) => {
         const newNominations = new Map(nominations);
         newNominations.set(imdbID, { Title, Year, Poster, imdbID });
+        const str = JSON.stringify(newNominations, replacer);
+        localStorage.setItem("shopify_the_shoppies_nominations", str);
 
         return newNominations;
       });
@@ -38,6 +41,9 @@ export default function Movie({
         const newNominations = new Map(nominations);
         nominations.delete(imdbID);
 
+        const str = JSON.stringify(newNominations, replacer);
+
+        localStorage.setItem("shopify_the_shoppies_nominations", str);
         return newNominations;
       });
     }

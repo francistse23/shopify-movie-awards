@@ -1,14 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import useDebouncedSearch from "./components/useDebouncedSearch";
 import Movie from "./components/Movie";
 import SearchBar from "./components/SearchBar";
+import { reviver, replacer } from "./lib/JSONHelper";
 
 const OMDB_KEY = process.env.REACT_APP_OMDB_KEY;
 
 function App() {
   // const [page, setPage] = useState(1);
   const [nominations, setNominations] = useState(new Map());
+
+  const { localStorage } = window;
 
   const useSearchOMDB = () => useDebouncedSearch((text) => searchMovies(text));
   const { inputText, setInputText, searchResults } = useSearchOMDB();
@@ -26,6 +29,25 @@ function App() {
       throw new Error(err);
     }
   }
+
+  console.log(nominations);
+
+  useEffect(() => {
+    if (
+      localStorage.length === 0 ||
+      !localStorage.getItem("shopify_the_shoppies_nominations")
+    ) {
+      const str = JSON.stringify(new Map(), replacer);
+      localStorage.setItem("shopify_the_shoppies_nominations", str);
+    } else {
+      const storedNominations = JSON.parse(
+        localStorage.getItem("shopify_the_shoppies_nominations"),
+        reviver
+      );
+
+      setNominations(storedNominations);
+    }
+  }, []);
 
   return (
     <div className="App">
