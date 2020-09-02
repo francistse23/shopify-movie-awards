@@ -43,19 +43,17 @@ export default function SearchBar({ inputText, setInputText, searchMovies }) {
           onKeyDown={(e) => {
             if (e.key === "Enter") searchMovies(inputText);
           }}
-          placeholder="e.g. Iron Man"
+          placeholder={`🔎 e.g. Iron Man`}
           style={{
             border: "none",
             borderRadius: "6px",
             padding: "1.1rem",
             flex: 3,
             fontSize: "1.15rem",
+            backgroundColor: "#DFE3E8",
           }}
           value={inputText}
         />
-        {/* <button onClick={() => searchMovies(inputText)} style={{ flex: 1 }}>
-          Search
-        </button> */}
       </div>
     </div>
   );
