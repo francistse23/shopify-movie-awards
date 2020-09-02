@@ -11,6 +11,7 @@ const buttonStyle = {
   border: "none",
   margin: "0 0.5rem",
   padding: "0.5rem",
+  cursor: "pointer",
 };
 
 export default function Movie({
