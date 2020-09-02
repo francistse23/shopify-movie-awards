@@ -38,8 +38,6 @@ function App() {
     }
   }
 
-  console.log(searchResults, page);
-
   useEffect(() => {
     if (
       localStorage.length === 0 ||
@@ -193,7 +191,7 @@ function App() {
         >
           <h1>
             You have made all 5 nominations!{" "}
-            <span aria-label="trophy" role="img">
+            <span aria-label="nominations" role="img">
               🏆
             </span>
           </h1>
