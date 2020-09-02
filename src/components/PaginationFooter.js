@@ -10,7 +10,6 @@ export default function PaginationFooter({ page, setPage }) {
         maxWidth: "300px",
         margin: "1rem auto",
         padding: "1rem",
-        border: "1px solid red",
       }}
     >
       {page > 1 ? (
@@ -37,7 +36,14 @@ export default function PaginationFooter({ page, setPage }) {
           <button
             aria-label={`navigate to page ${element}`}
             onClick={() => setPage(element)}
-            style={{ width: "20%" }}
+            style={{
+              width: "20%",
+              color: "white",
+              border: "none",
+              borderRadius: "4px",
+              padding: "4px",
+              backgroundColor: `${page === element ? "#108043" : "#212b36"}`,
+            }}
           >
             {element}
           </button>
