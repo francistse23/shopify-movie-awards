@@ -127,11 +127,19 @@ export default function Movie({
           justifyContent: "center",
         }}
       >
-        <img
-          src={Poster}
-          alt={`${Title} Poster`}
-          style={{ height: 223, width: 150 }}
-        />
+        {Poster === "N/A" ? (
+          <img
+            src={require("../assets/poster-placeholder.png")}
+            alt={`Poster unavailable at this time`}
+            style={{ height: 223, width: 150, borderRadius: "6px" }}
+          />
+        ) : (
+          <img
+            src={Poster}
+            alt={`${Title} Poster`}
+            style={{ height: 223, width: 150, borderRadius: "6px" }}
+          />
+        )}
       </div>
     </div>
   );
