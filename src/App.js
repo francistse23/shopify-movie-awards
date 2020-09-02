@@ -105,16 +105,20 @@ function App() {
               )}
               <div>
                 {searchResults?.result?.Search?.map(
-                  ({ Title, Year, Poster, imdbID }) => (
-                    <Movie
-                      Title={Title}
-                      Year={Year}
-                      Poster={Poster}
-                      imdbID={imdbID}
-                      nominations={nominations}
-                      setNominations={setNominations}
-                    />
-                  )
+                  ({ Title, Year, Poster, imdbID }) =>
+                    console.log(
+                      React.memo(
+                        <Movie
+                          key={imdbID}
+                          Title={Title}
+                          Year={Year}
+                          Poster={Poster}
+                          imdbID={imdbID}
+                          nominations={nominations}
+                          setNominations={setNominations}
+                        />
+                      )
+                    )
                 )}
               </div>
               <PaginationFooter page={page} setPage={setPage} />
@@ -160,6 +164,7 @@ function App() {
           {nominations.size > 0 ? (
             [...nominations.values()].map(({ Title, Year, Poster, imdbID }) => (
               <Movie
+                key={imdbID}
                 Title={Title}
                 Year={Year}
                 Poster={Poster}

@@ -1,5 +1,6 @@
 import React from "react";
 import { replacer } from "../lib/JSONHelper";
+import styled from "styled-components";
 
 const buttonStyle = {
   color: "#3E4155",
@@ -52,18 +53,18 @@ export default function Movie({
 
   const isInNominations = nominations.has(imdbID);
 
+  const MovieDiv = styled.div`
+    display: flex;
+    flex: 2;
+    margin: 1rem;
+    padding: 1rem;
+    boxsizing: border-box;
+    border: ${isInNominations && !isNominations ? "3px solid #50B83C" : ""};
+    borderradius: 12px;
+  `;
+
   return (
-    <div
-      style={{
-        display: "flex",
-        flex: 2,
-        margin: "1rem",
-        padding: "1rem",
-        boxSizing: "border-box",
-        border: isInNominations && !isNominations ? "3px solid #50B83C" : "",
-        borderRadius: "12px",
-      }}
-    >
+    <MovieDiv>
       <div
         style={{
           display: "flex",
@@ -142,6 +143,6 @@ export default function Movie({
           />
         )}
       </div>
-    </div>
+    </MovieDiv>
   );
 }
