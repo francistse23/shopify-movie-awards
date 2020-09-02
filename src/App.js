@@ -3,24 +3,34 @@ import "./App.css";
 import useDebouncedSearch from "./components/useDebouncedSearch";
 import Movie from "./components/Movie";
 import SearchBar from "./components/SearchBar";
+import PaginationFooter from "./components/PaginationFooter";
 import { reviver, replacer } from "./lib/JSONHelper";
 
 const OMDB_KEY = process.env.REACT_APP_OMDB_KEY;
 
 function App() {
-  // const [page, setPage] = useState(1);
   const [nominations, setNominations] = useState(new Map());
 
   const { localStorage } = window;
 
-  const useSearchOMDB = () => useDebouncedSearch((text) => searchMovies(text));
-  const { inputText, setInputText, searchResults } = useSearchOMDB();
+  const useSearchOMDB = () =>
+    useDebouncedSearch((text, page) => searchMovies(text, page));
+  const {
+    inputText,
+    setInputText,
+    searchResults,
+    page,
+    setPage,
+  } = useSearchOMDB();
 
-  async function searchMovies(text) {
+  async function searchMovies(text, page) {
     try {
+      console.log(
+        `http://www.omdbapi.com/?apikey=${OMDB_KEY}&s=${text}&type=movie&page=${page}`
+      );
       const res = (
         await fetch(
-          `http://www.omdbapi.com/?apikey=${OMDB_KEY}&s=${text}&type=movie&plot=full`
+          `http://www.omdbapi.com/?apikey=${OMDB_KEY}&s=${text}&type=movie&page=${page}`
         )
       ).json();
 
@@ -29,6 +39,8 @@ function App() {
       throw new Error(err);
     }
   }
+
+  console.log(searchResults, page);
 
   useEffect(() => {
     if (
@@ -86,24 +98,26 @@ function App() {
         >
           {searchResults?.result?.Search?.length ? (
             <>
-              {" "}
               {inputText && (
                 <h3
                   style={{ textAlign: "center", marginLeft: "2rem" }}
                 >{`Results for "${inputText}"`}</h3>
               )}
-              {searchResults?.result?.Search?.map(
-                ({ Title, Year, Poster, imdbID }) => (
-                  <Movie
-                    Title={Title}
-                    Year={Year}
-                    Poster={Poster}
-                    imdbID={imdbID}
-                    nominations={nominations}
-                    setNominations={setNominations}
-                  />
-                )
-              )}
+              <div>
+                {searchResults?.result?.Search?.map(
+                  ({ Title, Year, Poster, imdbID }) => (
+                    <Movie
+                      Title={Title}
+                      Year={Year}
+                      Poster={Poster}
+                      imdbID={imdbID}
+                      nominations={nominations}
+                      setNominations={setNominations}
+                    />
+                  )
+                )}
+              </div>
+              <PaginationFooter page={page} setPage={setPage} />
             </>
           ) : (
             <p

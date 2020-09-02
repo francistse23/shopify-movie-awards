@@ -5,6 +5,7 @@ import { useAsync } from "react-async-hook";
 
 const useDebouncedSearch = (searchFunction) => {
   const [inputText, setInputText] = useState("");
+  const [page, setPage] = useState(1);
 
   // Debounce the original search async function
   const debouncedSearchFunction = useConstant(() =>
@@ -15,15 +16,17 @@ const useDebouncedSearch = (searchFunction) => {
     if (inputText.length === 0) {
       return [];
     } else {
-      return debouncedSearchFunction(inputText);
+      return debouncedSearchFunction(inputText, page);
     }
-  }, [debouncedSearchFunction, inputText]);
+  }, [debouncedSearchFunction, inputText, page]);
 
   // Return everything needed for the hook consumer
   return {
     inputText,
     setInputText,
     searchResults,
+    page,
+    setPage,
   };
 };
 
