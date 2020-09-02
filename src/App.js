@@ -5,6 +5,7 @@ import Movie from "./components/Movie";
 import SearchBar from "./components/SearchBar";
 import PaginationFooter from "./components/PaginationFooter";
 import { reviver, replacer } from "./lib/JSONHelper";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const OMDB_KEY = process.env.REACT_APP_OMDB_KEY;
 
@@ -25,9 +26,6 @@ function App() {
 
   async function searchMovies(text, page) {
     try {
-      console.log(
-        `http://www.omdbapi.com/?apikey=${OMDB_KEY}&s=${text}&type=movie&page=${page}`
-      );
       const res = (
         await fetch(
           `http://www.omdbapi.com/?apikey=${OMDB_KEY}&s=${text}&type=movie&page=${page}`
@@ -89,18 +87,22 @@ function App() {
             alignItems: "center",
             justifyContent: "center",
             margin: "0 1rem",
-            padding: "0 1rem",
+            padding: "1rem",
             flex: 3,
             backgroundColor: "#212b36",
             borderRadius: "12px",
             boxShadow: "0px 0px 20px 5px #FFFFFF",
           }}
         >
-          {searchResults?.result?.Search?.length ? (
+          {searchResults?.result?.Search?.length && !searchResults?.loading ? (
             <>
               {inputText && (
                 <h3
-                  style={{ textAlign: "center", marginLeft: "2rem" }}
+                  style={{
+                    textAlign: "center",
+                    marginLeft: "2rem",
+                    fontSize: "1.5rem",
+                  }}
                 >{`Results for "${inputText}"`}</h3>
               )}
               <div>
@@ -119,6 +121,12 @@ function App() {
               </div>
               <PaginationFooter page={page} setPage={setPage} />
             </>
+          ) : searchResults?.loading ? (
+            <ClipLoader
+              size={100}
+              color="#50B83C"
+              loading={searchResults?.loading}
+            />
           ) : (
             <p
               style={{
@@ -166,7 +174,7 @@ function App() {
           ) : (
             <>
               <p>You don't have any nominations for The Shoppies yet.</p>
-              <p>You can make add at most 5 nominations</p>
+              <p>You can add at most 5 nominations</p>
             </>
           )}
         </div>
