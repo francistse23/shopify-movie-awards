@@ -45,7 +45,7 @@ function App() {
 
       setNominations(storedNominations);
     }
-  }, []);
+  }, [localStorage]);
 
   return (
     <div className="App">
