@@ -196,8 +196,10 @@ function App() {
               transitionEnterTimeout={500}
               transitionLeaveTimeout={500}
             >
-              <p>You don't have any nominations for The Shoppies yet.</p>
-              <p>You can add at most 5 nominations</p>
+              <p key="no-nominations">
+                You don't have any nominations for The Shoppies yet.
+              </p>
+              <p key="max-nominations">You can add at most 5 nominations</p>
             </CSSTransitionGroup>
           )}
         </div>
@@ -210,6 +212,7 @@ function App() {
       >
         {nominations.size === 5 && (
           <footer
+            key="nominations-footer"
             style={{
               backgroundColor: "white",
               position: "sticky",
