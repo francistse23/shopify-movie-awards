@@ -6,3 +6,21 @@
   margin: 0 auto;
   width: 100%;
 }
+
+.movies-enter {
+  opacity: 0.01;
+}
+
+.movies-enter.movies-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.movies-leave {
+  opacity: 1;
+}
+
+.movies-leave.movies-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}
