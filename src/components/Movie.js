@@ -15,15 +15,15 @@ const buttonStyle = {
   cursor: "pointer",
 };
 
-const MovieDiv = styled.div`
+const MovieContainerDiv = styled.div`
   display: flex;
   flex: 2;
   margin: 1rem;
   padding: 1rem;
-  boxsizing: border-box;
+  box-sizing: border-box;
   border: ${(props) =>
     props.isInNominations && !props.isNominations ? "3px solid #50B83C" : ""};
-  borderradius: 12px;
+  border-radius: 12px;
 `;
 
 export default function Movie({
@@ -67,7 +67,10 @@ export default function Movie({
   }
 
   return (
-    <MovieDiv isInNominations={isInNominations} isNominations={isNominations}>
+    <MovieContainerDiv
+      isInNominations={isInNominations}
+      isNominations={isNominations}
+    >
       <div
         style={{
           display: "flex",
@@ -146,6 +149,6 @@ export default function Movie({
           />
         )}
       </div>
-    </MovieDiv>
+    </MovieContainerDiv>
   );
 }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import useDebouncedSearch from "./components/useDebouncedSearch";
 import Movie from "./components/Movie";
+import Nominations from "./components/Nominations";
 import NominationsBanner from "./components/NominationsBanner";
 import SearchBar from "./components/SearchBar";
 import PaginationFooter from "./components/PaginationFooter";
@@ -167,58 +168,10 @@ function App() {
         </div>
 
         {/* nominations list */}
-        <div
-          style={{
-            flex: 2,
-            backgroundColor: "#212b36",
-            borderRadius: "12px",
-            margin: "0 1rem",
-            padding: "1rem",
-            boxShadow: "0px 0px 20px 5px #FFFFFF",
-            height: "100%",
-          }}
-        >
-          <h3 style={{ fontSize: "2rem" }}>
-            Your Nominations{" "}
-            <span aria-label="trophy" role="img">
-              🏆
-            </span>
-          </h3>
-
-          <CSSTransitionGroup
-            transitionName="movies"
-            transitionEnterTimeout={500}
-            transitionLeaveTimeout={500}
-          >
-            {[...nominations.values()].map(
-              ({ Title, Year, Poster, imdbID }) => (
-                <Movie
-                  key={imdbID}
-                  Title={Title}
-                  Year={Year}
-                  Poster={Poster}
-                  imdbID={imdbID}
-                  nominations={nominations}
-                  setNominations={setNominations}
-                  isNominations={true}
-                />
-              )
-            )}
-          </CSSTransitionGroup>
-
-          {nominations.size === 0 && (
-            <CSSTransitionGroup
-              transitionName="movies"
-              transitionEnterTimeout={500}
-              transitionLeaveTimeout={500}
-            >
-              <p key="no-nominations">
-                You don't have any nominations for The Shoppies yet.
-              </p>
-              <p key="max-nominations">You can add at most 5 nominations</p>
-            </CSSTransitionGroup>
-          )}
-        </div>
+        <Nominations
+          nominations={nominations}
+          setNominations={setNominations}
+        />
       </div>
 
       <NominationsBanner nominations={nominations} />
