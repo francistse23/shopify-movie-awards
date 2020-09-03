@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import useDebouncedSearch from "./components/useDebouncedSearch";
 import Movie from "./components/Movie";
+import NominationsBanner from "./components/NominationsBanner";
 import SearchBar from "./components/SearchBar";
 import PaginationFooter from "./components/PaginationFooter";
 import { reviver, replacer } from "./lib/JSONHelper";
@@ -220,32 +221,7 @@ function App() {
         </div>
       </div>
 
-      <CSSTransitionGroup
-        transitionName="nominations-footer"
-        transitionEnterTimeout={500}
-        transitionLeaveTimeout={500}
-      >
-        {nominations.size === 5 && (
-          <footer
-            key="nominations-footer"
-            style={{
-              backgroundColor: "white",
-              position: "sticky",
-              bottom: 0,
-              lineHeight: "10vh",
-              height: "10vh",
-              borderRadius: "12px 12px 0 0",
-            }}
-          >
-            <h1>
-              You have made all 5 nominations!{" "}
-              <span aria-label="nominations" role="img">
-                🏆
-              </span>
-            </h1>
-          </footer>
-        )}
-      </CSSTransitionGroup>
+      <NominationsBanner nominations={nominations} />
     </div>
   );
 }
