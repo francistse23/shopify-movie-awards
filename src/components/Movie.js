@@ -35,8 +35,10 @@ export default function Movie({
   setNominations,
   isNominations = false,
 }) {
+  const isInNominations = nominations.has(imdbID);
+
   function addToNominations(Title, Year, Poster, imdbID) {
-    if (!nominations.has(imdbID)) {
+    if (!isInNominations) {
       setNominations((nominations) => {
         const newNominations = new Map(nominations);
         newNominations.set(imdbID, { Title, Year, Poster, imdbID });
@@ -49,7 +51,7 @@ export default function Movie({
   }
 
   function removeFromNominations(imdbID) {
-    if (nominations.has(imdbID)) {
+    if (isInNominations) {
       setNominations((nominations) => {
         const newNominations = new Map(nominations);
         nominations.delete(imdbID);
@@ -63,8 +65,6 @@ export default function Movie({
       });
     }
   }
-
-  const isInNominations = nominations.has(imdbID);
 
   return (
     <MovieDiv isInNominations={isInNominations} isNominations={isNominations}>
