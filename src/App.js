@@ -113,42 +113,56 @@ function App() {
               loading={searchResults?.loading}
             />
           ) : (
-            inputText && (
-              <h3
-                style={{
-                  textAlign: "center",
-                  marginLeft: "2rem",
-                  fontSize: "1.5rem",
-                }}
-              >{`Results for "${inputText}"`}</h3>
-            )
+            <div>
+              <>
+                {inputText &&
+                (searchResults?.result?.Error === "Movie not found!" ||
+                  !searchResults?.result?.Response) ? (
+                  <>
+                    <p>{`Hmm... we cannot find any movie title that includes "${inputText}".`}</p>
+                    <p>
+                      Please try another search term to find the movie(s) you
+                      would like to nominate.
+                    </p>
+                  </>
+                ) : (
+                  inputText && (
+                    <h3
+                      style={{
+                        textAlign: "center",
+                        marginLeft: "2rem",
+                        fontSize: "1.5rem",
+                      }}
+                    >{`Results for "${inputText}"`}</h3>
+                  )
+                )}
+
+                <CSSTransitionGroup
+                  transitionName="movies"
+                  transitionEnterTimeout={500}
+                  transitionLeaveTimeout={500}
+                >
+                  {searchResults?.result?.Search?.map(
+                    ({ Title, Year, Poster, imdbID }) => (
+                      <Movie
+                        key={imdbID}
+                        Title={Title}
+                        Year={Year}
+                        Poster={Poster}
+                        imdbID={imdbID}
+                        nominations={nominations}
+                        setNominations={setNominations}
+                      />
+                    )
+                  )}
+                </CSSTransitionGroup>
+
+                {searchResults?.result?.Search?.length && (
+                  <PaginationFooter page={page} setPage={setPage} />
+                )}
+              </>
+            </div>
           )}
-
-          <>
-            <CSSTransitionGroup
-              transitionName="movies"
-              transitionEnterTimeout={500}
-              transitionLeaveTimeout={500}
-            >
-              {searchResults?.result?.Search?.map(
-                ({ Title, Year, Poster, imdbID }) => (
-                  <Movie
-                    key={imdbID}
-                    Title={Title}
-                    Year={Year}
-                    Poster={Poster}
-                    imdbID={imdbID}
-                    nominations={nominations}
-                    setNominations={setNominations}
-                  />
-                )
-              )}
-            </CSSTransitionGroup>
-
-            {searchResults?.result?.Search?.length && (
-              <PaginationFooter page={page} setPage={setPage} />
-            )}
-          </>
         </div>
 
         {/* nominations list */}
