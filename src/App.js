@@ -183,6 +183,7 @@ function App() {
               🏆
             </span>
           </h3>
+
           <CSSTransitionGroup
             transitionName="movies"
             transitionEnterTimeout={500}
