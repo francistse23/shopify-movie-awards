@@ -35,7 +35,7 @@ export default function Movie({
   setNominations,
   isNominations = false,
 }) {
-  function addToNominations({ Title, Year, Poster, imdbID }) {
+  function addToNominations(Title, Year, Poster, imdbID) {
     if (!nominations.has(imdbID)) {
       setNominations((nominations) => {
         const newNominations = new Map(nominations);
@@ -48,7 +48,7 @@ export default function Movie({
     }
   }
 
-  function removeFromNominations({ imdbID }) {
+  function removeFromNominations(imdbID) {
     if (nominations.has(imdbID)) {
       setNominations((nominations) => {
         const newNominations = new Map(nominations);
@@ -57,6 +57,8 @@ export default function Movie({
         const str = JSON.stringify(newNominations, replacer);
 
         localStorage.setItem("shopify_the_shoppies_nominations", str);
+
+        console.log(newNominations, str);
         return newNominations;
       });
     }
@@ -94,7 +96,7 @@ export default function Movie({
           {!isNominations && (
             <button
               disabled={nominations.size >= 5 || isInNominations}
-              onClick={() => addToNominations({ Title, Year, Poster, imdbID })}
+              onClick={() => addToNominations(Title, Year, Poster, imdbID)}
               style={{
                 ...buttonStyle,
                 backgroundColor:
@@ -111,7 +113,7 @@ export default function Movie({
           )}
           <button
             disabled={!isInNominations}
-            onClick={() => removeFromNominations({ imdbID })}
+            onClick={() => removeFromNominations(imdbID)}
             style={{
               ...buttonStyle,
               backgroundColor: !isInNominations ? "#919EAB" : "#50B83C",
