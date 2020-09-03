@@ -1,7 +1,6 @@
 import React from "react";
 import { replacer } from "../lib/JSONHelper";
-import styled from "styled-components";
-
+import { MovieContainerDiv } from "../styled-components";
 const buttonStyle = {
   color: "#3E4155",
   fontSize: "1rem",
@@ -14,17 +13,6 @@ const buttonStyle = {
   padding: "0.5rem",
   cursor: "pointer",
 };
-
-const MovieContainerDiv = styled.div`
-  display: flex;
-  flex: 2;
-  margin: 1rem;
-  padding: 1rem;
-  box-sizing: border-box;
-  border: ${(props) =>
-    props.isInNominations && !props.isNominations ? "3px solid #50B83C" : ""};
-  border-radius: 12px;
-`;
 
 export default function Movie({
   nominations,
@@ -50,9 +38,9 @@ export default function Movie({
     }
   }
 
-  function removeFromNominations(imdbID) {
+  async function removeFromNominations(imdbID) {
     if (isInNominations) {
-      setNominations((nominations) => {
+      await setNominations((nominations) => {
         const newNominations = new Map(nominations);
         nominations.delete(imdbID);
 
