@@ -13,6 +13,7 @@
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.3",
     "react-spinners": "^0.9.0",
+    "react-transition-group": "1.x",
     "styled-components": "^5.1.1",
     "use-constant": "^1.0.0"
   },

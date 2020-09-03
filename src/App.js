@@ -6,6 +6,7 @@ import SearchBar from "./components/SearchBar";
 import PaginationFooter from "./components/PaginationFooter";
 import { reviver, replacer } from "./lib/JSONHelper";
 import ClipLoader from "react-spinners/ClipLoader";
+import { CSSTransitionGroup } from "react-transition-group";
 
 const OMDB_KEY = process.env.REACT_APP_OMDB_KEY;
 
@@ -92,44 +93,7 @@ function App() {
             boxShadow: "0px 0px 20px 5px #FFFFFF",
           }}
         >
-          {searchResults?.result?.Search?.length && !searchResults?.loading ? (
-            <>
-              {inputText && (
-                <h3
-                  style={{
-                    textAlign: "center",
-                    marginLeft: "2rem",
-                    fontSize: "1.5rem",
-                  }}
-                >{`Results for "${inputText}"`}</h3>
-              )}
-              <div>
-                {searchResults?.result?.Search?.map(
-                  ({ Title, Year, Poster, imdbID }) =>
-                    console.log(
-                      React.memo(
-                        <Movie
-                          key={imdbID}
-                          Title={Title}
-                          Year={Year}
-                          Poster={Poster}
-                          imdbID={imdbID}
-                          nominations={nominations}
-                          setNominations={setNominations}
-                        />
-                      )
-                    )
-                )}
-              </div>
-              <PaginationFooter page={page} setPage={setPage} />
-            </>
-          ) : searchResults?.loading ? (
-            <ClipLoader
-              size={100}
-              color="#50B83C"
-              loading={searchResults?.loading}
-            />
-          ) : (
+          {!inputText.length ? (
             <p
               style={{
                 alignSelf: "center",
@@ -140,7 +104,51 @@ function App() {
             >
               Try searching and adding some movies to your nominations list!
             </p>
+          ) : null}
+
+          {searchResults?.loading ? (
+            <ClipLoader
+              size={100}
+              color="#50B83C"
+              loading={searchResults?.loading}
+            />
+          ) : (
+            inputText && (
+              <h3
+                style={{
+                  textAlign: "center",
+                  marginLeft: "2rem",
+                  fontSize: "1.5rem",
+                }}
+              >{`Results for "${inputText}"`}</h3>
+            )
           )}
+
+          <>
+            <CSSTransitionGroup
+              transitionName="movies"
+              transitionEnterTimeout={500}
+              transitionLeaveTimeout={500}
+            >
+              {searchResults?.result?.Search?.map(
+                ({ Title, Year, Poster, imdbID }) => (
+                  <Movie
+                    key={imdbID}
+                    Title={Title}
+                    Year={Year}
+                    Poster={Poster}
+                    imdbID={imdbID}
+                    nominations={nominations}
+                    setNominations={setNominations}
+                  />
+                )
+              )}
+            </CSSTransitionGroup>
+
+            {searchResults?.result?.Search?.length && (
+              <PaginationFooter page={page} setPage={setPage} />
+            )}
+          </>
         </div>
 
         {/* nominations list */}
@@ -161,24 +169,36 @@ function App() {
               🏆
             </span>
           </h3>
-          {nominations.size > 0 ? (
-            [...nominations.values()].map(({ Title, Year, Poster, imdbID }) => (
-              <Movie
-                key={imdbID}
-                Title={Title}
-                Year={Year}
-                Poster={Poster}
-                imdbID={imdbID}
-                nominations={nominations}
-                setNominations={setNominations}
-                isNominations={true}
-              />
-            ))
-          ) : (
-            <>
+          <CSSTransitionGroup
+            transitionName="movies"
+            transitionEnterTimeout={500}
+            transitionLeaveTimeout={500}
+          >
+            {[...nominations.values()].map(
+              ({ Title, Year, Poster, imdbID }) => (
+                <Movie
+                  key={imdbID}
+                  Title={Title}
+                  Year={Year}
+                  Poster={Poster}
+                  imdbID={imdbID}
+                  nominations={nominations}
+                  setNominations={setNominations}
+                  isNominations={true}
+                />
+              )
+            )}
+          </CSSTransitionGroup>
+
+          {nominations.size === 0 && (
+            <CSSTransitionGroup
+              transitionName="movies"
+              transitionEnterTimeout={500}
+              transitionLeaveTimeout={500}
+            >
               <p>You don't have any nominations for The Shoppies yet.</p>
               <p>You can add at most 5 nominations</p>
-            </>
+            </CSSTransitionGroup>
           )}
         </div>
       </div>

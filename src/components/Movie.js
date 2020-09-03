@@ -15,6 +15,17 @@ const buttonStyle = {
   cursor: "pointer",
 };
 
+const MovieDiv = styled.div`
+  display: flex;
+  flex: 2;
+  margin: 1rem;
+  padding: 1rem;
+  boxsizing: border-box;
+  border: ${(props) =>
+    props.isInNominations && !props.isNominations ? "3px solid #50B83C" : ""};
+  borderradius: 12px;
+`;
+
 export default function Movie({
   nominations,
   Title,
@@ -53,18 +64,8 @@ export default function Movie({
 
   const isInNominations = nominations.has(imdbID);
 
-  const MovieDiv = styled.div`
-    display: flex;
-    flex: 2;
-    margin: 1rem;
-    padding: 1rem;
-    boxsizing: border-box;
-    border: ${isInNominations && !isNominations ? "3px solid #50B83C" : ""};
-    borderradius: 12px;
-  `;
-
   return (
-    <MovieDiv>
+    <MovieDiv isInNominations={isInNominations} isNominations={isNominations}>
       <div
         style={{
           display: "flex",
