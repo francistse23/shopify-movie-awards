@@ -1,6 +1,7 @@
 import React from "react";
 import { replacer } from "../lib/JSONHelper";
 import { MovieContainerDiv } from "../styled-components";
+
 const buttonStyle = {
   color: "#3E4155",
   fontSize: "1rem",
@@ -38,17 +39,15 @@ export default function Movie({
     }
   }
 
-  async function removeFromNominations(imdbID) {
+  function removeFromNominations(imdbID) {
     if (isInNominations) {
-      await setNominations((nominations) => {
+      setNominations((nominations) => {
         const newNominations = new Map(nominations);
-        nominations.delete(imdbID);
+        newNominations.delete(imdbID);
 
         const str = JSON.stringify(newNominations, replacer);
 
         localStorage.setItem("shopify_the_shoppies_nominations", str);
-
-        console.log(newNominations, str);
         return newNominations;
       });
     }
@@ -56,6 +55,7 @@ export default function Movie({
 
   return (
     <MovieContainerDiv
+      flex={2}
       isInNominations={isInNominations}
       isNominations={isNominations}
     >
