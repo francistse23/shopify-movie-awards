@@ -24,3 +24,26 @@
   opacity: 0.01;
   transition: opacity 300ms ease-in;
 }
+
+.nominations-footer {
+  max-height: 100px;
+  overflow-y: hidden;
+}
+
+.nominations-footer-enter {
+  max-height: 0px;
+}
+
+.nominations-footer-enter.nominations-footer-enter-active {
+  max-height: 100px;
+  transition: max-height 300ms ease-in;
+}
+
+.nominations-footer-leave {
+  max-height: 100px;
+}
+
+.nominations-footer-leave.nominations-footer-leave-active {
+  max-height: 0;
+  transition: max-height 300ms ease-in;
+}
