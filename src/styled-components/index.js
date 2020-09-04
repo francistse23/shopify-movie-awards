@@ -49,3 +49,12 @@ export const BodyContainer = styled.div`
     maxWidth: 1300px,
     width: 100%,
 `;
+
+export const NominationsFooter = styled.footer`
+  background-color: ${colors.lighterColor};
+  position: sticky;
+  bottom: 0;
+  border-radius: ${dimensions.fontSize * 0.75}px ${dimensions.fontSize * 0.75}px
+    0 0;
+  overflow-y: hidden;
+`;

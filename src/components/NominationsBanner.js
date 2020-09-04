@@ -1,5 +1,7 @@
 import React from "react";
 import { CSSTransitionGroup } from "react-transition-group";
+import { dimensions } from "../constants";
+import { NominationsFooter } from "../styled-components";
 
 import "./NominationsBanner.css";
 
@@ -11,24 +13,21 @@ export default function NominationsBanner({ nominations }) {
       transitionLeaveTimeout={500}
     >
       {nominations.size === 5 && (
-        <footer
-          key="nominations-footer"
-          style={{
-            backgroundColor: "white",
-            position: "sticky",
-            bottom: 0,
-            lineHeight: "10vh",
-            height: "10vh",
-            borderRadius: "12px 12px 0 0",
-          }}
-        >
-          <h1>
+        <NominationsFooter key="nominations-footer">
+          <p
+            style={{
+              fontSize: `${dimensions.fontSize * 2}px`,
+              fontWeight: "700",
+              lineHeight: "5vh",
+              height: "5vh",
+            }}
+          >
             You have made all 5 nominations!{" "}
             <span aria-label="nominations" role="img">
               🏆
             </span>
-          </h1>
-        </footer>
+          </p>
+        </NominationsFooter>
       )}
     </CSSTransitionGroup>
   );

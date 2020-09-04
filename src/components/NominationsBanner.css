@@ -1,5 +1,5 @@
 .nominations-footer {
-  max-height: 10vh;
+  max-height: 5vh;
   overflow-y: hidden;
 }
 
@@ -8,12 +8,12 @@
 }
 
 .nominations-footer-enter.nominations-footer-enter-active {
-  max-height: 10vh;
+  max-height: 5vh;
   transition: max-height 300ms ease-in;
 }
 
 .nominations-footer-leave {
-  max-height: 10vh;
+  max-height: 5vh;
 }
 
 .nominations-footer-leave.nominations-footer-leave-active {
