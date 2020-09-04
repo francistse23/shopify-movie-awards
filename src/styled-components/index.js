@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import { colors } from "../constants";
+import { colors, dimensions } from "../constants";
 
 export const SectionDiv = styled.div`
   flex: ${(props) => props.flex};
   background-color: ${(props) => props.backgroundColor};
-  border-radius: 12px;
-  margin: 0 1rem;
-  padding: 1rem;
+  border-radius: ${dimensions.fontSize * 0.75}px;
+  margin: 0 ${dimensions.spacing * 4}px;
+  padding: ${dimensions.spacing * 4}px;
   box-shadow: 0px 0px 20px 5px #ffffff;
   height: 100%;
 `;
@@ -14,29 +14,38 @@ export const SectionDiv = styled.div`
 export const MovieContainerDiv = styled.div`
   display: flex;
   flex: ${(props) => props.flex};
-  margin: 1rem;
-  padding: 1rem;
+  margin: ${dimensions.spacing * 4}px;
+  padding: ${dimensions.spacing * 4}px;
   box-sizing: border-box;
   border: ${(props) =>
     props.isInNominations && !props.isNominations
       ? `3px solid ${colors.mainColor}`
       : ""};
-  border-radius: 12px;
+  border-radius: ${dimensions.fontSize * 0.75}px;
 `;
 
 export const NominationButton = styled.button`
   color: ${(props) => props.fontColor};
-  font-size: 1rem;
+  font-size: ${dimensions.spacing * 4}px;
   font-weight: 600;
-  border-radius: 12px;
+  border-radius: ${dimensions.fontSize * 0.75}px;
   border: none;
-  margin: 0 0.5rem;
-  padding: 0.5rem;
+  margin: 0 ${dimensions.spacing * 2}px;
+  padding: ${dimensions.spacing * 2}px;
   cursor: pointer;
 `;
 
 export const PosterImage = styled.img`
   height: 167px;
   width: 113px;
-  border-radius: 6px;
+  border-radius: ${dimensions.fontSize * 0.5}px;
+`;
+
+export const BodyContainer = styled.div`
+    display: flex,
+    flex: 5,
+    justifyContent: space-between,
+    margin: ${dimensions.spacing * 80}px auto,
+    maxWidth: 1300px,
+    width: 100%,
 `;

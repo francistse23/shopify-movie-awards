@@ -9,6 +9,8 @@ import PaginationFooter from "./components/PaginationFooter";
 import { reviver, replacer } from "./lib/JSONHelper";
 import ClipLoader from "react-spinners/ClipLoader";
 import { CSSTransitionGroup } from "react-transition-group";
+import { SectionDiv } from "./styled-components";
+import { colors, dimensions } from "./constants";
 
 const OMDB_KEY = process.env.REACT_APP_OMDB_KEY;
 
@@ -61,7 +63,12 @@ function App() {
   return (
     <div className="App">
       <h1
-        style={{ fontSize: "5rem", fontFamily: "Architects Daughter, cursive" }}
+        style={{
+          fontSize: `${dimensions.fontSize * 4}px`,
+          lineHeight: `${dimensions.fontSize * 4.5}px`,
+          fontFamily: "Architects Daughter, cursive",
+          textTransform: "uppercase",
+        }}
       >
         The Shoppies
       </h1>
@@ -83,18 +90,7 @@ function App() {
         }}
       >
         {/* movies list */}
-        <div
-          style={{
-            alignItems: "center",
-            justifyContent: "center",
-            margin: "0 1rem",
-            padding: "1rem",
-            flex: 3,
-            backgroundColor: "#212b36",
-            borderRadius: "12px",
-            boxShadow: "0px 0px 20px 5px #FFFFFF",
-          }}
-        >
+        <SectionDiv flex={3} backgroundColor={colors.sectionBackground}>
           {!inputText.length ? (
             <p
               style={{
@@ -165,8 +161,7 @@ function App() {
               </>
             </div>
           )}
-        </div>
-
+        </SectionDiv>
         {/* nominations list */}
         <Nominations
           nominations={nominations}
