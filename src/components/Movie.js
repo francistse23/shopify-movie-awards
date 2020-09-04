@@ -1,6 +1,10 @@
 import React from "react";
 import { replacer } from "../lib/JSONHelper";
-import { MovieContainerDiv, NominationButton } from "../styled-components";
+import {
+  MovieContainerDiv,
+  NominationButton,
+  PosterImage,
+} from "../styled-components";
 import { colors } from "../constants";
 
 export default function Movie({
@@ -114,17 +118,12 @@ export default function Movie({
         }}
       >
         {Poster === "N/A" ? (
-          <img
+          <PosterImage
             src={require("../assets/poster-placeholder.png")}
             alt={`Poster unavailable at this time`}
-            style={{ height: 167, width: 113, borderRadius: "6px" }}
           />
         ) : (
-          <img
-            src={Poster}
-            alt={`${Title} Poster`}
-            style={{ height: 167, width: 113, borderRadius: "6px" }}
-          />
+          <PosterImage src={Poster} alt={`${Title} Poster`} />
         )}
       </div>
     </MovieContainerDiv>

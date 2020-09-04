@@ -34,3 +34,9 @@ export const NominationButton = styled.button`
   padding: 0.5rem;
   cursor: pointer;
 `;
+
+export const PosterImage = styled.img`
+  height: 167px;
+  width: 113px;
+  border-radius: 6px;
+`;
