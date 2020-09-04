@@ -1,19 +1,7 @@
 import React from "react";
 import { replacer } from "../lib/JSONHelper";
-import { MovieContainerDiv } from "../styled-components";
-
-const buttonStyle = {
-  color: "#3E4155",
-  fontSize: "1rem",
-  fontWeight: "600",
-  flex: 1,
-  backgroundColor: "#50B83C",
-  borderRadius: "12px",
-  border: "none",
-  margin: "0 0.5rem",
-  padding: "0.5rem",
-  cursor: "pointer",
-};
+import { MovieContainerDiv, NominationButton } from "../styled-components";
+import { colors } from "../constants";
 
 export default function Movie({
   nominations,
@@ -85,36 +73,38 @@ export default function Movie({
           }}
         >
           {!isNominations && (
-            <button
+            <NominationButton
+              fontColor={colors.lightColor}
               disabled={nominations.size >= 5 || isInNominations}
               onClick={() => addToNominations(Title, Year, Poster, imdbID)}
               style={{
-                ...buttonStyle,
                 backgroundColor:
                   nominations.size >= 5 || isInNominations
-                    ? "#919EAB"
-                    : "#50B83C",
+                    ? colors.disabledColor
+                    : colors.mainColor,
               }}
             >
               <span role="img" aria-label="Ballot box emoji">
                 🗳️
               </span>{" "}
               Add to Nominations
-            </button>
+            </NominationButton>
           )}
-          <button
+          <NominationButton
+            fontColor={colors.lightColor}
             disabled={!isInNominations}
             onClick={() => removeFromNominations(imdbID)}
             style={{
-              ...buttonStyle,
-              backgroundColor: !isInNominations ? "#919EAB" : "#50B83C",
+              backgroundColor: !isInNominations
+                ? colors.disabledColor
+                : colors.mainColor,
             }}
           >
             <span role="img" aria-label="Remove emoji">
               ❌
             </span>{" "}
             Remove from Nominations
-          </button>
+          </NominationButton>
         </div>
       </div>
       <div
