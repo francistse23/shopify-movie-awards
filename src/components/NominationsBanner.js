@@ -1,6 +1,8 @@
 import React from "react";
 import { CSSTransitionGroup } from "react-transition-group";
 
+import "./NominationsBanner.css";
+
 export default function NominationsBanner({ nominations }) {
   return (
     <CSSTransitionGroup
