@@ -25,26 +25,3 @@
   opacity: 0.01;
   transition: opacity 300ms ease-in;
 }
-
-.nominations-footer {
-  max-height: 10vh;
-  overflow-y: hidden;
-}
-
-.nominations-footer-enter {
-  max-height: 0vh;
-}
-
-.nominations-footer-enter.nominations-footer-enter-active {
-  max-height: 10vh;
-  transition: max-height 300ms ease-in;
-}
-
-.nominations-footer-leave {
-  max-height: 10vh;
-}
-
-.nominations-footer-leave.nominations-footer-leave-active {
-  max-height: 0;
-  transition: max-height 300ms ease-in;
-}
