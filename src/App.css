@@ -5,6 +5,7 @@
   height: 100%;
   margin: 0 auto;
   width: 100%;
+  font-family: sans-serif;
 }
 
 .movies-enter {
@@ -13,7 +14,7 @@
 
 .movies-enter.movies-enter-active {
   opacity: 1;
-  transition: opacity 500ms ease-in;
+  transition: opacity 300ms ease-in;
 }
 
 .movies-leave {

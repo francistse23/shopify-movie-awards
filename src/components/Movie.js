@@ -56,9 +56,6 @@ export default function Movie({
           display: "flex",
           flex: 2,
           flexDirection: "column",
-          alignItems: "center",
-          alignContent: "center",
-          justifyContent: "center",
           margin: "0 0.5rem",
         }}
       >
