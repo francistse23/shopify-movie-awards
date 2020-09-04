@@ -7,6 +7,7 @@ import NominationsBanner from "./components/NominationsBanner";
 import SearchBar from "./components/SearchBar";
 import PaginationFooter from "./components/PaginationFooter";
 import { reviver, replacer } from "./lib/JSONHelper";
+import { css } from "@emotion/core";
 import ClipLoader from "react-spinners/ClipLoader";
 import { CSSTransitionGroup } from "react-transition-group";
 import { SectionDiv } from "./styled-components";
@@ -106,6 +107,9 @@ function App() {
 
           {searchResults?.loading ? (
             <ClipLoader
+              css={css`
+                margin: ${dimensions.spacing * 20}px auto;
+              `}
               size={100}
               color="#50B83C"
               loading={searchResults?.loading}
