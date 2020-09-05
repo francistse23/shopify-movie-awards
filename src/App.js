@@ -10,7 +10,13 @@ import { reviver, replacer } from "./lib/JSONHelper";
 import { css } from "@emotion/core";
 import ClipLoader from "react-spinners/ClipLoader";
 import { CSSTransitionGroup } from "react-transition-group";
-import { AppBody, AppTitle, MovieTitle, SectionDiv } from "./styled-components";
+import {
+  AppBody,
+  AppMain,
+  AppTitle,
+  MovieTitle,
+  SectionDiv,
+} from "./styled-components";
 import { colors, dimensions } from "./constants";
 
 const OMDB_KEY = process.env.REACT_APP_OMDB_KEY;
@@ -62,7 +68,7 @@ function App() {
   }, [localStorage]);
 
   return (
-    <div className="App">
+    <AppMain className="App">
       <AppTitle>The Shoppies</AppTitle>
 
       <SearchBar
@@ -148,7 +154,7 @@ function App() {
       </AppBody>
 
       <NominationsBanner nominations={nominations} />
-    </div>
+    </AppMain>
   );
 }
 
