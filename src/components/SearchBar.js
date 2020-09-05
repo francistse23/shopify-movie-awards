@@ -1,19 +1,9 @@
 import React from "react";
+import { SearchBarDiv } from "../styled-components";
 
 export default function SearchBar({ inputText, setInputText, searchMovies }) {
   return (
-    <div
-      style={{
-        backgroundColor: "#212b36",
-        display: "flex",
-        flexDirection: "column",
-        maxWidth: "1200px",
-        margin: "1rem auto",
-        padding: "2rem",
-        borderRadius: "12px",
-        boxShadow: "0px 0px 20px 5px #FFFFFF",
-      }}
-    >
+    <SearchBarDiv>
       <label
         for="search"
         style={{
@@ -55,6 +45,6 @@ export default function SearchBar({ inputText, setInputText, searchMovies }) {
           value={inputText}
         />
       </div>
-    </div>
+    </SearchBarDiv>
   );
 }
