@@ -109,13 +109,7 @@ function App() {
                   </>
                 ) : (
                   inputText && (
-                    <h3
-                      style={{
-                        textAlign: "center",
-                        marginLeft: "2rem",
-                        fontSize: "1.5rem",
-                      }}
-                    >{`Results for "${inputText}"`}</h3>
+                    <MovieTitle>{`Results for "${inputText}"`}</MovieTitle>
                   )
                 )}
 

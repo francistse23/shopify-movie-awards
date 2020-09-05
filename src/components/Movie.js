@@ -56,11 +56,10 @@ export default function Movie({
       isNominations={isNominations}
     >
       <MovieDiv>
-        <MovieTitle style={{ fontSize: "1.5rem" }}>
-          {Title} ({Year})
-        </MovieTitle>
-
         <MovieDetailsDiv>
+          <MovieTitle style={{ fontSize: "1.5rem" }}>
+            {Title} ({Year})
+          </MovieTitle>
           {!isNominations && (
             <NominationButton
               fontColor={colors.lightColor}
