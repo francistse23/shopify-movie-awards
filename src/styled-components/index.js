@@ -1,6 +1,13 @@
 import styled from "styled-components";
 import { colors, dimensions } from "../constants";
 
+export const AppTitle = styled.h1`
+  font-size: ${dimensions.fontSize * 4}px;
+  line-height: ${dimensions.fontSize * 4.5}px;
+  font-family: Architects Daughter, cursive;
+  text-transform: uppercase;
+`;
+
 export const SectionDiv = styled.div`
   flex: ${(props) => props.flex};
   background-color: ${(props) => props.backgroundColor};
