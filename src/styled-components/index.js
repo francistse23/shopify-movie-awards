@@ -96,6 +96,22 @@ export const SearchBarDiv = styled.div`
   box-shadow: 0px 0px 20px 5px ${colors.lighterColor};
 `;
 
+export const SearchBarInput = styled.input`
+  border: none;
+  border-radius: ${dimensions.fontSize * 0.75}px;
+  padding: ${dimensions.fontSize}px;
+  flex: 3;
+  font-size: ${dimensions.fontSize * 1.1}px;
+  background-color: ${colors.lighterColor};
+`;
+
+export const SearchBarLabel = styled.label`
+  text-align: left;
+  font-size: ${dimensions.fontSize * 2}px;
+  fontweight: 700;
+  margin: ${dimensions.fontSize}px 0;
+`;
+
 export const SectionTitle = styled.h3`
   font-size: ${dimensions.fontSize * 2}px;
 `;
