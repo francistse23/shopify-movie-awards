@@ -16,14 +16,13 @@ export const AppTitle = styled.h1`
   text-transform: uppercase;
 `;
 
-export const SectionDiv = styled.div`
-  flex: ${(props) => props.flex};
-  background-color: ${(props) => props.backgroundColor};
-  border-radius: ${dimensions.fontSize * 0.75}px;
-  margin: 0 ${dimensions.spacing * 4}px;
-  padding: ${dimensions.spacing * 4}px;
-  box-shadow: 0px 0px 20px 5px ${colors.lighterColor};
-  height: 100%;
+export const BodyContainer = styled.div`
+    display: flex,
+    flex: 5,
+    justifyContent: space-between,
+    margin: ${dimensions.spacing * 80}px auto,
+    maxWidth: 1300px,
+    width: 100%,
 `;
 
 export const MovieContainerDiv = styled.div`
@@ -54,15 +53,6 @@ export const PosterImage = styled.img`
   height: 167px;
   width: 113px;
   border-radius: ${dimensions.fontSize * 0.5}px;
-`;
-
-export const BodyContainer = styled.div`
-    display: flex,
-    flex: 5,
-    justifyContent: space-between,
-    margin: ${dimensions.spacing * 80}px auto,
-    maxWidth: 1300px,
-    width: 100%,
 `;
 
 export const NominationsFooter = styled.footer`
@@ -116,6 +106,16 @@ export const SearchBarInput = styled.input`
   flex: 3;
   font-size: ${dimensions.fontSize * 1.1}px;
   background-color: ${colors.lighterColor};
+`;
+
+export const SectionDiv = styled.div`
+  flex: ${(props) => props.flex};
+  background-color: ${(props) => props.backgroundColor};
+  border-radius: ${dimensions.fontSize * 0.75}px;
+  margin: 0 ${dimensions.spacing * 4}px;
+  padding: ${dimensions.spacing * 4}px;
+  box-shadow: 0px 0px 20px 5px ${colors.lighterColor};
+  height: 100%;
 `;
 
 export const SectionTitle = styled.h2`
