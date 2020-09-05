@@ -1,13 +1,3 @@
-.App {
-  color: #108043;
-  text-align: center;
-  min-height: 100vh;
-  height: 100%;
-  margin: 0 auto;
-  width: 100%;
-  font-family: sans-serif;
-}
-
 .movies-enter {
   opacity: 0.01;
 }

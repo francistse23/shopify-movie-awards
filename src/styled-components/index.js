@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { colors, dimensions } from "../constants";
+import { colors, device, dimensions } from "../constants";
 
 export const AppBody = styled.div`
   display: flex;
@@ -7,13 +7,31 @@ export const AppBody = styled.div`
   margin: ${dimensions.spacing * 16}px auto;
   max-width: 1300px;
   width: 100%;
+
+  @media ${device.mobileS} {
+    max-width: ${device.mobileS};
+  }
+`;
+
+export const AppMain = styled.div`
+  color: ${colors.darkColor};
+  text-align: center;
+  min-height: 100vh;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 2rem;
+  width: 100%;
+  font-family: sans-serif;
 `;
 
 export const AppTitle = styled.h1`
+  width: 100%;
   font-size: ${dimensions.fontSize * 4}px;
   line-height: ${dimensions.fontSize * 4.5}px;
   font-family: Architects Daughter, cursive;
+  text-align: center
   text-transform: uppercase;
+  border: 1px solid red
 `;
 
 export const BodyContainer = styled.div`
