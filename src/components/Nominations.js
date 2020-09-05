@@ -1,18 +1,18 @@
 import React from "react";
 import { CSSTransitionGroup } from "react-transition-group";
 import Movie from "./Movie";
-import { SectionDiv } from "../styled-components";
+import { SectionDiv, SectionTitle } from "../styled-components";
 import { colors } from "../constants";
 
 export default function Nominations({ nominations, setNominations }) {
   return (
     <SectionDiv backgroundColor={colors.sectionBackground} flex={2}>
-      <h3 style={{ fontSize: "2rem" }}>
+      <SectionTitle>
         Your Nominations{" "}
         <span aria-label="trophy" role="img">
           🏆
         </span>
-      </h3>
+      </SectionTitle>
 
       <CSSTransitionGroup
         transitionName="movies"

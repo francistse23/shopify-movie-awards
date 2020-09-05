@@ -1,7 +1,10 @@
 import React from "react";
 import { replacer } from "../lib/JSONHelper";
 import {
+  MovieDiv,
   MovieContainerDiv,
+  MovieDetailsDiv,
+  MoviePosterDiv,
   NominationButton,
   PosterImage,
 } from "../styled-components";
@@ -51,28 +54,14 @@ export default function Movie({
       isInNominations={isInNominations}
       isNominations={isNominations}
     >
-      <div
-        style={{
-          display: "flex",
-          flex: 2,
-          flexDirection: "column",
-          margin: "0 0.5rem",
-        }}
-      >
+      <MovieDiv>
         <div style={{ flex: 3 }}>
           <h3 style={{ fontSize: "1.5rem" }}>
             {Title} ({Year})
           </h3>
         </div>
 
-        <div
-          style={{
-            display: "flex",
-            flex: 1,
-            justifyContent: "space-around",
-            width: "100%",
-          }}
-        >
+        <MovieDetailsDiv>
           {!isNominations && (
             <NominationButton
               fontColor={colors.lightColor}
@@ -106,14 +95,9 @@ export default function Movie({
             </span>{" "}
             Remove from Nominations
           </NominationButton>
-        </div>
-      </div>
-      <div
-        style={{
-          flex: 1,
-          justifyContent: "center",
-        }}
-      >
+        </MovieDetailsDiv>
+      </MovieDiv>
+      <MoviePosterDiv>
         {Poster === "N/A" ? (
           <PosterImage
             src={require("../assets/poster-placeholder.png")}
@@ -122,7 +106,7 @@ export default function Movie({
         ) : (
           <PosterImage src={Poster} alt={`${Title} Poster`} />
         )}
-      </div>
+      </MoviePosterDiv>
     </MovieContainerDiv>
   );
 }
