@@ -10,7 +10,7 @@ import { reviver, replacer } from "./lib/JSONHelper";
 import { css } from "@emotion/core";
 import ClipLoader from "react-spinners/ClipLoader";
 import { CSSTransitionGroup } from "react-transition-group";
-import { SectionDiv } from "./styled-components";
+import { AppTitle, SectionDiv } from "./styled-components";
 import { colors, dimensions } from "./constants";
 
 const OMDB_KEY = process.env.REACT_APP_OMDB_KEY;
@@ -63,16 +63,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1
-        style={{
-          fontSize: `${dimensions.fontSize * 4}px`,
-          lineHeight: `${dimensions.fontSize * 4.5}px`,
-          fontFamily: "Architects Daughter, cursive",
-          textTransform: "uppercase",
-        }}
-      >
-        The Shoppies
-      </h1>
+      <AppTitle style={{}}>The Shoppies</AppTitle>
 
       <SearchBar
         inputText={inputText}
