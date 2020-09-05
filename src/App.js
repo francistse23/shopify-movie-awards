@@ -10,7 +10,7 @@ import { reviver, replacer } from "./lib/JSONHelper";
 import { css } from "@emotion/core";
 import ClipLoader from "react-spinners/ClipLoader";
 import { CSSTransitionGroup } from "react-transition-group";
-import { AppBody, AppTitle, SectionDiv } from "./styled-components";
+import { AppBody, AppTitle, MovieTitle, SectionDiv } from "./styled-components";
 import { colors, dimensions } from "./constants";
 
 const OMDB_KEY = process.env.REACT_APP_OMDB_KEY;
@@ -75,16 +75,14 @@ function App() {
         {/* movies list */}
         <SectionDiv flex={3} backgroundColor={colors.sectionBackground}>
           {!inputText.length ? (
-            <p
+            <MovieTitle
               style={{
-                alignSelf: "center",
-                fontSize: "1.5rem",
                 lineHeight: "10vh",
                 height: "10vh",
               }}
             >
               Try searching and adding some movies to your nominations list!
-            </p>
+            </MovieTitle>
           ) : null}
 
           {searchResults?.loading ? (
@@ -93,7 +91,7 @@ function App() {
                 margin: ${dimensions.spacing * 20}px auto;
               `}
               size={100}
-              color="#50B83C"
+              color={`${colors.mainColor}`}
               loading={searchResults?.loading}
             />
           ) : (
@@ -103,11 +101,11 @@ function App() {
                 (searchResults?.result?.Error === "Movie not found!" ||
                   !searchResults?.result?.Response) ? (
                   <>
-                    <p>{`Hmm... we cannot find any movie title that includes "${inputText}".`}</p>
-                    <p>
+                    <MovieTitle>{`Hmm... we cannot find any movie title that includes "${inputText}".`}</MovieTitle>
+                    <MovieTitle>
                       Please try another search term to find the movie(s) you
                       would like to nominate.
-                    </p>
+                    </MovieTitle>
                   </>
                 ) : (
                   inputText && (
