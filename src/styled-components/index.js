@@ -58,3 +58,26 @@ export const NominationsFooter = styled.footer`
     0 0;
   overflow-y: hidden;
 `;
+
+export const SectionTitle = styled.h3`
+  font-size: ${dimensions.fontSize * 2}px;
+`;
+
+export const MovieDiv = styled.div`
+  display: flex;
+  flex: 2;
+  flex-direction: column;
+  margin: 0 ${dimensions.spacing * 2}px;
+`;
+
+export const MovieDetailsDiv = styled.div`
+  display: flex;
+  flex: 1;
+  justify-content: space-around;
+  width: 100%;
+`;
+
+export const MoviePosterDiv = styled.div`
+  flex: 1;
+  justify-content: center;
+`;
