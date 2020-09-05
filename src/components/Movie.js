@@ -5,6 +5,7 @@ import {
   MovieContainerDiv,
   MovieDetailsDiv,
   MoviePosterDiv,
+  MovieTitle,
   NominationButton,
   PosterImage,
 } from "../styled-components";
@@ -55,11 +56,9 @@ export default function Movie({
       isNominations={isNominations}
     >
       <MovieDiv>
-        <div style={{ flex: 3 }}>
-          <h3 style={{ fontSize: "1.5rem" }}>
-            {Title} ({Year})
-          </h3>
-        </div>
+        <MovieTitle style={{ fontSize: "1.5rem" }}>
+          {Title} ({Year})
+        </MovieTitle>
 
         <MovieDetailsDiv>
           {!isNominations && (

@@ -10,7 +10,7 @@ import { reviver, replacer } from "./lib/JSONHelper";
 import { css } from "@emotion/core";
 import ClipLoader from "react-spinners/ClipLoader";
 import { CSSTransitionGroup } from "react-transition-group";
-import { AppTitle, SectionDiv } from "./styled-components";
+import { AppBody, AppTitle, SectionDiv } from "./styled-components";
 import { colors, dimensions } from "./constants";
 
 const OMDB_KEY = process.env.REACT_APP_OMDB_KEY;
@@ -63,7 +63,7 @@ function App() {
 
   return (
     <div className="App">
-      <AppTitle style={{}}>The Shoppies</AppTitle>
+      <AppTitle>The Shoppies</AppTitle>
 
       <SearchBar
         inputText={inputText}
@@ -71,16 +71,7 @@ function App() {
         searchMovies={searchMovies}
       />
 
-      <div
-        style={{
-          display: "flex",
-          flex: 5,
-          justifyContent: "space-between",
-          margin: "2rem auto",
-          maxWidth: "1300px",
-          width: "100%",
-        }}
-      >
+      <AppBody>
         {/* movies list */}
         <SectionDiv flex={3} backgroundColor={colors.sectionBackground}>
           {!inputText.length ? (
@@ -162,7 +153,7 @@ function App() {
           nominations={nominations}
           setNominations={setNominations}
         />
-      </div>
+      </AppBody>
 
       <NominationsBanner nominations={nominations} />
     </div>
