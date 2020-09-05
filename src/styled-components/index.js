@@ -1,6 +1,14 @@
 import styled from "styled-components";
 import { colors, dimensions } from "../constants";
 
+export const AppBody = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: ${dimensions.spacing * 16}px auto;
+  max-width: 1300px;
+  width: 100%;
+`;
+
 export const AppTitle = styled.h1`
   font-size: ${dimensions.fontSize * 4}px;
   line-height: ${dimensions.fontSize * 4.5}px;
@@ -14,7 +22,7 @@ export const SectionDiv = styled.div`
   border-radius: ${dimensions.fontSize * 0.75}px;
   margin: 0 ${dimensions.spacing * 4}px;
   padding: ${dimensions.spacing * 4}px;
-  box-shadow: 0px 0px 20px 5px #ffffff;
+  box-shadow: 0px 0px 20px 5px ${colors.lighterColor};
   height: 100%;
 `;
 
@@ -85,6 +93,11 @@ export const MoviePosterDiv = styled.div`
   justify-content: center;
 `;
 
+export const MovieTitle = styled.p`
+  font-size: ${dimensions.fontSize * 1.5}px;
+  font-weight: 500;
+`;
+
 export const SearchBarDiv = styled.div`
   background-color: ${colors.sectionBackground};
   display: flex;
@@ -105,13 +118,7 @@ export const SearchBarInput = styled.input`
   background-color: ${colors.lighterColor};
 `;
 
-export const SearchBarLabel = styled.label`
-  text-align: left;
+export const SectionTitle = styled.h2`
   font-size: ${dimensions.fontSize * 2}px;
-  fontweight: 700;
-  margin: ${dimensions.fontSize}px 0;
-`;
-
-export const SectionTitle = styled.h3`
-  font-size: ${dimensions.fontSize * 2}px;
+  font-weight: 700;
 `;

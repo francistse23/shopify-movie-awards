@@ -9,6 +9,7 @@ export default function SearchBar({ inputText, setInputText, searchMovies }) {
         for="search"
         style={{
           fontSize: `${dimensions.fontSize * 2}px`,
+          fontWeight: "700",
           margin: `${dimensions.fontSize}px 0`,
           textAlign: "left",
         }}
