@@ -66,10 +66,6 @@ export const NominationsFooter = styled.footer`
   overflow-y: hidden;
 `;
 
-export const SectionTitle = styled.h3`
-  font-size: ${dimensions.fontSize * 2}px;
-`;
-
 export const MovieDiv = styled.div`
   display: flex;
   flex: 2;
@@ -87,4 +83,19 @@ export const MovieDetailsDiv = styled.div`
 export const MoviePosterDiv = styled.div`
   flex: 1;
   justify-content: center;
+`;
+
+export const SearchBarDiv = styled.div`
+  background-color: ${colors.sectionBackground};
+  display: flex;
+  flex-direction: column;
+  max-width: 1200px;
+  margin: ${dimensions.spacing * 4}px auto;
+  padding: ${dimensions.spacing * 8}px;
+  border-radius: ${dimensions.fontSize * 0.75}px;
+  box-shadow: 0px 0px 20px 5px ${colors.lighterColor};
+`;
+
+export const SectionTitle = styled.h3`
+  font-size: ${dimensions.fontSize * 2}px;
 `;
