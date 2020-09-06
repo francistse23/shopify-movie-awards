@@ -1,4 +1,5 @@
 import React from "react";
+import { PageButton } from "../styled-components";
 
 export default function PaginationFooter({ page, setPage }) {
   return (
@@ -33,20 +34,14 @@ export default function PaginationFooter({ page, setPage }) {
         }}
       >
         {Array.from(Array(5), (_, i) => page + i).map((element) => (
-          <button
+          <PageButton
+            page={page}
+            element={element}
             aria-label={`navigate to page ${element}`}
             onClick={() => setPage(element)}
-            style={{
-              width: "20%",
-              color: "white",
-              border: "none",
-              borderRadius: "4px",
-              padding: "4px",
-              backgroundColor: `${page === element ? "#108043" : "#212b36"}`,
-            }}
           >
             {element}
-          </button>
+          </PageButton>
         ))}
       </div>
       {page < 100 ? (

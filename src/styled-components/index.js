@@ -24,11 +24,12 @@ export const AppMain = styled.div`
   display: flex;
   flex: 2;
   font-family: sans-serif;
-  min-height: 100vh;
   height: 100%;
+  min-height: 100vh;
   padding: 0;
   margin: 0 auto;
   flex-direction: column;
+  justify-content: space-between;
   text-align: center;
   max-width: 320px;
   width: 100%;
@@ -64,22 +65,16 @@ export const BodyContainer = styled.div`
 export const MovieContainerDiv = styled.div`
   display: flex;
   flex: ${(props) => props.flex};
-  // margin: ${dimensions.spacing * 2}px;
+  justify-content: space-around;
+  margin: ${dimensions.spacing * 2}px;
   padding: ${dimensions.spacing * 2}px;
   box-sizing: border-box;
   border: ${(props) =>
     props.isInNominations && !props.isNominations
       ? `3px solid ${colors.mainColor}`
-      : ""};
+      : "3px solid white"};
   border-radius: ${dimensions.fontSize * 0.75}px;
-`;
-
-export const MovieDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 0 ${dimensions.spacing * 2}px;
+  overflow-y: hidden;
 `;
 
 export const MovieDetailsDiv = styled.div`
@@ -102,6 +97,7 @@ export const MovieTitle = styled.h3`
 
 export const NominationButton = styled.button`
   color: ${(props) => props.fontColor};
+  flex: 1;
   font-size: ${dimensions.fontSize * 0.75}px;
   font-weight: 600;
   border-radius: ${dimensions.fontSize * 0.75}px;
@@ -114,7 +110,7 @@ export const NominationButton = styled.button`
 export const NominationButtonsContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 `;
 
@@ -125,6 +121,16 @@ export const NominationsFooter = styled.footer`
   border-radius: ${dimensions.fontSize * 0.75}px ${dimensions.fontSize * 0.75}px
     0 0;
   overflow-y: hidden;
+`;
+
+export const PageButton = styled.button`
+  width: 20%;
+  color: ${colors.lighterColor};
+  border: none;
+  border-radius: ${dimensions.fontSize * 0.25}px;
+  padding: ${dimensions.spacing}px;
+  background-color: ${(props) =>
+    props.page === props.element ? colors.mainColor : colors.sectionBackground};
 `;
 
 export const PosterImage = styled.img`
@@ -184,6 +190,6 @@ export const SectionTitle = styled.h2`
 `;
 
 export const Subtitle = styled.p`
-  font-size: ${dimensions.fontSize * 1.5}px;
+  font-size: ${dimensions.fontSize * 1.25}px;
   font-weight: 500;
 `;

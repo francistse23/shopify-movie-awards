@@ -6,7 +6,7 @@ import { colors } from "../constants";
 
 export default function Nominations({ nominations, setNominations }) {
   return (
-    <SectionDiv backgroundColor={colors.sectionBackground} height={200}>
+    <SectionDiv backgroundColor={colors.sectionBackground} height={250}>
       <SectionTitle>
         Your Nominations{" "}
         <span aria-label="trophy" role="img">

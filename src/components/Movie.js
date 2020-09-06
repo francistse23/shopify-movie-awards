@@ -1,7 +1,6 @@
 import React from "react";
 import { replacer } from "../lib/JSONHelper";
 import {
-  MovieDiv,
   MovieContainerDiv,
   MovieDetailsDiv,
   MoviePosterDiv,
@@ -56,59 +55,58 @@ export default function Movie({
       isInNominations={isInNominations}
       isNominations={isNominations}
     >
-      <MovieDiv>
-        <MovieDetailsDiv>
-          <MovieTitle>
-            {Title} ({Year})
-          </MovieTitle>
+      <MovieDetailsDiv>
+        <MovieTitle>
+          {Title} ({Year})
+        </MovieTitle>
 
-          <NominationButtonsContainer>
-            {!isNominations && (
-              <NominationButton
-                fontColor={colors.lightColor}
-                disabled={nominations.size >= 5 || isInNominations}
-                onClick={() => addToNominations(Title, Year, Poster, imdbID)}
-                style={{
-                  backgroundColor:
-                    nominations.size >= 5 || isInNominations
-                      ? colors.disabledColor
-                      : colors.mainColor,
-                }}
-              >
-                <span role="img" aria-label="Ballot box emoji">
-                  🗳️
-                </span>{" "}
-                Add to Nominations
-              </NominationButton>
-            )}
-            <NominationButton
-              fontColor={colors.lightColor}
-              disabled={!isInNominations}
-              onClick={() => removeFromNominations(imdbID)}
-              style={{
-                backgroundColor: !isInNominations
+        <MoviePosterDiv>
+          {Poster === "N/A" ? (
+            <PosterImage
+              src={require("../assets/poster-placeholder.png")}
+              alt={`Poster unavailable at this time`}
+            />
+          ) : (
+            <PosterImage src={Poster} alt={`${Title} Poster`} />
+          )}
+        </MoviePosterDiv>
+      </MovieDetailsDiv>
+
+      <NominationButtonsContainer>
+        {!isNominations && (
+          <NominationButton
+            fontColor={colors.lightColor}
+            disabled={nominations.size >= 5 || isInNominations}
+            onClick={() => addToNominations(Title, Year, Poster, imdbID)}
+            style={{
+              backgroundColor:
+                nominations.size >= 5 || isInNominations
                   ? colors.disabledColor
                   : colors.mainColor,
-              }}
-            >
-              <span role="img" aria-label="Remove emoji">
-                ❌
-              </span>{" "}
-              Remove from Nominations
-            </NominationButton>
-          </NominationButtonsContainer>
-        </MovieDetailsDiv>
-      </MovieDiv>
-      <MoviePosterDiv>
-        {Poster === "N/A" ? (
-          <PosterImage
-            src={require("../assets/poster-placeholder.png")}
-            alt={`Poster unavailable at this time`}
-          />
-        ) : (
-          <PosterImage src={Poster} alt={`${Title} Poster`} />
+            }}
+          >
+            <span role="img" aria-label="Ballot box emoji">
+              🗳️
+            </span>{" "}
+            Add to Nominations
+          </NominationButton>
         )}
-      </MoviePosterDiv>
+        <NominationButton
+          fontColor={colors.lightColor}
+          disabled={!isInNominations}
+          onClick={() => removeFromNominations(imdbID)}
+          style={{
+            backgroundColor: !isInNominations
+              ? colors.disabledColor
+              : colors.mainColor,
+          }}
+        >
+          <span role="img" aria-label="Remove emoji">
+            ❌
+          </span>{" "}
+          Remove from Nominations
+        </NominationButton>
+      </NominationButtonsContainer>
     </MovieContainerDiv>
   );
 }
