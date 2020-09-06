@@ -17,22 +17,9 @@ export default function SearchResults({
 }) {
   return (
     <div>
-      {inputText &&
-      !searchResults?.loading &&
-      (searchResults?.result?.Error === "Movie not found!" ||
-        !searchResults?.result?.Response) ? (
-        <>
-          <Subtitle>{`Hmm... we cannot find any movie title that includes "${inputText}".`}</Subtitle>
-          <Subtitle>
-            Please try another search term to find the movie(s) you would like
-            to nominate.
-          </Subtitle>
-        </>
-      ) : (
-        inputText && <Subtitle>{`Results for "${inputText}"`}</Subtitle>
-      )}
+      {inputText && <Subtitle>{`Results for "${inputText}"`}</Subtitle>}
 
-      <SectionDiv backgroundColor={colors.sectionBackground} height={250}>
+      <SectionDiv backgroundColor={colors.sectionBackground} height={300}>
         {!inputText.length ? (
           <Subtitle>
             Try searching and adding some movies to your nominations list!
@@ -48,6 +35,17 @@ export default function SearchResults({
             color={`${colors.mainColor}`}
             loading={searchResults?.loading}
           />
+        ) : !searchResults?.loading &&
+          inputText &&
+          (searchResults?.result?.Error === "Movie not found!" ||
+            !searchResults?.result?.Response) ? (
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <Subtitle>{`Hmm... we cannot find any movie title that includes "${inputText}".`}</Subtitle>
+            <Subtitle>
+              Please try another search term to find the movie(s) you would like
+              to nominate.
+            </Subtitle>
+          </div>
         ) : (
           <>
             <CSSTransitionGroup

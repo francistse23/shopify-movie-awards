@@ -57,7 +57,7 @@ function App() {
   }, [localStorage]);
 
   return (
-    <AppMain className="App">
+    <AppMain>
       <AppTitle>The Shoppies</AppTitle>
 
       <SearchBar
