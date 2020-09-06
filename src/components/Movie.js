@@ -7,6 +7,7 @@ import {
   MoviePosterDiv,
   MovieTitle,
   NominationButton,
+  NominationButtonsContainer,
   PosterImage,
 } from "../styled-components";
 import { colors } from "../constants";
@@ -57,42 +58,45 @@ export default function Movie({
     >
       <MovieDiv>
         <MovieDetailsDiv>
-          <MovieTitle style={{ fontSize: "1.5rem" }}>
+          <MovieTitle>
             {Title} ({Year})
           </MovieTitle>
-          {!isNominations && (
+
+          <NominationButtonsContainer>
+            {!isNominations && (
+              <NominationButton
+                fontColor={colors.lightColor}
+                disabled={nominations.size >= 5 || isInNominations}
+                onClick={() => addToNominations(Title, Year, Poster, imdbID)}
+                style={{
+                  backgroundColor:
+                    nominations.size >= 5 || isInNominations
+                      ? colors.disabledColor
+                      : colors.mainColor,
+                }}
+              >
+                <span role="img" aria-label="Ballot box emoji">
+                  🗳️
+                </span>{" "}
+                Add to Nominations
+              </NominationButton>
+            )}
             <NominationButton
               fontColor={colors.lightColor}
-              disabled={nominations.size >= 5 || isInNominations}
-              onClick={() => addToNominations(Title, Year, Poster, imdbID)}
+              disabled={!isInNominations}
+              onClick={() => removeFromNominations(imdbID)}
               style={{
-                backgroundColor:
-                  nominations.size >= 5 || isInNominations
-                    ? colors.disabledColor
-                    : colors.mainColor,
+                backgroundColor: !isInNominations
+                  ? colors.disabledColor
+                  : colors.mainColor,
               }}
             >
-              <span role="img" aria-label="Ballot box emoji">
-                🗳️
+              <span role="img" aria-label="Remove emoji">
+                ❌
               </span>{" "}
-              Add to Nominations
+              Remove from Nominations
             </NominationButton>
-          )}
-          <NominationButton
-            fontColor={colors.lightColor}
-            disabled={!isInNominations}
-            onClick={() => removeFromNominations(imdbID)}
-            style={{
-              backgroundColor: !isInNominations
-                ? colors.disabledColor
-                : colors.mainColor,
-            }}
-          >
-            <span role="img" aria-label="Remove emoji">
-              ❌
-            </span>{" "}
-            Remove from Nominations
-          </NominationButton>
+          </NominationButtonsContainer>
         </MovieDetailsDiv>
       </MovieDiv>
       <MoviePosterDiv>
