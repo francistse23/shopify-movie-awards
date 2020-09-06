@@ -33,29 +33,19 @@ export default function PaginationFooter({ page, setPage, searchResults }) {
           width: "100%",
         }}
       >
-        {page * 10 > searchResults?.result?.totalResults
-          ? Array.from(Array(5), (_, i) => page - 4 + i).map((element) => (
-              <PageButton
-                page={page}
-                element={element}
-                aria-label={`navigate to page ${element}`}
-                onClick={() => setPage(element)}
-              >
-                {element}
-              </PageButton>
-            ))
-          : Array.from(Array(5), (_, i) =>
-              page > 1 ? page + i - 1 : page + i
-            ).map((element) => (
-              <PageButton
-                page={page}
-                element={element}
-                aria-label={`navigate to page ${element}`}
-                onClick={() => setPage(element)}
-              >
-                {element}
-              </PageButton>
-            ))}
+        {(page * 10 > searchResults?.result?.totalResults
+          ? Array.from(Array(5), (_, i) => page - 4 + i)
+          : Array.from(Array(5), (_, i) => (page > 1 ? page + i - 1 : page + i))
+        ).map((element) => (
+          <PageButton
+            page={page}
+            element={element}
+            aria-label={`navigate to page ${element}`}
+            onClick={() => setPage(element)}
+          >
+            {element}
+          </PageButton>
+        ))}
       </div>
       {10 * page < searchResults?.result?.totalResults ? (
         <PaginationButton
