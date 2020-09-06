@@ -6,7 +6,7 @@ import { colors } from "../constants";
 
 export default function Nominations({ nominations, setNominations }) {
   return (
-    <SectionDiv backgroundColor={colors.sectionBackground} flex={2}>
+    <SectionDiv backgroundColor={colors.sectionBackground} height={200}>
       <SectionTitle>
         Your Nominations{" "}
         <span aria-label="trophy" role="img">
@@ -18,6 +18,7 @@ export default function Nominations({ nominations, setNominations }) {
         transitionName="movies"
         transitionEnterTimeout={500}
         transitionLeaveTimeout={500}
+        style={{ display: "flex" }}
       >
         {[...nominations.values()].map(({ Title, Year, Poster, imdbID }) => (
           <Movie

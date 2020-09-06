@@ -8,8 +8,8 @@ export default function SearchBar({ inputText, setInputText, searchMovies }) {
       <label
         for="search"
         style={{
-          fontSize: `${dimensions.fontSize * 2}px`,
-          fontWeight: "700",
+          fontSize: `${dimensions.fontSize * 1.5}px`,
+          fontWeight: "600",
           margin: `${dimensions.fontSize}px 0`,
           textAlign: "left",
         }}
