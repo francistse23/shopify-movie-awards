@@ -1,24 +1,24 @@
 import React from "react";
-import { PageButton } from "../styled-components";
+import { PageButton, PaginationButton } from "../styled-components";
+import { dimensions } from "../constants";
 
-export default function PaginationFooter({ page, setPage }) {
+export default function PaginationFooter({ page, setPage, searchResults }) {
   return (
     <footer
       style={{
-        alignItems: "center",
         display: "flex",
+        flex: 1,
         justifyContent: "space-between",
-        maxWidth: "300px",
-        margin: "1rem auto",
-        padding: "1rem",
+        margin: `${dimensions.spacing * 4}px auto`,
+        minHeight: "100%",
+        border: "1px solid red",
       }}
     >
       {page > 1 ? (
-        <button
+        <PaginationButton
           aria-label="previous page"
-          style={{ flex: 1 }}
           onClick={() => setPage((page) => page - 1)}
-        >{`<`}</button>
+        >{`<`}</PaginationButton>
       ) : (
         <button
           disabled
@@ -33,23 +33,35 @@ export default function PaginationFooter({ page, setPage }) {
           width: "100%",
         }}
       >
-        {Array.from(Array(5), (_, i) => page + i).map((element) => (
-          <PageButton
-            page={page}
-            element={element}
-            aria-label={`navigate to page ${element}`}
-            onClick={() => setPage(element)}
-          >
-            {element}
-          </PageButton>
-        ))}
+        {page * 10 > searchResults?.result?.totalResults
+          ? Array.from(Array(5), (_, i) => page - 4 + i).map((element) => (
+              <PageButton
+                page={page}
+                element={element}
+                aria-label={`navigate to page ${element}`}
+                onClick={() => setPage(element)}
+              >
+                {element}
+              </PageButton>
+            ))
+          : Array.from(Array(5), (_, i) =>
+              page > 1 ? page + i - 1 : page + i
+            ).map((element) => (
+              <PageButton
+                page={page}
+                element={element}
+                aria-label={`navigate to page ${element}`}
+                onClick={() => setPage(element)}
+              >
+                {element}
+              </PageButton>
+            ))}
       </div>
-      {page < 100 ? (
-        <button
+      {10 * page < searchResults?.result?.totalResults ? (
+        <PaginationButton
           aria-label="next page"
-          style={{ flex: 1 }}
           onClick={() => setPage((page) => page + 1)}
-        >{`>`}</button>
+        >{`>`}</PaginationButton>
       ) : (
         <button
           disabled

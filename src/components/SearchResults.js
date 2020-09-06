@@ -72,7 +72,11 @@ export default function SearchResults({
         )}
       </SectionDiv>
       {searchResults?.result?.Search?.length && (
-        <PaginationFooter page={page} setPage={setPage} />
+        <PaginationFooter
+          page={page}
+          setPage={setPage}
+          searchResults={searchResults}
+        />
       )}
     </div>
   );

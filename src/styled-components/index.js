@@ -127,10 +127,24 @@ export const PageButton = styled.button`
   width: 20%;
   color: ${colors.lighterColor};
   border: none;
+  height: 100%;
+  flex: 1;
   border-radius: ${dimensions.fontSize * 0.25}px;
   padding: ${dimensions.spacing}px;
   background-color: ${(props) =>
     props.page === props.element ? colors.mainColor : colors.sectionBackground};
+`;
+
+export const PaginationButton = styled.button`
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  font-weight: 700;
+  background-color: ${colors.sectionBackground};
+  border: none;
+  border-radius: ${dimensions.fontSize * 0.25}px;
+  color: ${colors.lighterColor};
+  height: 100%;
 `;
 
 export const PosterImage = styled.img`
