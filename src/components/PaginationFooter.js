@@ -10,8 +10,6 @@ export default function PaginationFooter({ page, setPage, searchResults }) {
         flex: 1,
         justifyContent: "space-between",
         margin: `${dimensions.spacing * 4}px auto`,
-        minHeight: "100%",
-        border: "1px solid red",
       }}
     >
       {page > 1 ? (
@@ -20,8 +18,7 @@ export default function PaginationFooter({ page, setPage, searchResults }) {
           onClick={() => setPage((page) => page - 1)}
         >{`<`}</PaginationButton>
       ) : (
-        <button
-          disabled
+        <div
           style={{ backgroundColor: "transparent", border: "none", flex: 1 }}
         />
       )}
@@ -53,8 +50,7 @@ export default function PaginationFooter({ page, setPage, searchResults }) {
           onClick={() => setPage((page) => page + 1)}
         >{`>`}</PaginationButton>
       ) : (
-        <button
-          disabled
+        <div
           style={{ backgroundColor: "transparent", border: "none", flex: 1 }}
         />
       )}
