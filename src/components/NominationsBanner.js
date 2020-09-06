@@ -10,6 +10,10 @@ export default function NominationsBanner({ nominations }) {
       transitionName="nominations-footer"
       transitionEnterTimeout={500}
       transitionLeaveTimeout={500}
+      style={{
+        position: "sticky",
+        bottom: 0,
+      }}
     >
       {nominations.size === 5 && (
         <NominationsFooter key="nominations-footer">

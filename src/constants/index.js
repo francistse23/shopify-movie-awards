@@ -13,7 +13,7 @@ export const dimensions = {
   fontSize: 16,
 };
 
-const size = {
+export const screenSize = {
   mobileS: "320px",
   mobileM: "375px",
   mobileL: "425px",
@@ -24,12 +24,12 @@ const size = {
 };
 
 export const device = {
-  mobileS: `(min-width: ${size.mobileS})`,
-  mobileM: `(min-width: ${size.mobileM})`,
-  mobileL: `(min-width: ${size.mobileL})`,
-  tablet: `(min-width: ${size.tablet})`,
-  laptop: `(min-width: ${size.laptop})`,
-  laptopL: `(min-width: ${size.laptopL})`,
-  desktop: `(min-width: ${size.desktop})`,
-  desktopL: `(min-width: ${size.desktop})`,
+  mobileS: `(min-width: ${screenSize.mobileS})`,
+  mobileM: `(min-width: ${screenSize.mobileM})`,
+  mobileL: `(min-width: ${screenSize.mobileL})`,
+  tablet: `(min-width: ${screenSize.tablet})`,
+  laptop: `(min-width: ${screenSize.laptop})`,
+  laptopL: `(min-width: ${screenSize.laptopL})`,
+  desktop: `(min-width: ${screenSize.desktop})`,
+  desktopL: `(min-width: ${screenSize.desktop})`,
 };

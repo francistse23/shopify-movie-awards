@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { colors, device, dimensions } from "../constants";
+import { colors, device, dimensions, screenSize } from "../constants";
 
 export const AppBody = styled.div`
   display: flex;
@@ -8,7 +8,6 @@ export const AppBody = styled.div`
   margin: ${dimensions.spacing * 4}px auto;
   padding: 0 ${dimensions.spacing}px;
   width: 100%;
-  max-width: 300px;
 
   @media ${device.tablet} {
     max-width: 600px;
@@ -25,18 +24,29 @@ export const AppMain = styled.div`
   flex: 2;
   font-family: sans-serif;
   height: 100%;
-  min-height: 100vh;
+  // min-height: 100vh;
   padding: 0;
   margin: 0 auto;
   flex-direction: column;
   justify-content: space-between;
   text-align: center;
-  max-width: 320px;
+  max-width: ${screenSize.mobileS};
   width: 100%;
-  border: 3px solid blue;
+
+  @media ${device.mobileM} {
+    max-width: ${screenSize.mobileM};
+  }
+
+  @media ${device.mobileL} {
+    max-width: ${screenSize.mobileL};
+  }
 
   @media ${device.tablet} {
-    max-width: 768px;
+    max-width: ${screenSize.tablet};
+  @media ${device.laptop} {
+    max-width: ${screenSize.laptop};
+  @media ${device.laptopL} {
+    max-width: 1200px;
   }
 `;
 
@@ -67,7 +77,7 @@ export const MovieContainerDiv = styled.div`
   flex: ${(props) => props.flex};
   justify-content: space-around;
   margin: ${dimensions.spacing * 2}px;
-  padding: ${dimensions.spacing * 2}px;
+  padding: ${dimensions.spacing * 2}px ${dimensions.spacing * 6}px;
   box-sizing: border-box;
   border: ${(props) =>
     props.isInNominations && !props.isNominations
@@ -75,6 +85,8 @@ export const MovieContainerDiv = styled.div`
       : ""};
   border-radius: ${dimensions.fontSize * 0.75}px;
   overflow-y: hidden;
+  max-height: 200px;
+  width: 90%;
 `;
 
 export const MovieDetailsDiv = styled.div`
@@ -116,8 +128,6 @@ export const NominationButtonsContainer = styled.div`
 
 export const NominationsFooter = styled.footer`
   background-color: ${colors.lighterColor};
-  position: sticky;
-  bottom: 0;
   border-radius: ${dimensions.fontSize * 0.75}px ${dimensions.fontSize * 0.75}px
     0 0;
   overflow-y: hidden;

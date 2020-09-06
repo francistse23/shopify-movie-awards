@@ -10,6 +10,7 @@ export default function PaginationFooter({ page, setPage, searchResults }) {
         flex: 1,
         justifyContent: "space-between",
         margin: `${dimensions.spacing * 4}px auto`,
+        width: "80%",
       }}
     >
       {page > 1 ? (
