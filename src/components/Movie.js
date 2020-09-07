@@ -73,7 +73,7 @@ export default function Movie({
       </MovieDetailsDiv>
 
       <NominationButtonsContainer>
-        {!isNominations && (
+        {!isNominations ? (
           <NominationButton
             fontColor={colors.lightColor}
             disabled={nominations.size >= 5 || isInNominations}
@@ -90,7 +90,10 @@ export default function Movie({
             </span>{" "}
             Add to Nominations
           </NominationButton>
+        ) : (
+          <div style={{ flex: 1 }} />
         )}
+        {!isNominations && <div style={{ flex: 1 }} />}
         <NominationButton
           fontColor={colors.lightColor}
           disabled={!isInNominations}

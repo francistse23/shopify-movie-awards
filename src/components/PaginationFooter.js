@@ -6,6 +6,8 @@ export default function PaginationFooter({ page, setPage, searchResults }) {
   return (
     <footer
       style={{
+        alignItems: "center",
+        alignContent: "stretch",
         display: "flex",
         flex: 1,
         justifyContent: "space-between",

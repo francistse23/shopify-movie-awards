@@ -2,15 +2,23 @@ import styled from "styled-components";
 import { colors, device, dimensions, screenSize } from "../constants";
 
 export const AppBody = styled.div`
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  flex: 1;
+  height: 100vh;
   justify-content: space-between;
   margin: ${dimensions.spacing * 4}px auto;
   padding: 0 ${dimensions.spacing}px;
   width: 100%;
 
   @media ${device.tablet} {
-    max-width: 600px;
+    max-width: ${screenSize.tablet};
+  }
+
+  @media ${device.laptop} {
+    max-width: ${screenSize.laptop};
+    flex-direction: row;
   }
 
   @media ${device.laptopL} {
@@ -19,6 +27,7 @@ export const AppBody = styled.div`
 `;
 
 export const AppMain = styled.div`
+  box-sizing: border-box;
   color: ${colors.darkColor};
   display: flex;
   flex: 2;
@@ -43,8 +52,11 @@ export const AppMain = styled.div`
 
   @media ${device.tablet} {
     max-width: ${screenSize.tablet};
+
   @media ${device.laptop} {
     max-width: ${screenSize.laptop};
+  }
+  
   @media ${device.laptopL} {
     max-width: 1200px;
   }
@@ -73,20 +85,33 @@ export const BodyContainer = styled.div`
 `;
 
 export const MovieContainerDiv = styled.div`
-  display: flex;
-  flex: ${(props) => props.flex};
-  justify-content: space-around;
-  margin: ${dimensions.spacing * 2}px;
-  padding: ${dimensions.spacing * 2}px ${dimensions.spacing * 6}px;
-  box-sizing: border-box;
+  align-items: center;
   border: ${(props) =>
     props.isInNominations && !props.isNominations
       ? `3px solid ${colors.mainColor}`
       : ""};
   border-radius: ${dimensions.fontSize * 0.75}px;
-  overflow-y: hidden;
+  box-sizing: border-box;
+  display: flex;
+  flex: ${(props) => props.flex};
+  justify-content: space-between;
+  margin: ${dimensions.spacing * 2}px;
   max-height: 200px;
-  width: 90%;
+  overflow-y: hidden;
+  padding: ${dimensions.spacing}px ${dimensions.spacing * 4}px;
+
+  @media ${device.tablet} {
+    margin: ${dimensions.spacing * 6}px;
+    min-height: 250px;
+    overflow-y: hidden;
+    padding: ${dimensions.spacing * 2}px ${dimensions.spacing * 4}px;
+  }
+
+  @media ${device.laptop} {
+    max-height: 325px;
+    padding: ${dimensions.spacing * 6}px ${dimensions.spacing * 8}px;
+    overflow-x: hidden;
+  }
 `;
 
 export const MovieDetailsDiv = styled.div`
@@ -104,7 +129,11 @@ export const MoviePosterDiv = styled.div`
 `;
 
 export const MovieTitle = styled.h3`
-  font-size: ${dimensions.fontSize * 0.9}px;
+  font-size: ${dimensions.fontSize * 0.75}px;
+
+  @media ${device.laptop} {
+    font-size: ${dimensions.fontSize * 1.25}px;
+  }
 `;
 
 export const NominationButton = styled.button`
@@ -117,13 +146,25 @@ export const NominationButton = styled.button`
   margin: ${dimensions.spacing * 2}px;
   padding: ${dimensions.spacing * 2}px;
   cursor: pointer;
+  width: 100%;
+
+  @media ${device.laptop} {
+    font-size: ${dimensions.fontSize}px;
+  }
 `;
 
 export const NominationButtonsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   align-items: center;
+  display: flex;
+  flex: 2;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  margin: 0 ${dimensions.spacing * 4}px;
+
+  @media ${device.laptop} {
+    flex: 1;
+  }
 `;
 
 export const NominationsFooter = styled.footer`
@@ -145,15 +186,16 @@ export const PageButton = styled.button`
 `;
 
 export const PaginationButton = styled.button`
-  display: flex;
-  flex: 1;
-  justify-content: center;
   align-items: center;
-  font-weight: 700;
   background-color: ${colors.sectionBackground};
   border: none;
   border-radius: ${dimensions.fontSize * 0.25}px;
   color: ${colors.lighterColor};
+  display: flex;
+  flex: 1;
+  font-weight: 700;
+  height: 100%;
+  justify-content: center;
 `;
 
 export const PosterImage = styled.img`
@@ -161,8 +203,15 @@ export const PosterImage = styled.img`
   width: 102px;
   border-radius: ${dimensions.fontSize * 0.5}px;
 
-  // height: 167px;
-  // width: 113px;
+  @media ${device.tablet} {
+    height: 167px;
+    width: 113px;
+  }
+
+  @media${device.laptop} {
+    height: 223px;
+    width: 150px;
+  }
 `;
 
 export const SearchBarDiv = styled.div`
@@ -192,27 +241,60 @@ export const SearchBarInput = styled.input`
 `;
 
 export const SectionDiv = styled.div`
+  align-items: center;
   background-color: ${(props) => props.backgroundColor};
   border-radius: ${dimensions.fontSize * 0.75}px;
   box-shadow: 0px 0px 20px 5px ${colors.lighterColor};
-  margin: ${dimensions.spacing * 2}px;
-  padding: 0 ${dimensions.spacing * 2}px;
-
   display: flex;
-  flex-wrap: nowrap;
+  flex: ${(props) => props.flex};
   flex-direction: row;
-  align-items: center;
+  flex-wrap: nowrap;
   height: ${(props) => props.height}px;
+  margin: ${dimensions.spacing * 2}px;
   overflow-x: auto;
+  padding: 0 ${dimensions.spacing * 2}px;
   width: auto;
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    border-radius: ${dimensions.fontSize * 0.75}px;
+  }
+  ::-webkit-scrollbar-track {
+    background: ${colors.sectionBackground};
+  }
+  ::-webkit-scrollbar-thumb {
+    background: ${colors.lighterColor};
+    border-radius: ${dimensions.fontSize * 0.75}px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: ${colors.darkerColor};
+  }
+
+  @media ${device.mobileL} {
+    padding: 0 ${dimensions.spacing * 4}px;
+  }
+
+  @media ${device.tablet} {
+    height: ${(props) => props.height}px;
+    padding: 0 ${dimensions.spacing * 8}px;
+  }
+
+  @media ${device.laptop} {
+    flex-direction: column;
+    height: 100%;
+    padding: 0 ${dimensions.spacing * 4}px;
+    width: 100%;
+  }
 `;
 
 export const SectionTitle = styled.h2`
   font-size: ${dimensions.fontSize * 1.5}px;
   font-weight: 600;
+  line-height: ${dimensions.fontSize * 2.5}px;
 `;
 
 export const Subtitle = styled.p`
   font-size: ${dimensions.fontSize * 1.25}px;
   font-weight: 500;
+  line-height: ${dimensions.fontSize * 1.5}px;
 `;
