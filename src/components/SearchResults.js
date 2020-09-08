@@ -1,9 +1,8 @@
 import React from "react";
-import { css } from "@emotion/core";
-import ClipLoader from "react-spinners/ClipLoader";
 import { CSSTransitionGroup } from "react-transition-group";
-import { colors, dimensions } from "../constants";
+import { colors } from "../constants";
 import Movie from "./Movie";
+import Loading from "./Loading";
 import PaginationFooter from "./PaginationFooter";
 import { SectionDiv, SectionTitle } from "../styled-components";
 
@@ -33,14 +32,7 @@ export default function SearchResults({
       )}
 
       {searchResults?.loading ? (
-        <ClipLoader
-          css={css`
-            margin: ${dimensions.spacing * 20}px auto;
-          `}
-          size={100}
-          color={`${colors.mainColor}`}
-          loading={searchResults?.loading}
-        />
+        <Loading searchResults={searchResults} />
       ) : !searchResults?.loading &&
         inputText &&
         (searchResults?.result?.Error === "Movie not found!" ||
@@ -100,14 +92,7 @@ export default function SearchResults({
         ) : null}
 
         {searchResults?.loading ? (
-          <ClipLoader
-            css={css`
-              margin: ${dimensions.spacing * 20}px auto;
-            `}
-            size={100}
-            color={`${colors.mainColor}`}
-            loading={searchResults?.loading}
-          />
+          <Loading searchResults={searchResults} />
         ) : !searchResults?.loading &&
           inputText &&
           (searchResults?.result?.Error === "Movie not found!" ||

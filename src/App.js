@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { Suspense, useState, useEffect } from "react";
 import "./App.css";
 import useDebouncedSearch from "./components/useDebouncedSearch";
-import Nominations from "./components/Nominations";
 import NominationsBanner from "./components/NominationsBanner";
-import SearchResults from "./components/SearchResults";
+import Loading from "./components/Loading";
 import SearchBar from "./components/SearchBar";
 import { reviver, replacer } from "./lib/JSONHelper";
 import { AppBody, AppMain, AppTitle } from "./styled-components";
 
+const Nominations = React.lazy(() => import("./components/Nominations"));
+const SearchResults = React.lazy(() => import("./components/SearchResults"));
 const OMDB_KEY = process.env.REACT_APP_OMDB_KEY;
 
 function App() {
@@ -67,19 +68,23 @@ function App() {
       />
 
       <AppBody>
-        <SearchResults
-          inputText={inputText}
-          searchResults={searchResults}
-          nominations={nominations}
-          setNominations={setNominations}
-          page={page}
-          setPage={setPage}
-        />
+        <Suspense fallback={<Loading />}>
+          <SearchResults
+            inputText={inputText}
+            searchResults={searchResults}
+            nominations={nominations}
+            setNominations={setNominations}
+            page={page}
+            setPage={setPage}
+          />
+        </Suspense>
 
-        <Nominations
-          nominations={nominations}
-          setNominations={setNominations}
-        />
+        <Suspense fallback={<Loading />}>
+          <Nominations
+            nominations={nominations}
+            setNominations={setNominations}
+          />
+        </Suspense>
       </AppBody>
 
       <NominationsBanner nominations={nominations} />
