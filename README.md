@@ -1,5 +1,5 @@
 # THE SHOPPIES
-Shopify's movie award nominations website
+[The Shoppies](https://francis-tse-the-shoppies.netlify.app/) Shopify's movie award nominations website
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/a6062da0-1e50-4964-98ec-42e62cebd122/deploy-status)](https://app.netlify.com/sites/francis-tse-the-shoppies/deploys)
 
