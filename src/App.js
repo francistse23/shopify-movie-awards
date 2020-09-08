@@ -29,7 +29,7 @@ function App() {
     try {
       const res = (
         await fetch(
-          `http://www.omdbapi.com/?apikey=${OMDB_KEY}&s=${text}&type=movie&page=${page}`
+          `https://www.omdbapi.com/?apikey=${OMDB_KEY}&s=${text}&type=movie&page=${page}`
         )
       ).json();
 

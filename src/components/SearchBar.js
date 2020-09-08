@@ -6,7 +6,8 @@ export default function SearchBar({ inputText, setInputText, searchMovies }) {
   return (
     <SearchBarDiv>
       <label
-        for="search"
+        htmlFor="search"
+        id="search"
         style={{
           fontSize: `${dimensions.fontSize * 1.5}px`,
           fontWeight: "600",
@@ -20,7 +21,7 @@ export default function SearchBar({ inputText, setInputText, searchMovies }) {
         aria-label="Search bar"
         role="search"
         inputMode="search"
-        type="text"
+        // type="text"
         name="search"
         onChange={(e) => setInputText(e.target.value)}
         onKeyDown={(e) => {
