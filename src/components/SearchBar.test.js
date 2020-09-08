@@ -7,8 +7,6 @@ describe("Search Bar", () => {
   test("renders SearchBar component", () => {
     render(<SearchBar />);
 
-    console.log(screen.getByPlaceholderText("🔎 e.g. Iron Man"));
-
     expect(screen.getByPlaceholderText("🔎 e.g. Iron Man")).toBeEmpty();
   });
 });
