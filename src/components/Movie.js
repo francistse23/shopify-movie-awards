@@ -75,6 +75,7 @@ export default function Movie({
       <NominationButtonsContainer>
         {!isNominations ? (
           <NominationButton
+            aria-label="Add to nomination"
             fontColor={colors.lightColor}
             disabled={nominations.size >= 5 || isInNominations}
             onClick={() => addToNominations(Title, Year, Poster, imdbID)}
@@ -95,6 +96,7 @@ export default function Movie({
         )}
         {!isNominations && <div style={{ flex: 1 }} />}
         <NominationButton
+          aria-label="Remove from nomination"
           fontColor={colors.lightColor}
           disabled={!isInNominations}
           onClick={() => removeFromNominations(imdbID)}
