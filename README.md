@@ -11,14 +11,14 @@ Shopify's movie award nominations website
 
 ### Website Function Overview
 
-A debounced search will search [OMDb](http://www.omdbapi.com/) for the query you entered and 
+- A debounced search will search [OMDb](http://www.omdbapi.com/) for the query you entered and 
 show the relevant movies' title, release year, as well as its poster image, if available.
 
-Update to the query will automatically update the search results.
+- Update to the query will automatically update the search results.
 
-Each movie rendered in the results will have a **Add to Nominations** and **Remove from Nominations** button.
+- Each movie rendered in the results will have a **Add to Nominations** and **Remove from Nominations** button.
 
-A user may add at most <ins>**5**</ins> unique movies to the user's nominations list. 
+- A user may add at most <ins>**5**</ins> unique movies to the user's nominations list. 
 Once all 5 nominations have been selected, a banner will appear at the bottom and notify the user.
 
 #### Notes
