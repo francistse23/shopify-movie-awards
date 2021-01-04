@@ -1,5 +1,6 @@
-import styled from "styled-components";
 import { colors, device, dimensions, screenSize } from "../constants";
+
+import styled from "styled-components";
 
 export const AppBody = styled.div`
   box-sizing: border-box;
@@ -145,7 +146,7 @@ export const NominationButton = styled.button`
   border: none;
   margin: ${dimensions.spacing * 2}px;
   padding: ${dimensions.spacing * 2}px;
-  cursor: pointer;
+  cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
   width: 100%;
 
   @media ${device.laptop} {
