@@ -16,6 +16,7 @@ import { replacer } from "../lib/JSONHelper";
 export default function Movie({
   nominations,
   Plot = "",
+  Ratings = [],
   Title,
   Year,
   Poster,
@@ -68,7 +69,11 @@ export default function Movie({
           {!isNominations ? (
             <NominationButton
               aria-label="Add to nomination"
-              fontColor={colors.darkColor}
+              fontColor={
+                nominations.size >= 5 || isInNominations
+                  ? colors.secondaryColor
+                  : colors.darkColor
+              }
               disabled={nominations.size >= 5 || isInNominations}
               onClick={() => addToNominations(Title, Year, Poster, imdbID)}
               style={{
@@ -87,7 +92,9 @@ export default function Movie({
           {!isNominations && <div style={{ flex: 1 }} />}
           <NominationButton
             aria-label="Remove from nomination"
-            fontColor={colors.darkColor}
+            fontColor={
+              !isInNominations ? colors.secondaryColor : colors.darkColor
+            }
             disabled={!isInNominations}
             onClick={() => removeFromNominations(imdbID)}
             style={{
@@ -104,7 +111,6 @@ export default function Movie({
         </NominationButtonsContainer>
       </MovieDetailsDiv>
 
-      {/*  remove in nominations? */}
       <MoviePosterDiv>
         {Poster === "N/A" ? (
           <PosterImage
@@ -119,6 +125,26 @@ export default function Movie({
             nominated={isNominations}
           />
         )}
+
+        {/* <MovieRatings></MovieRatings> */}
+        <ul style={{ listStyleType: "none", textAlign: "left" }}>
+          {Ratings.map(({ Source, Value }) => (
+            <li key={Source}>
+              <img
+                src={
+                  Source.includes("Tomatoes")
+                    ? require("../assets/rotten-tomatoes.png")
+                    : Source.includes("Metacritic")
+                    ? require("../assets/metacritic.png")
+                    : require("../assets/imdb.png")
+                }
+                alt={`${Source} Icon`}
+                style={{ height: "24px", width: "24px" }}
+              />{" "}
+              {Value}
+            </li>
+          ))}
+        </ul>
       </MoviePosterDiv>
     </MovieContainerDiv>
   );

@@ -58,10 +58,11 @@ export default function SearchResults({
           transitionLeaveTimeout={500}
         >
           {searchResults?.result?.Search?.map(
-            ({ Plot, Title, Year, Poster, imdbID }) => (
+            ({ Plot, Ratings, Title, Year, Poster, imdbID }) => (
               <Movie
                 key={imdbID}
                 Plot={Plot}
+                Ratings={Ratings}
                 Title={Title}
                 Year={Year}
                 Poster={Poster}

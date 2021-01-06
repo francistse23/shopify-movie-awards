@@ -58,7 +58,9 @@ export const MovieContainerDiv = styled.div`
   border-radius: ${dimensions.fontSize * 0.75}px;
   box-sizing: border-box;
   box-shadow: ${(props) =>
-    props.isNominations || props.isInNominations
+    props.isNominations && props.isInNominations
+      ? `0px 0px 10px 5px ${colors.secondaryColor}`
+      : props.isInNominations
       ? `0px 0px 10px 5px ${colors.lightColor}`
       : "none"};
   display: flex;
@@ -94,7 +96,7 @@ export const MoviePlot = styled.p`
 export const MoviePosterDiv = styled.div`
   align-items: center;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   margin-left: ${dimensions.spacing * 6}px;
 `;
 
@@ -187,24 +189,20 @@ export const SearchBarDiv = styled.div`
   background-color: ${colors.secondaryColor};
   display: flex;
   flex-direction: column;
-
-  padding: ${dimensions.spacing * 4}px ${dimensions.spacing * 6}px;
+  align-items: center;
+  justify-content: center;
+  padding: ${dimensions.spacing * 8}px ${dimensions.spacing * 6}px;
   // border-radius: ${dimensions.fontSize * 0.75}px;
   // box-shadow: 0px 0px 10px 5px ${colors.lighterColor};
-  width: 100%;
-
-  @media ${device.laptop} {
-    padding: ${dimensions.spacing * 6}px ${dimensions.spacing * 3}px;
-  } ;
 `;
 
 export const SearchBarInput = styled.input`
+  background-color: ${colors.lighterColor};
   border: none;
   border-radius: ${dimensions.fontSize * 0.75}px;
-  padding: ${dimensions.spacing * 4}px;
-  flex: 3;
   font-size: ${dimensions.fontSize * 1.1}px;
-  background-color: ${colors.lighterColor};
+  padding: ${dimensions.spacing * 4}px;
+  width: 100%;
 `;
 
 export const SectionDiv = styled.section`

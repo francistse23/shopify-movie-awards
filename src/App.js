@@ -94,7 +94,6 @@ function App() {
           <div
             style={{
               alignSelf: "center",
-              // width: "450px",
               backgroundColor: colors.mainColor,
               position: "sticky",
               top: 0,
@@ -112,7 +111,7 @@ function App() {
                 flexWrap: "wrap",
                 scrollSnapType: "x mandatory",
                 scrollBehavior: "smooth",
-                webkitOverflowScrolling: "touch",
+                WebkitOverflowScrolling: "touch",
                 transform: "scale(1)",
                 transition: "transform 0.5s",
               }}
