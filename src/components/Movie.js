@@ -1,18 +1,21 @@
-import React from "react";
-import { replacer } from "../lib/JSONHelper";
 import {
   MovieContainerDiv,
   MovieDetailsDiv,
+  MoviePlot,
   MoviePosterDiv,
   MovieTitle,
   NominationButton,
   NominationButtonsContainer,
   PosterImage,
 } from "../styled-components";
+
+import React from "react";
 import { colors } from "../constants";
+import { replacer } from "../lib/JSONHelper";
 
 export default function Movie({
   nominations,
+  Plot = "",
   Title,
   Year,
   Poster,
@@ -51,67 +54,72 @@ export default function Movie({
 
   return (
     <MovieContainerDiv
-      flex={2}
       isInNominations={isInNominations}
       isNominations={isNominations}
     >
       <MovieDetailsDiv>
-        <MovieTitle>
+        <MovieTitle isNominations={isNominations}>
           {Title} ({Year})
         </MovieTitle>
 
-        <MoviePosterDiv>
-          {Poster === "N/A" ? (
-            <PosterImage
-              src={require("../assets/poster-placeholder.png")}
-              alt={`Poster unavailable at this time`}
-            />
-          ) : (
-            <PosterImage src={Poster} alt={`${Title} Poster`} />
-          )}
-        </MoviePosterDiv>
-      </MovieDetailsDiv>
+        <MoviePlot>{Plot}</MoviePlot>
 
-      <NominationButtonsContainer>
-        {!isNominations ? (
+        <NominationButtonsContainer>
+          {!isNominations ? (
+            <NominationButton
+              aria-label="Add to nomination"
+              fontColor={colors.lightColor}
+              disabled={nominations.size >= 5 || isInNominations}
+              onClick={() => addToNominations(Title, Year, Poster, imdbID)}
+              style={{
+                backgroundColor:
+                  nominations.size >= 5 || isInNominations
+                    ? colors.disabledColor
+                    : colors.mainColor,
+              }}
+            >
+              <span role="img" aria-label="Ballot box emoji">
+                🗳️
+              </span>{" "}
+              Nominate
+            </NominationButton>
+          ) : null}
+          {!isNominations && <div style={{ flex: 1 }} />}
           <NominationButton
-            aria-label="Add to nomination"
+            aria-label="Remove from nomination"
             fontColor={colors.lightColor}
-            disabled={nominations.size >= 5 || isInNominations}
-            onClick={() => addToNominations(Title, Year, Poster, imdbID)}
+            disabled={!isInNominations}
+            onClick={() => removeFromNominations(imdbID)}
             style={{
-              backgroundColor:
-                nominations.size >= 5 || isInNominations
-                  ? colors.disabledColor
-                  : colors.mainColor,
+              backgroundColor: !isInNominations
+                ? colors.disabledColor
+                : colors.mainColor,
             }}
           >
-            <span role="img" aria-label="Ballot box emoji">
-              🗳️
+            <span role="img" aria-label="Remove emoji">
+              ❌
             </span>{" "}
-            Add to Nominations
+            Un-nominate
           </NominationButton>
+        </NominationButtonsContainer>
+      </MovieDetailsDiv>
+
+      {/*  remove in nominations? */}
+      <MoviePosterDiv>
+        {Poster === "N/A" ? (
+          <PosterImage
+            src={require("../assets/poster-placeholder.png")}
+            alt={`Poster unavailable at this time`}
+            nominated={isNominations}
+          />
         ) : (
-          <div style={{ flex: 1 }} />
+          <PosterImage
+            src={Poster}
+            alt={`${Title} Poster`}
+            nominated={isNominations}
+          />
         )}
-        {!isNominations && <div style={{ flex: 1 }} />}
-        <NominationButton
-          aria-label="Remove from nomination"
-          fontColor={colors.lightColor}
-          disabled={!isInNominations}
-          onClick={() => removeFromNominations(imdbID)}
-          style={{
-            backgroundColor: !isInNominations
-              ? colors.disabledColor
-              : colors.mainColor,
-          }}
-        >
-          <span role="img" aria-label="Remove emoji">
-            ❌
-          </span>{" "}
-          Remove from Nominations
-        </NominationButton>
-      </NominationButtonsContainer>
+      </MoviePosterDiv>
     </MovieContainerDiv>
   );
 }

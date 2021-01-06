@@ -1,5 +1,6 @@
-import React from "react";
 import { SearchBarDiv, SearchBarInput } from "../styled-components";
+
+import React from "react";
 import { dimensions } from "../constants";
 
 export default function SearchBar({ inputText, setInputText, searchMovies }) {
@@ -11,7 +12,7 @@ export default function SearchBar({ inputText, setInputText, searchMovies }) {
         style={{
           fontSize: `${dimensions.fontSize * 1.5}px`,
           fontWeight: "600",
-          margin: `${dimensions.fontSize}px 0`,
+          margin: `${dimensions.spacing * 4}px 0`,
           textAlign: "left",
         }}
       >
@@ -21,7 +22,6 @@ export default function SearchBar({ inputText, setInputText, searchMovies }) {
         aria-label="Search bar"
         role="search"
         inputMode="search"
-        // type="text"
         name="search"
         onChange={(e) => setInputText(e.target.value)}
         onKeyDown={(e) => {

@@ -1,5 +1,6 @@
-import React from "react";
 import { PageButton, PaginationButton } from "../styled-components";
+
+import React from "react";
 import { dimensions } from "../constants";
 
 export default function PaginationFooter({ page, setPage, searchResults }) {
@@ -38,6 +39,7 @@ export default function PaginationFooter({ page, setPage, searchResults }) {
           : Array.from(Array(5), (_, i) => (page > 1 ? page + i - 1 : page + i))
         ).map((element) => (
           <PageButton
+            key={`${page}-${element}`}
             page={page}
             element={element}
             aria-label={`navigate to page ${element}`}

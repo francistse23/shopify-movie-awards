@@ -1,25 +1,27 @@
-import React from "react";
-import { CSSTransitionGroup } from "react-transition-group";
-import { colors } from "../constants";
-import Movie from "./Movie";
-import Loading from "./Loading";
-import PaginationFooter from "./PaginationFooter";
 import { SectionDiv, SectionTitle } from "../styled-components";
+
+import { CSSTransitionGroup } from "react-transition-group";
+import Loading from "./Loading";
+import Movie from "./Movie";
+import React from "react";
+import { colors } from "../constants";
 
 export default function SearchResults({
   inputText,
   searchResults,
   nominations,
   setNominations,
-  page,
-  setPage,
 }) {
   return window.screen.width >= 1024 ? (
     <SectionDiv
-      flex={3}
       backgroundColor={colors.sectionBackground}
-      height={350}
-      style={{ flexDirection: "column" }}
+      style={{
+        flexDirection: "column",
+        // alignItems: "center",
+        // justifyContent: "center",
+        // margin: "0 auto",
+        // maxWidth: "1200px",
+      }}
     >
       {!inputText.length ? (
         <SectionTitle>
@@ -45,39 +47,31 @@ export default function SearchResults({
           </SectionTitle>
         </div>
       ) : (
-        <>
-          <CSSTransitionGroup
-            style={{
-              display: "flex",
-              flexDirection: window.screen.width >= 1024 ? "column" : "row",
-            }}
-            transitionName="movies"
-            transitionEnterTimeout={500}
-            transitionLeaveTimeout={500}
-          >
-            {searchResults?.result?.Search?.map(
-              ({ Title, Year, Poster, imdbID }) => (
-                <Movie
-                  key={imdbID}
-                  Title={Title}
-                  Year={Year}
-                  Poster={Poster}
-                  imdbID={imdbID}
-                  nominations={nominations}
-                  setNominations={setNominations}
-                />
-              )
-            )}
-          </CSSTransitionGroup>
-        </>
-      )}
-
-      {searchResults?.result?.Search?.length && (
-        <PaginationFooter
-          page={page}
-          setPage={setPage}
-          searchResults={searchResults}
-        />
+        <CSSTransitionGroup
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            width: "1600px",
+          }}
+          transitionName="movies"
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={500}
+        >
+          {searchResults?.result?.Search?.map(
+            ({ Plot, Title, Year, Poster, imdbID }) => (
+              <Movie
+                key={imdbID}
+                Plot={Plot}
+                Title={Title}
+                Year={Year}
+                Poster={Poster}
+                imdbID={imdbID}
+                nominations={nominations}
+                setNominations={setNominations}
+              />
+            )
+          )}
+        </CSSTransitionGroup>
       )}
     </SectionDiv>
   ) : (
@@ -116,9 +110,10 @@ export default function SearchResults({
               transitionLeaveTimeout={500}
             >
               {searchResults?.result?.Search?.map(
-                ({ Title, Year, Poster, imdbID }) => (
+                ({ Plot, Title, Year, Poster, imdbID }) => (
                   <Movie
                     key={imdbID}
+                    Plot={Plot}
                     Title={Title}
                     Year={Year}
                     Poster={Poster}
@@ -132,13 +127,6 @@ export default function SearchResults({
           </>
         )}
       </SectionDiv>
-      {searchResults?.result?.Search?.length && (
-        <PaginationFooter
-          page={page}
-          setPage={setPage}
-          searchResults={searchResults}
-        />
-      )}
     </div>
   );
 }
