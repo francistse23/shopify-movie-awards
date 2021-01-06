@@ -14,7 +14,7 @@ export default function SearchResults({
 }) {
   return window.screen.width >= 1024 ? (
     <SectionDiv
-      backgroundColor={colors.sectionBackground}
+      backgroundColor={colors.secondaryColor}
       style={{
         flexDirection: "column",
         // alignItems: "center",
@@ -78,7 +78,7 @@ export default function SearchResults({
     <div>
       {inputText && <SectionTitle>{`Results for "${inputText}"`}</SectionTitle>}
 
-      <SectionDiv backgroundColor={colors.sectionBackground} height={300}>
+      <SectionDiv backgroundColor={colors.secondaryColor} height={300}>
         {!inputText.length ? (
           <SectionTitle>
             Try searching and adding some movies to your nominations list!

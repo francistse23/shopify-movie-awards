@@ -1,11 +1,12 @@
 export const colors = {
-  sectionBackground: "#212b36",
+  secondaryColor: "#212b36",
   lighterColor: "#FCF1CD",
-  lightColor: "#212B36",
+  lightColor: "#FFEA8A",
   mainColor: "#EEC200",
-  darkColor: "#108043",
-  darkerColor: "#173630",
+  darkColor: "#8A6116",
+  darkerColor: "#573B00",
   disabledColor: "#637381",
+  fontColor: "#108043",
 };
 
 export const dimensions = {

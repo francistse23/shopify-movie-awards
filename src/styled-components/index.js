@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 export const AppMain = styled.div`
   box-sizing: border-box;
-  color: ${colors.darkColor};
+  color: ${colors.fontColor};
   display: flex;
   flex: 2;
   font-family: Roboto Mono;
@@ -52,14 +52,14 @@ export const AppTitle = styled.h1`
 export const MovieContainerDiv = styled.div`
   align-items: center;
   background-color: ${(props) =>
-    props.isNominations ? colors.lightColor : "none"};
+    props.isNominations ? colors.secondaryColor : "none"};
   border: ${(props) =>
     props.isInNominations ? `2px solid ${colors.lightColor}` : "none"};
   border-radius: ${dimensions.fontSize * 0.75}px;
   box-sizing: border-box;
   box-shadow: ${(props) =>
     props.isNominations || props.isInNominations
-      ? `0px 0px 10px 5px ${colors.lighterColor}`
+      ? `0px 0px 10px 5px ${colors.lightColor}`
       : "none"};
   display: flex;
   flex: 0 0 ${(props) => (props.isNominations ? 17 : 45)}%;
@@ -87,7 +87,7 @@ export const MovieDetailsDiv = styled.div`
 `;
 
 export const MoviePlot = styled.p`
-  font-size: ${dimensions.fontSize * 0.8}px;
+  font-size: ${dimensions.fontSize * 0.9}px;
   text-align: justify;
 `;
 
@@ -130,7 +130,6 @@ export const NominationButtonsContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   height: 50%;
-  margin: 0 ${dimensions.spacing * 4}px;
 
   @media ${device.laptop} {
     flex: 1;
@@ -152,12 +151,12 @@ export const PageButton = styled.button`
   border-radius: ${dimensions.fontSize * 0.25}px;
   padding: ${dimensions.spacing}px;
   background-color: ${(props) =>
-    props.page === props.element ? colors.mainColor : colors.sectionBackground};
+    props.page === props.element ? colors.mainColor : colors.secondaryColor};
 `;
 
 export const PaginationButton = styled.button`
   align-items: center;
-  background-color: ${colors.sectionBackground};
+  background-color: ${colors.secondaryColor};
   border: none;
   border-radius: ${dimensions.fontSize * 0.25}px;
   color: ${colors.lighterColor};
@@ -185,7 +184,7 @@ export const PosterImage = styled.img`
 `;
 
 export const SearchBarDiv = styled.div`
-  background-color: ${colors.sectionBackground};
+  background-color: ${colors.secondaryColor};
   display: flex;
   flex-direction: column;
 
@@ -221,7 +220,7 @@ export const SectionDiv = styled.section`
     border-radius: ${dimensions.fontSize * 0.75}px;
   }
   ::-webkit-scrollbar-track {
-    background: ${colors.sectionBackground};
+    background: ${colors.secondaryColor};
   }
   ::-webkit-scrollbar-thumb {
     background: ${colors.lighterColor};
