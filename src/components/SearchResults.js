@@ -13,16 +13,7 @@ export default function SearchResults({
   setNominations,
 }) {
   return window.screen.width >= 1024 ? (
-    <SectionDiv
-      backgroundColor={colors.secondaryColor}
-      style={{
-        flexDirection: "column",
-        // alignItems: "center",
-        // justifyContent: "center",
-        // margin: "0 auto",
-        // maxWidth: "1200px",
-      }}
-    >
+    <SectionDiv>
       {!inputText.length ? (
         <SectionTitle>
           Try searching and adding some movies to your nominations list!
@@ -34,7 +25,7 @@ export default function SearchResults({
       )}
 
       {searchResults?.loading ? (
-        <Loading searchResults={searchResults} />
+        <Loading loading={searchResults?.loading} />
       ) : !searchResults?.loading &&
         inputText &&
         (searchResults?.result?.Error === "Movie not found!" ||
@@ -87,7 +78,7 @@ export default function SearchResults({
         ) : null}
 
         {searchResults?.loading ? (
-          <Loading searchResults={searchResults} />
+          <Loading loading={searchResults?.loading} />
         ) : !searchResults?.loading &&
           inputText &&
           (searchResults?.result?.Error === "Movie not found!" ||

@@ -10,7 +10,7 @@ import {
 } from "../styled-components";
 
 import React from "react";
-import { colors } from "../constants";
+import { dimensions } from "../constants";
 import { replacer } from "../lib/JSONHelper";
 
 export default function Movie({
@@ -69,19 +69,8 @@ export default function Movie({
           {!isNominations ? (
             <NominationButton
               aria-label="Add to nomination"
-              fontColor={
-                nominations.size >= 5 || isInNominations
-                  ? colors.secondaryColor
-                  : colors.darkColor
-              }
               disabled={nominations.size >= 5 || isInNominations}
               onClick={() => addToNominations(Title, Year, Poster, imdbID)}
-              style={{
-                backgroundColor:
-                  nominations.size >= 5 || isInNominations
-                    ? colors.disabledColor
-                    : colors.mainColor,
-              }}
             >
               <span role="img" aria-label="Ballot box emoji">
                 🗳️
@@ -89,19 +78,10 @@ export default function Movie({
               Nominate
             </NominationButton>
           ) : null}
-          {!isNominations && <div style={{ flex: 1 }} />}
           <NominationButton
             aria-label="Remove from nomination"
-            fontColor={
-              !isInNominations ? colors.secondaryColor : colors.darkColor
-            }
             disabled={!isInNominations}
             onClick={() => removeFromNominations(imdbID)}
-            style={{
-              backgroundColor: !isInNominations
-                ? colors.disabledColor
-                : colors.mainColor,
-            }}
           >
             <span role="img" aria-label="Remove emoji">
               ❌
@@ -127,9 +107,23 @@ export default function Movie({
         )}
 
         {/* <MovieRatings></MovieRatings> */}
-        <ul style={{ listStyleType: "none", textAlign: "left" }}>
+        <ul
+          style={{
+            listStyleType: "none",
+            padding: 0,
+            width: "50%",
+          }}
+        >
           {Ratings.map(({ Source, Value }) => (
-            <li key={Source}>
+            <li
+              key={Source}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                margin: `${dimensions.spacing * 2}px 0`,
+              }}
+            >
               <img
                 src={
                   Source.includes("Tomatoes")

@@ -1,9 +1,10 @@
-import React from "react";
-import { css } from "@emotion/core";
-import ClipLoader from "react-spinners/ClipLoader";
 import { colors, dimensions } from "../constants";
 
-export default function Loading({ searchResults }) {
+import ClipLoader from "react-spinners/ClipLoader";
+import React from "react";
+import { css } from "@emotion/core";
+
+export default function Loading({ loading }) {
   return (
     <ClipLoader
       css={css`
@@ -11,7 +12,7 @@ export default function Loading({ searchResults }) {
       `}
       size={100}
       color={`${colors.mainColor}`}
-      loading={searchResults?.loading || true}
+      loading={loading}
     />
   );
 }

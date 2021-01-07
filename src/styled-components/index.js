@@ -83,8 +83,11 @@ export const MovieContainerDiv = styled.div`
 `;
 
 export const MovieDetailsDiv = styled.div`
+  align-items: space-between;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
   width: 100%;
 `;
 
@@ -110,19 +113,21 @@ export const MovieTitle = styled.h3`
 `;
 
 export const NominationButton = styled.button`
+  background-color: ${(props) =>
+    props.disabled ? colors.disabledColor : colors.mainColor};
   border: none;
   border-radius: ${dimensions.fontSize * 0.75}px;
-  color: ${(props) => props.fontColor};
+  color: ${(props) =>
+    props.disabled ? colors.secondaryColor : colors.darkColor};
   cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
-  flex: 1;
-  font-size: ${dimensions.fontSize * 0.75}px;
+  font-size: ${dimensions.fontSize * 0.4}px;
   font-weight: 600;
   margin: ${dimensions.spacing * 2}px 0;
   padding: ${dimensions.spacing * 2}px ${dimensions.spacing}px;
   width: 100%;
 
   @media ${device.laptop} {
-    font-size: ${dimensions.fontSize}px;
+    font-size: ${dimensions.fontSize * 0.85}px;
   }
 `;
 
@@ -207,8 +212,8 @@ export const SearchBarInput = styled.input`
 
 export const SectionDiv = styled.section`
   align-items: center;
-  background-color: ${(props) => props.backgroundColor};
-  // box-shadow: 0px 0px 10px 5px ${colors.lighterColor};
+  background-color: ${(props) =>
+    props.backgroundColor ? props.backgroundColor : colors.secondaryColor};
   display: flex;
   flex-direction: column;
   position: relative;
