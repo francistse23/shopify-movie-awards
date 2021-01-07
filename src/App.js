@@ -523,6 +523,16 @@ function App() {
       {/* </AppBody> */}
 
       <NominationsBanner nominations={nominations} />
+      <button
+        aria-label="go back to nominations"
+        style={{ position: "fixed", bottom: "5%", right: "2.5%" }}
+      >
+        <a href="#nominations">
+          <span aria-label="trophy" role="img" style={{ fontSize: "24px" }}>
+            🏆
+          </span>
+        </a>
+      </button>
     </AppMain>
   );
 }

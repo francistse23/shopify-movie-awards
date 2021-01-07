@@ -64,7 +64,7 @@ export const MovieContainerDiv = styled.div`
       ? `0px 0px 10px 5px ${colors.lightColor}`
       : "none"};
   display: flex;
-  flex: 0 0 ${(props) => (props.isNominations ? 17 : 45)}%;
+  flex: 1 0 ${(props) => (props.isNominations ? 17 : 45)}%;
   flex-direction: ${(props) => (props.isNominations ? "column" : "row")};
   justify-content: space-between;
   margin: 0 ${dimensions.spacing * 20}px;
@@ -94,12 +94,13 @@ export const MovieDetailsDiv = styled.div`
   align-items: space-between;
   display: flex;
   flex-direction: ${(props) => (props.isNominations ? "row" : "column")};
+  height: 100%;
   justify-content: space-between;
   padding: 0 2.5%;
 `;
 
 export const MoviePlot = styled.p`
-  font-size: ${dimensions.fontSize * 0.9}px;
+  font-size: ${Math.ceil(dimensions.fontSize * 0.85)}px;
   text-align: justify;
 `;
 
@@ -115,7 +116,9 @@ export const MovieTitle = styled.h3`
 
   @media ${device.laptop} {
     font-size: ${(props) =>
-      props.isNominations ? dimensions.fontSize : dimensions.fontSize * 1.25}px;
+      props.isNominations
+        ? dimensions.fontSize * 0.9
+        : dimensions.fontSize * 1.25}px;
   }
 `;
 
@@ -130,7 +133,7 @@ export const NominationButton = styled.button`
   font-size: ${dimensions.fontSize * 0.4}px;
   font-weight: 600;
   margin: ${dimensions.spacing * 2}px 0;
-  padding: ${dimensions.spacing * 2}px ${dimensions.spacing}px;
+  padding: ${dimensions.spacing * 2}px ${dimensions.spacing * 4}px;
   width: 100%;
 
   @media ${device.laptop} {
