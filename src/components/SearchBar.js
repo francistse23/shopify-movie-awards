@@ -6,16 +6,6 @@ import { dimensions } from "../constants";
 export default function SearchBar({ inputText, setInputText, searchMovies }) {
   return (
     <SearchBarDiv>
-      {/* <div
-        style={{
-          width: "50%",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          border: "1px solid white",
-        }}
-      > */}
       <label
         htmlFor="search"
         id="search"
@@ -41,7 +31,6 @@ export default function SearchBar({ inputText, setInputText, searchMovies }) {
         placeholder={`🔎 e.g. Iron Man`}
         value={inputText}
       />
-      {/* </div> */}
     </SearchBarDiv>
   );
 }

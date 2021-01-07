@@ -43,6 +43,7 @@ export default function SearchResults({
             display: "flex",
             flexWrap: "wrap",
             width: "1600px",
+            justifyContent: "center",
           }}
           transitionName="movies"
           transitionEnterTimeout={500}

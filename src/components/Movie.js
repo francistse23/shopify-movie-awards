@@ -53,7 +53,46 @@ export default function Movie({
     }
   }
 
-  return (
+  return isNominations ? (
+    <MovieContainerDiv
+      isInNominations={isInNominations}
+      isNominations={isNominations}
+    >
+      <MovieDetailsDiv isNominations={isNominations}>
+        <MovieTitle isNominations={isNominations}>
+          {Title} ({Year})
+        </MovieTitle>
+        <MoviePosterDiv>
+          {Poster === "N/A" ? (
+            <PosterImage
+              src={require("../assets/poster-placeholder.png")}
+              alt={`Poster unavailable at this time`}
+              nominated={isNominations}
+            />
+          ) : (
+            <PosterImage
+              src={Poster}
+              alt={`${Title} Poster`}
+              nominated={isNominations}
+            />
+          )}
+        </MoviePosterDiv>
+      </MovieDetailsDiv>
+
+      <NominationButtonsContainer>
+        <NominationButton
+          aria-label="Remove from nomination"
+          disabled={!isInNominations}
+          onClick={() => removeFromNominations(imdbID)}
+        >
+          <span role="img" aria-label="Remove emoji">
+            ❌
+          </span>{" "}
+          Un-nominate
+        </NominationButton>
+      </NominationButtonsContainer>
+    </MovieContainerDiv>
+  ) : (
     <MovieContainerDiv
       isInNominations={isInNominations}
       isNominations={isNominations}

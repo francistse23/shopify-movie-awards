@@ -3,7 +3,7 @@ import { PageButton, PaginationButton } from "../styled-components";
 import React from "react";
 import { dimensions } from "../constants";
 
-export default function PaginationFooter({ page, setPage, searchResults }) {
+export default function PaginationFooter({ page, setPage, totalResults }) {
   return (
     <footer
       style={{
@@ -13,7 +13,8 @@ export default function PaginationFooter({ page, setPage, searchResults }) {
         flex: 1,
         justifyContent: "space-between",
         margin: `${dimensions.spacing * 4}px auto`,
-        width: "80%",
+        padding: `${dimensions.spacing * 4}px 0`,
+        width: "30%",
       }}
     >
       {page > 1 ? (
@@ -23,40 +24,50 @@ export default function PaginationFooter({ page, setPage, searchResults }) {
         >{`<`}</PaginationButton>
       ) : (
         <div
-          style={{ backgroundColor: "transparent", border: "none", flex: 1 }}
+          style={{
+            backgroundColor: "transparent",
+            border: "none",
+            flex: "0 0 10%",
+          }}
         />
       )}
       <div
         style={{
           alignItems: "center",
-          justifyContent: "space-around",
-          flex: 6,
+          display: "flex",
+          flex: "0 0 80%",
+          justifyContent: "space-between",
           width: "100%",
         }}
       >
-        {(page * 10 > searchResults?.result?.totalResults
+        {/* need to fix rendering */}
+        {(page * 10 > totalResults
           ? Array.from(Array(5), (_, i) => page - 4 + i)
           : Array.from(Array(5), (_, i) => (page > 1 ? page + i - 1 : page + i))
-        ).map((element) => (
+        ).map((pageNumber) => (
           <PageButton
-            key={`${page}-${element}`}
+            key={`${page}-${pageNumber}`}
             page={page}
-            element={element}
-            aria-label={`navigate to page ${element}`}
-            onClick={() => setPage(element)}
+            pageNumber={pageNumber}
+            aria-label={`navigate to page ${pageNumber}`}
+            onClick={() => setPage(pageNumber)}
           >
-            {element}
+            {pageNumber}
           </PageButton>
         ))}
       </div>
-      {10 * page < searchResults?.result?.totalResults ? (
+      {10 * page < totalResults ? (
         <PaginationButton
           aria-label="next page"
           onClick={() => setPage((page) => page + 1)}
         >{`>`}</PaginationButton>
       ) : (
         <div
-          style={{ backgroundColor: "transparent", border: "none", flex: 1 }}
+          style={{
+            backgroundColor: "transparent",
+            border: "none",
+            flex: "0 0 10%",
+          }}
         />
       )}
     </footer>

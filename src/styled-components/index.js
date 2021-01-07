@@ -65,18 +65,26 @@ export const MovieContainerDiv = styled.div`
       : "none"};
   display: flex;
   flex: 0 0 ${(props) => (props.isNominations ? 17 : 45)}%;
-  flex-direction: row;
+  flex-direction: ${(props) => (props.isNominations ? "column" : "row")};
   justify-content: space-between;
   margin: 0 ${dimensions.spacing * 20}px;
   overflow-y: hidden;
   padding: ${dimensions.spacing}px ${dimensions.spacing * 4}px;
 
   @media ${device.tablet} {
+    flex: 0 0 ${(props) => (props.isNominations ? 17 : 100)}%;
     margin: ${dimensions.spacing * 6}px;
     padding: ${dimensions.spacing * 2}px ${dimensions.spacing * 4}px;
   }
 
   @media ${device.laptop} {
+    flex: 0 0 ${(props) => (props.isNominations ? 17 : 60)}%;
+    padding: ${dimensions.spacing * 3}px ${dimensions.spacing * 6}px;
+    overflow-x: hidden;
+  }
+
+  @media ${device.laptopL} {
+    flex: 0 0 ${(props) => (props.isNominations ? 15 : 45)}%;
     padding: ${dimensions.spacing * 3}px ${dimensions.spacing * 6}px;
     overflow-x: hidden;
   }
@@ -85,10 +93,9 @@ export const MovieContainerDiv = styled.div`
 export const MovieDetailsDiv = styled.div`
   align-items: space-between;
   display: flex;
-  flex-direction: column;
+  flex-direction: ${(props) => (props.isNominations ? "row" : "column")};
   justify-content: space-between;
-  height: 100%;
-  width: 100%;
+  padding: 0 2.5%;
 `;
 
 export const MoviePlot = styled.p`
@@ -151,14 +158,13 @@ export const NominationsFooter = styled.footer`
 `;
 
 export const PageButton = styled.button`
-  width: 20%;
-  color: ${colors.lighterColor};
-  border: none;
-  flex: 1;
-  border-radius: ${dimensions.fontSize * 0.25}px;
-  padding: ${dimensions.spacing}px;
   background-color: ${(props) =>
-    props.page === props.element ? colors.mainColor : colors.secondaryColor};
+    props.page === props.pageNumber ? colors.mainColor : colors.secondaryColor};
+  color: ${colors.darkColor};
+  border: none;
+  border-radius: ${dimensions.fontSize * 0.25}px;
+  flex: 0 0 10%;
+  padding: ${dimensions.spacing}px;
 `;
 
 export const PaginationButton = styled.button`
@@ -168,7 +174,7 @@ export const PaginationButton = styled.button`
   border-radius: ${dimensions.fontSize * 0.25}px;
   color: ${colors.lighterColor};
   display: flex;
-  flex: 1;
+  flex: 0 0 10%;
   font-weight: 700;
   height: 100%;
   justify-content: center;
@@ -194,11 +200,7 @@ export const SearchBarDiv = styled.div`
   background-color: ${colors.secondaryColor};
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: ${dimensions.spacing * 8}px ${dimensions.spacing * 6}px;
-  // border-radius: ${dimensions.fontSize * 0.75}px;
-  // box-shadow: 0px 0px 10px 5px ${colors.lighterColor};
+  padding: ${dimensions.spacing * 4}px 20%;
 `;
 
 export const SearchBarInput = styled.input`
@@ -207,7 +209,6 @@ export const SearchBarInput = styled.input`
   border-radius: ${dimensions.fontSize * 0.75}px;
   font-size: ${dimensions.fontSize * 1.1}px;
   padding: ${dimensions.spacing * 4}px;
-  width: 100%;
 `;
 
 export const SectionDiv = styled.section`
@@ -216,7 +217,7 @@ export const SectionDiv = styled.section`
     props.backgroundColor ? props.backgroundColor : colors.secondaryColor};
   display: flex;
   flex-direction: column;
-  position: relative;
+  // position: relative;
 
   ::-webkit-scrollbar {
     width: 10px;
