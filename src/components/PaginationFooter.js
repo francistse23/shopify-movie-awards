@@ -24,27 +24,35 @@ export default function PaginationFooter({ page, setPage, totalResults }) {
         style={{
           alignItems: "center",
           display: "flex",
-          flex: "0 0 80%",
+          flex: "0 0 70%",
           justifyContent: "space-between",
           width: "100%",
         }}
       >
-        {/* need to fix rendering */}
-        {/* currently rendering more than 8 pages if there are 79 items */}
-        {(page * 10 > totalResults
-          ? Array.from(Array(5), (_, i) => page - 4 + i)
-          : Array.from(Array(5), (_, i) => (page > 1 ? page + i - 1 : page + i))
-        ).map((pageNumber) => (
-          <PageButton
-            key={`${page}-${pageNumber}`}
-            page={page}
-            pageNumber={pageNumber}
-            aria-label={`navigate to page ${pageNumber}`}
-            onClick={() => setPage(pageNumber)}
-          >
-            {pageNumber}
-          </PageButton>
-        ))}
+        {Array.from(
+          Array(5),
+          (_, i) => i + 1 + 5 * (Math.ceil(page / 5) - 1)
+        ).map((pageNumber) =>
+          pageNumber * 10 > Math.ceil(totalResults / 10) * 10 ? (
+            <div
+              style={{
+                backgroundColor: "transparent",
+                border: "none",
+                flex: "0 0 10%",
+              }}
+            />
+          ) : (
+            <PageButton
+              key={`${page}-${pageNumber}`}
+              page={page}
+              pageNumber={pageNumber}
+              aria-label={`navigate to page ${pageNumber}`}
+              onClick={() => setPage(pageNumber)}
+            >
+              {pageNumber}
+            </PageButton>
+          )
+        )}
       </div>
       {10 * page < totalResults ? (
         <PaginationButton

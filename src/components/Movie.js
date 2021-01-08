@@ -12,7 +12,6 @@ import {
 } from "../styled-components";
 
 import React from "react";
-import { dimensions } from "../constants";
 import { replacer } from "../lib/JSONHelper";
 
 export default function Movie({

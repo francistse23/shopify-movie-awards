@@ -52,13 +52,12 @@ export const AppTitle = styled.h1`
 
 export const FooterContainer = styled.footer`
   align-items: center;
-  // align-content: stretch;
   display: flex;
+  height: 100%;
   justify-content: space-between;
   margin: ${dimensions.spacing * 4}px auto;
   padding: ${dimensions.spacing * 4}px 0;
   width: 50%;
-  height: 100%;
 
   @media ${device.laptop} {
     width: 30%;
@@ -237,7 +236,6 @@ export const PageButton = styled.button`
 `;
 
 export const PaginationButton = styled.button`
-  align-items: center;
   background-color: ${colors.secondaryColor};
   border: none;
   border-radius: ${dimensions.fontSize * 0.25}px;
@@ -246,8 +244,8 @@ export const PaginationButton = styled.button`
   display: flex;
   flex: 0 0 10%;
   font-weight: 700;
-  // height: 100%;
   justify-content: center;
+  padding: ${dimensions.spacing}px;
 
   :hover {
     background-color: ${colors.lighterColor};
