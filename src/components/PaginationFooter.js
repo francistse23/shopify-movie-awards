@@ -41,6 +41,7 @@ export default function PaginationFooter({ page, setPage, totalResults }) {
         }}
       >
         {/* need to fix rendering */}
+        {/* currently rendering more than 8 pages if there are 79 items */}
         {(page * 10 > totalResults
           ? Array.from(Array(5), (_, i) => page - 4 + i)
           : Array.from(Array(5), (_, i) => (page > 1 ? page + i - 1 : page + i))

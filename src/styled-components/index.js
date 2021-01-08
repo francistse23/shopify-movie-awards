@@ -49,6 +49,21 @@ export const AppTitle = styled.h1`
   }
 `;
 
+export const HoverButton = styled.button`
+  background-color: ${colors.mainColor};
+  border: none;
+  border-radius: 50%;
+  bottom: 5%;
+  cursor: pointer;
+  padding: 1%;
+  position: fixed;
+  right: 2.5%;
+
+  :hover {
+    box-shadow: 0 0 5px 5px ${colors.lighterColor};
+  }
+`;
+
 export const MovieContainerDiv = styled.div`
   align-items: center;
   background-color: ${(props) =>
@@ -91,7 +106,7 @@ export const MovieContainerDiv = styled.div`
 `;
 
 export const MovieDetailsDiv = styled.div`
-  align-items: space-between;
+  align-items: ${(props) => (props.isNominations ? "center" : "")};
   display: flex;
   flex-direction: ${(props) => (props.isNominations ? "row" : "column")};
   height: 100%;
@@ -136,6 +151,10 @@ export const NominationButton = styled.button`
   padding: ${dimensions.spacing * 2}px ${dimensions.spacing * 4}px;
   width: 100%;
 
+  :hover {
+    background-color: ${(props) => !props.disabled && colors.lightColor};
+  }
+
   @media ${device.laptop} {
     font-size: ${dimensions.fontSize * 0.85}px;
   }
@@ -164,10 +183,15 @@ export const PageButton = styled.button`
   background-color: ${(props) =>
     props.page === props.pageNumber ? colors.mainColor : colors.secondaryColor};
   color: ${colors.darkColor};
+  cursor: pointer;
   border: none;
   border-radius: ${dimensions.fontSize * 0.25}px;
   flex: 0 0 10%;
   padding: ${dimensions.spacing}px;
+
+  :hover {
+    background-color: ${colors.lighterColor};
+  }
 `;
 
 export const PaginationButton = styled.button`
@@ -175,12 +199,17 @@ export const PaginationButton = styled.button`
   background-color: ${colors.secondaryColor};
   border: none;
   border-radius: ${dimensions.fontSize * 0.25}px;
-  color: ${colors.lighterColor};
+  color: ${colors.darkColor};
+  cursor: pointer;
   display: flex;
   flex: 0 0 10%;
   font-weight: 700;
   height: 100%;
   justify-content: center;
+
+  :hover {
+    background-color: ${colors.lighterColor};
+  }
 `;
 
 export const PosterImage = styled.img`

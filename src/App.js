@@ -1,6 +1,6 @@
 import "./App.css";
 
-import { AppMain, AppTitle } from "./styled-components";
+import { AppMain, AppTitle, HoverButton } from "./styled-components";
 import React, { Suspense, useEffect, useState } from "react";
 import { replacer, reviver } from "./lib/JSONHelper";
 
@@ -53,8 +53,6 @@ function App() {
         })
       );
 
-      console.log("movies with plot", JSON.stringify(moviesWithPlot));
-
       res.Search = moviesWithPlot;
 
       return res;
@@ -106,13 +104,7 @@ function App() {
                 width: "100%",
                 display: "flex",
                 justifyContent: "center",
-                // overflowX: "auto",
                 flexWrap: "wrap",
-                // scrollSnapType: "x mandatory",
-                // scrollBehavior: "smooth",
-                // WebkitOverflowScrolling: "touch",
-                // transform: "scale(1)",
-                // transition: "transform 0.5s",
               }}
             >
               {[...nominations.values()].map(
@@ -523,24 +515,20 @@ function App() {
       {/* </AppBody> */}
 
       <NominationsBanner nominations={nominations} />
-      <button
-        aria-label="go back to nominations"
-        style={{ position: "fixed", bottom: "5%", right: "2.5%" }}
+      <HoverButton
+        aria-label="go back to your nominations"
+        name="Your Nominations"
+        onClick={(e) => {
+          e.preventDefault();
+          document.getElementById("nominations").scrollIntoView({
+            behavior: "smooth",
+          });
+        }}
       >
-        <a
-          href="#nominations"
-          onClick={(e) => {
-            e.preventDefault();
-            document.getElementById("nominations").scrollIntoView({
-              behavior: "smooth",
-            });
-          }}
-        >
-          <span aria-label="trophy" role="img" style={{ fontSize: "24px" }}>
-            🏆
-          </span>
-        </a>
-      </button>
+        <span aria-label="trophy" role="img" style={{ fontSize: "24px" }}>
+          🏆
+        </span>
+      </HoverButton>
     </AppMain>
   );
 }
