@@ -1,22 +1,11 @@
 import { PageButton, PaginationButton } from "../styled-components";
 
+import { FooterContainer } from "../styled-components";
 import React from "react";
-import { dimensions } from "../constants";
 
 export default function PaginationFooter({ page, setPage, totalResults }) {
   return (
-    <footer
-      style={{
-        alignItems: "center",
-        alignContent: "stretch",
-        display: "flex",
-        justifyContent: "space-between",
-        margin: `${dimensions.spacing * 4}px auto`,
-        padding: `${dimensions.spacing * 4}px 0`,
-        width: "30%",
-        height: "100%",
-      }}
-    >
+    <FooterContainer>
       {page > 1 ? (
         <PaginationButton
           aria-label="previous page"
@@ -71,6 +60,6 @@ export default function PaginationFooter({ page, setPage, totalResults }) {
           }}
         />
       )}
-    </footer>
+    </FooterContainer>
   );
 }

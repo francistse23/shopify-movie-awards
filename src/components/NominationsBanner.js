@@ -1,8 +1,9 @@
-import React from "react";
-import { CSSTransitionGroup } from "react-transition-group";
-import { Subtitle, NominationsFooter } from "../styled-components";
-
 import "./NominationsBanner.css";
+
+import { NominationsFooter, Subtitle } from "../styled-components";
+
+import { CSSTransitionGroup } from "react-transition-group";
+import React from "react";
 
 export default function NominationsBanner({ nominations }) {
   return (
@@ -11,8 +12,9 @@ export default function NominationsBanner({ nominations }) {
       transitionEnterTimeout={500}
       transitionLeaveTimeout={500}
       style={{
-        position: "sticky",
+        position: "fixed",
         bottom: 0,
+        width: "100%",
       }}
     >
       {nominations.size === 5 && (

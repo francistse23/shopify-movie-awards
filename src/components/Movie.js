@@ -3,6 +3,8 @@ import {
   MovieDetailsDiv,
   MoviePlot,
   MoviePosterDiv,
+  MovieRating,
+  MovieRatings,
   MovieTitle,
   NominationButton,
   NominationButtonsContainer,
@@ -145,24 +147,9 @@ export default function Movie({
           />
         )}
 
-        {/* <MovieRatings></MovieRatings> */}
-        <ul
-          style={{
-            listStyleType: "none",
-            padding: 0,
-            width: "50%",
-          }}
-        >
+        <MovieRatings>
           {Ratings.map(({ Source, Value }) => (
-            <li
-              key={Source}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                margin: `${dimensions.spacing * 2}px 0`,
-              }}
-            >
+            <MovieRating key={Source}>
               <img
                 src={
                   Source.includes("Tomatoes")
@@ -175,9 +162,9 @@ export default function Movie({
                 style={{ height: "24px", width: "24px" }}
               />{" "}
               {Value}
-            </li>
+            </MovieRating>
           ))}
-        </ul>
+        </MovieRatings>
       </MoviePosterDiv>
     </MovieContainerDiv>
   );

@@ -6,7 +6,6 @@ import { replacer, reviver } from "./lib/JSONHelper";
 
 import Loading from "./components/Loading";
 import NominationsBanner from "./components/NominationsBanner";
-import PaginationFooter from "./components/PaginationFooter";
 import SearchBar from "./components/SearchBar";
 import { colors } from "./constants";
 import useDebouncedSearch from "./components/useDebouncedSearch";
@@ -110,7 +109,10 @@ function App() {
         </div>
       </Suspense>
       {/* <AppBody> */}
-      <Suspense fallback={<Loading />}>
+      <Suspense
+        fallback={<Loading />}
+        style={{ display: "flex", flexDirection: "column" }}
+      >
         <SearchResults
           inputText={inputText}
           // searchResults={searchResults}
@@ -480,15 +482,12 @@ function App() {
           setNominations={setNominations}
           setInputText={setInputText}
           searchMovies={searchMovies}
+          page={page}
+          setPage={setPage}
         />
 
         {/* {searchResults?.result?.Search?.length && ( */}
-        <PaginationFooter
-          page={page}
-          setPage={setPage}
-          // searchResults?.result?.totalResults
-          totalResults={Number(79)}
-        />
+
         {/* // )} */}
       </Suspense>
       {/* </AppBody> */}

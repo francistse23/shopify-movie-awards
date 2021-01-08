@@ -6,7 +6,7 @@ export const AppMain = styled.div`
   box-sizing: border-box;
   color: ${colors.fontColor};
   display: flex;
-  flex: 2;
+  flex: 1;
   font-family: Roboto Mono;
   height: 100%;
   position: relative;
@@ -17,19 +17,20 @@ export const AppMain = styled.div`
   width: 100%;
 
   // @media ${device.mobileM} {
-  //   max-width: ${screenSize.mobileM};
+
   // }
 
   // @media ${device.mobileL} {
-  //   max-width: ${screenSize.mobileL};
+
   // }
 
-  // @media ${device.tablet} {
-  //   max-width: ${screenSize.tablet};
+  @media ${device.tablet} {
+    padding-bottom: 8%;
+  }
 
-  // @media ${device.laptop} {
-  //   max-width: ${screenSize.laptop};
-  // }
+  @media ${device.laptop} {
+    padding-bottom: 5%;
+  }
 
   // @media ${device.laptopL} {
   //   max-width: 1400px;
@@ -49,11 +50,26 @@ export const AppTitle = styled.h1`
   }
 `;
 
+export const FooterContainer = styled.footer`
+  align-items: center;
+  // align-content: stretch;
+  display: flex;
+  justify-content: space-between;
+  margin: ${dimensions.spacing * 4}px auto;
+  padding: ${dimensions.spacing * 4}px 0;
+  width: 50%;
+  height: 100%;
+
+  @media ${device.laptop} {
+    width: 30%;
+  }
+`;
+
 export const HoverButton = styled.button`
   background-color: ${colors.mainColor};
   border: none;
   border-radius: 50%;
-  bottom: 7.5%;
+  bottom: 5%;
   cursor: pointer;
   padding: 1%;
   position: fixed;
@@ -74,7 +90,7 @@ export const MovieContainerDiv = styled.div`
   border-radius: ${dimensions.fontSize * 0.75}px;
   box-sizing: border-box;
   box-shadow: ${(props) =>
-    props.isNominations && props.isInNominations
+    props.isNominations
       ? `0px 0px 10px 5px ${colors.secondaryColor}`
       : props.isInNominations
       ? `0px 0px 10px 5px ${colors.lightColor}`
@@ -88,9 +104,9 @@ export const MovieContainerDiv = styled.div`
   padding: ${dimensions.spacing}px ${dimensions.spacing * 4}px;
 
   @media ${device.tablet} {
-    flex: 0 0 ${(props) => (props.isNominations ? 25 : 10)}%;
+    flex: 0 0 ${(props) => (props.isNominations ? 25 : 13)}%;
     margin: ${dimensions.spacing * 6}px;
-    padding: ${dimensions.spacing * 2}px ${dimensions.spacing * 4}px;
+    padding: ${dimensions.spacing}px ${dimensions.spacing * 4}px;
   }
 
   @media ${device.laptop} {
@@ -123,6 +139,23 @@ export const MoviePosterDiv = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: ${dimensions.spacing * 6}px;
+`;
+
+export const MovieRating = styled.li`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: ${dimensions.spacing * 2}px 0;
+`;
+
+export const MovieRatings = styled.ul`
+  list-style-type: none;
+  padding: 0;
+  width: 50%;
+
+  @media ${device.tablet} {
+    width: 70%;
+  }
 `;
 
 export const MovieTitle = styled.h3`
@@ -227,8 +260,8 @@ export const PosterImage = styled.img`
   border-radius: ${dimensions.fontSize * 0.5}px;
 
   @media ${device.tablet} {
-    height: ${(props) => (props.nominated ? "75px" : "112px")};
-    width: ${(props) => (props.nominated ? "50px" : "75px")};
+    height: ${(props) => (props.nominated ? "75px" : "224px")};
+    width: ${(props) => (props.nominated ? "50px" : "150px")};
   }
 
   @media${device.laptop} {
@@ -258,7 +291,7 @@ export const SectionDiv = styled.section`
     props.backgroundColor ? props.backgroundColor : colors.secondaryColor};
   display: flex;
   flex-direction: column;
-  // position: relative;
+  position: relative;
 
   ::-webkit-scrollbar {
     width: 10px;
