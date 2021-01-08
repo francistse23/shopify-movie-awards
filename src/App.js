@@ -527,7 +527,15 @@ function App() {
         aria-label="go back to nominations"
         style={{ position: "fixed", bottom: "5%", right: "2.5%" }}
       >
-        <a href="#nominations">
+        <a
+          href="#nominations"
+          onClick={(e) => {
+            e.preventDefault();
+            document.getElementById("nominations").scrollIntoView({
+              behavior: "smooth",
+            });
+          }}
+        >
           <span aria-label="trophy" role="img" style={{ fontSize: "24px" }}>
             🏆
           </span>
