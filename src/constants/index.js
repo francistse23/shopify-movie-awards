@@ -19,9 +19,9 @@ export const screenSize = {
   mobileM: "375px",
   mobileL: "425px",
   tablet: "768px",
-  laptop: "1024px",
+  laptop: "1080px",
   laptopL: "1440px",
-  desktop: "2560px",
+  desktop: "1920px",
 };
 
 export const device = {

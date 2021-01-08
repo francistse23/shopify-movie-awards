@@ -10,11 +10,11 @@ export default function PaginationFooter({ page, setPage, totalResults }) {
         alignItems: "center",
         alignContent: "stretch",
         display: "flex",
-        flex: 1,
         justifyContent: "space-between",
         margin: `${dimensions.spacing * 4}px auto`,
         padding: `${dimensions.spacing * 4}px 0`,
         width: "30%",
+        height: "100%",
       }}
     >
       {page > 1 ? (

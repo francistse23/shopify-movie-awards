@@ -1,10 +1,15 @@
-import { SectionDiv, SectionTitle } from "../styled-components";
+import {
+  NominationsContainer,
+  SectionDiv,
+  SectionTitle,
+} from "../styled-components";
 
 import { CSSTransitionGroup } from "react-transition-group";
+import Movie from "./Movie";
 import React from "react";
 import { colors } from "../constants";
 
-export default function Nominations({ nominations }) {
+export default function Nominations({ nominations, setNominations }) {
   return (
     <SectionDiv backgroundColor={colors.mainColor} id="nominations">
       <SectionTitle>
@@ -14,7 +19,7 @@ export default function Nominations({ nominations }) {
         </span>
       </SectionTitle>
 
-      {nominations.size === 0 && (
+      {nominations.size === 0 ? (
         <CSSTransitionGroup
           transitionName="movies"
           transitionEnterTimeout={500}
@@ -25,6 +30,21 @@ export default function Nominations({ nominations }) {
           </p>
           <p key="max-nominations">You can add at most 5 nominations</p>
         </CSSTransitionGroup>
+      ) : (
+        <NominationsContainer>
+          {[...nominations.values()].map(({ Title, Year, Poster, imdbID }) => (
+            <Movie
+              key={imdbID}
+              Title={Title}
+              Year={Year}
+              Poster={Poster}
+              imdbID={imdbID}
+              nominations={nominations}
+              setNominations={setNominations}
+              isNominations={true}
+            />
+          ))}
+        </NominationsContainer>
       )}
     </SectionDiv>
   );

@@ -5,7 +5,6 @@ import React, { Suspense, useEffect, useState } from "react";
 import { replacer, reviver } from "./lib/JSONHelper";
 
 import Loading from "./components/Loading";
-import Movie from "./components/Movie";
 import NominationsBanner from "./components/NominationsBanner";
 import PaginationFooter from "./components/PaginationFooter";
 import SearchBar from "./components/SearchBar";
@@ -95,33 +94,13 @@ function App() {
             style={{
               backgroundColor: colors.mainColor,
               width: "100%",
-              scrollbarColor: "transparent transparent",
             }}
           >
-            <Nominations nominations={nominations} />
-            <div
-              style={{
-                width: "100%",
-                display: "flex",
-                justifyContent: "center",
-                flexWrap: "wrap",
-              }}
-            >
-              {[...nominations.values()].map(
-                ({ Title, Year, Poster, imdbID }) => (
-                  <Movie
-                    key={imdbID}
-                    Title={Title}
-                    Year={Year}
-                    Poster={Poster}
-                    imdbID={imdbID}
-                    nominations={nominations}
-                    setNominations={setNominations}
-                    isNominations={true}
-                  />
-                )
-              )}
-            </div>
+            <Nominations
+              nominations={nominations}
+              setNominations={setNominations}
+            />
+
             <SearchBar
               inputText={inputText}
               setInputText={setInputText}

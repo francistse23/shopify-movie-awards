@@ -53,11 +53,12 @@ export const HoverButton = styled.button`
   background-color: ${colors.mainColor};
   border: none;
   border-radius: 50%;
-  bottom: 5%;
+  bottom: 7.5%;
   cursor: pointer;
   padding: 1%;
   position: fixed;
   right: 2.5%;
+  outline-style: none;
 
   :hover {
     box-shadow: 0 0 5px 5px ${colors.lighterColor};
@@ -79,7 +80,7 @@ export const MovieContainerDiv = styled.div`
       ? `0px 0px 10px 5px ${colors.lightColor}`
       : "none"};
   display: flex;
-  flex: 1 0 ${(props) => (props.isNominations ? 17 : 45)}%;
+  // flex: 0 0 ${(props) => (props.isNominations ? 17 : 45)}%;
   flex-direction: ${(props) => (props.isNominations ? "column" : "row")};
   justify-content: space-between;
   margin: 0 ${dimensions.spacing * 20}px;
@@ -87,21 +88,19 @@ export const MovieContainerDiv = styled.div`
   padding: ${dimensions.spacing}px ${dimensions.spacing * 4}px;
 
   @media ${device.tablet} {
-    flex: 0 0 ${(props) => (props.isNominations ? 17 : 100)}%;
+    flex: 0 0 ${(props) => (props.isNominations ? 25 : 10)}%;
     margin: ${dimensions.spacing * 6}px;
     padding: ${dimensions.spacing * 2}px ${dimensions.spacing * 4}px;
   }
 
   @media ${device.laptop} {
-    flex: 0 0 ${(props) => (props.isNominations ? 17 : 60)}%;
-    padding: ${dimensions.spacing * 3}px ${dimensions.spacing * 6}px;
-    overflow-x: hidden;
+    flex: 0 0 ${(props) => (props.isNominations ? 30 : 50)}%;
+    margin: ${dimensions.spacing * 4}px;
   }
 
   @media ${device.laptopL} {
-    flex: 0 0 ${(props) => (props.isNominations ? 15 : 45)}%;
+    flex: 0 0 ${(props) => (props.isNominations ? 17 : 40)}%;
     padding: ${dimensions.spacing * 3}px ${dimensions.spacing * 6}px;
-    overflow-x: hidden;
   }
 `;
 
@@ -145,7 +144,6 @@ export const NominationButton = styled.button`
   color: ${(props) =>
     props.disabled ? colors.secondaryColor : colors.darkColor};
   cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
-  font-size: ${dimensions.fontSize * 0.4}px;
   font-weight: 600;
   margin: ${dimensions.spacing * 2}px 0;
   padding: ${dimensions.spacing * 2}px ${dimensions.spacing * 4}px;
@@ -156,6 +154,9 @@ export const NominationButton = styled.button`
   }
 
   @media ${device.laptop} {
+    font-size: ${dimensions.fontSize * 0.75}px;
+  }
+  @media ${device.desktop} {
     font-size: ${dimensions.fontSize * 0.85}px;
   }
 `;
@@ -172,6 +173,14 @@ export const NominationButtonsContainer = styled.div`
   }
 `;
 
+export const NominationsContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: ${dimensions.spacing * 4}px 0;
+  width: 100%;
+`;
+
 export const NominationsFooter = styled.footer`
   background-color: ${colors.lighterColor};
   border-radius: ${dimensions.fontSize * 0.75}px ${dimensions.fontSize * 0.75}px
@@ -184,7 +193,7 @@ export const PageButton = styled.button`
     props.page === props.pageNumber ? colors.mainColor : colors.secondaryColor};
   color: ${colors.darkColor};
   cursor: pointer;
-  border: none;
+  border: 1px solid ${colors.darkColor};
   border-radius: ${dimensions.fontSize * 0.25}px;
   flex: 0 0 10%;
   padding: ${dimensions.spacing}px;
@@ -204,7 +213,7 @@ export const PaginationButton = styled.button`
   display: flex;
   flex: 0 0 10%;
   font-weight: 700;
-  height: 100%;
+  // height: 100%;
   justify-content: center;
 
   :hover {
