@@ -7,7 +7,7 @@ import React from "react";
 import { TransitionGroup } from "react-transition-group";
 
 export default function SearchResults({
-  queryState: { isLoading, isError },
+  queryState: { isLoading, isError, typing },
   inputText,
   searchResults,
   nominations,
@@ -23,9 +23,9 @@ export default function SearchResults({
         </SectionTitle>
       ) : null}
 
-      {isLoading ? (
+      {isLoading || typing ? (
         <Loading loading={isLoading} />
-      ) : inputText && (isError || !searchResults) ? (
+      ) : inputText && (isError || !searchResults) && !typing ? (
         <div style={{ display: "flex", flexDirection: "column" }}>
           <SectionTitle>{`Hmm... we cannot find any movie title that includes "${inputText}".`}</SectionTitle>
           <SectionTitle>
@@ -48,7 +48,7 @@ export default function SearchResults({
               width: "100%",
               justifyContent: "center",
             }}
-            transitionName="movies"
+            classNames="movies"
             timeout={500}
           >
             {searchResults?.map(

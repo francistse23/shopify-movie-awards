@@ -21,7 +21,7 @@ function App() {
   const [inputText, setInputText] = useState("");
   const [page, setPage] = useState(1);
 
-  const debouncedInputText = useDebounce(inputText);
+  const { debouncedValue: debouncedInputText, typing } = useDebounce(inputText);
 
   const queriedResult = useQuery(
     [inputText, page],
@@ -114,7 +114,7 @@ function App() {
         style={{ display: "flex", flexDirection: "column" }}
       >
         <SearchResults
-          queryState={{ isLoading, isError }}
+          queryState={{ isLoading, isError, typing }}
           inputText={inputText}
           searchResults={searchResults}
           nominations={nominations}

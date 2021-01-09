@@ -20,7 +20,7 @@ export default function Nominations({ nominations, setNominations }) {
       </SectionTitle>
 
       {nominations.size === 0 ? (
-        <TransitionGroup transitionName="movies" timeout={500}>
+        <TransitionGroup classNames="movies" timeout={500}>
           <p key="no-nominations">
             You don't have any nominations for The Shoppies yet.
           </p>

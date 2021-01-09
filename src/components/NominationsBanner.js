@@ -8,7 +8,7 @@ import { TransitionGroup } from "react-transition-group";
 export default function NominationsBanner({ nominations }) {
   return (
     <TransitionGroup
-      transitionName="nominations-footer"
+      classNames="nominations-footer"
       timeout={500}
       style={{
         position: "fixed",
