@@ -2,15 +2,14 @@ import "./NominationsBanner.css";
 
 import { NominationsFooter, Subtitle } from "../styled-components";
 
-import { CSSTransitionGroup } from "react-transition-group";
 import React from "react";
+import { TransitionGroup } from "react-transition-group";
 
 export default function NominationsBanner({ nominations }) {
   return (
-    <CSSTransitionGroup
+    <TransitionGroup
       transitionName="nominations-footer"
-      transitionEnterTimeout={500}
-      transitionLeaveTimeout={500}
+      timeout={500}
       style={{
         position: "fixed",
         bottom: 0,
@@ -27,6 +26,6 @@ export default function NominationsBanner({ nominations }) {
           </Subtitle>
         </NominationsFooter>
       )}
-    </CSSTransitionGroup>
+    </TransitionGroup>
   );
 }

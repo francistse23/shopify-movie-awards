@@ -1,11 +1,11 @@
-import { SearchBarDiv, SearchBarInput } from "../styled-components";
+import { SearchBarContainer, SearchBarInput } from "../styled-components";
 
 import React from "react";
 import { dimensions } from "../constants";
 
-export default function SearchBar({ inputText, setInputText, searchMovies }) {
+export default function SearchBar({ inputText, setInputText }) {
   return (
-    <SearchBarDiv>
+    <SearchBarContainer>
       <label
         htmlFor="search"
         id="search"
@@ -25,12 +25,9 @@ export default function SearchBar({ inputText, setInputText, searchMovies }) {
         inputMode="search"
         name="search"
         onChange={(e) => setInputText(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") searchMovies(inputText);
-        }}
         placeholder={`🔎 e.g. Iron Man`}
         value={inputText}
       />
-    </SearchBarDiv>
+    </SearchBarContainer>
   );
 }

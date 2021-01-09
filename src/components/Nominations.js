@@ -4,9 +4,9 @@ import {
   SectionTitle,
 } from "../styled-components";
 
-import { CSSTransitionGroup } from "react-transition-group";
 import Movie from "./Movie";
 import React from "react";
+import { TransitionGroup } from "react-transition-group";
 import { colors } from "../constants";
 
 export default function Nominations({ nominations, setNominations }) {
@@ -20,16 +20,12 @@ export default function Nominations({ nominations, setNominations }) {
       </SectionTitle>
 
       {nominations.size === 0 ? (
-        <CSSTransitionGroup
-          transitionName="movies"
-          transitionEnterTimeout={500}
-          transitionLeaveTimeout={500}
-        >
+        <TransitionGroup transitionName="movies" timeout={500}>
           <p key="no-nominations">
             You don't have any nominations for The Shoppies yet.
           </p>
           <p key="max-nominations">You can add at most 5 nominations</p>
-        </CSSTransitionGroup>
+        </TransitionGroup>
       ) : (
         <NominationsContainer>
           {[...nominations.values()].map(({ Title, Year, Poster, imdbID }) => (

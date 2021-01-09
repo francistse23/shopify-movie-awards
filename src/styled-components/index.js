@@ -32,9 +32,9 @@ export const AppMain = styled.div`
     padding-bottom: 5%;
   }
 
-  // @media ${device.laptopL} {
-  //   max-width: 1400px;
-  // }
+  @media ${device.laptopL} {
+    padding-bottom: 10%;
+  }
 `;
 
 export const AppTitle = styled.h1`
@@ -268,7 +268,7 @@ export const PosterImage = styled.img`
   }
 `;
 
-export const SearchBarDiv = styled.div`
+export const SearchBarContainer = styled.div`
   background-color: ${colors.secondaryColor};
   display: flex;
   flex-direction: column;
