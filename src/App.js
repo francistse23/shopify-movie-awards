@@ -7,6 +7,7 @@ import { replacer, reviver } from "./lib/JSONHelper";
 
 import Loading from "./components/Loading";
 import NominationsBanner from "./components/NominationsBanner";
+import { ReactQueryDevtools } from "react-query/devtools";
 import SearchBar from "./components/SearchBar";
 import { colors } from "./constants";
 import useDebounce from "./components/useDebounce";
@@ -23,45 +24,56 @@ function App() {
 
   const { debouncedValue: debouncedInputText, typing } = useDebounce(inputText);
 
+  async function searchMovies(inputText, page) {
+    try {
+      const res = await (
+        await fetch(
+          `https://www.omdbapi.com/?apikey=${OMDB_KEY}&s=${inputText}&type=movie&page=${page}`
+        )
+      ).json();
+
+      const moviesWithPlot = await Promise.all(
+        res.Search?.map(async ({ imdbID }) => {
+          const movie = (
+            await fetch(
+              `https://www.omdbapi.com/?apikey=${OMDB_KEY}&i=${imdbID}&type=movie&plot=full`
+            )
+          ).json();
+
+          return movie;
+        })
+      );
+
+      res.Search = moviesWithPlot;
+
+      return res;
+    } catch (err) {
+      throw new Error(err);
+    }
+  }
+
   const queriedResult = useQuery(
     [inputText, page],
-    async () => {
-      try {
-        const res = await (
-          await fetch(
-            `https://www.omdbapi.com/?apikey=${OMDB_KEY}&s=${inputText}&type=movie&page=${page}`
-          )
-        ).json();
-
-        const moviesWithPlot = await Promise.all(
-          res.Search?.map(async ({ imdbID }) => {
-            const movie = (
-              await fetch(
-                `https://www.omdbapi.com/?apikey=${OMDB_KEY}&i=${imdbID}&type=movie&plot=full`
-              )
-            ).json();
-
-            return movie;
-          })
-        );
-
-        res.Search = moviesWithPlot;
-
-        return res;
-      } catch (err) {
-        console.error(err);
-      }
-    },
-    { enabled: !!debouncedInputText }
+    () => searchMovies(inputText, page),
+    {
+      enabled: !!debouncedInputText && debouncedInputText.length > 2,
+      // going back in page
+      // resulting in new/old page data/all data
+      keepPreviousData: true,
+      refetchOnMount: true,
+      staleTime: 1000 * 60 * 30,
+    }
   );
 
   const {
-    data: { Search: searchResults } = {},
+    data: { Search: searchResults, totalResults } = {},
     isLoading = true,
     isError,
   } = queriedResult;
 
   const { localStorage } = window;
+
+  console.log(queriedResult);
 
   useEffect(() => {
     if (
@@ -79,6 +91,14 @@ function App() {
       setNominations(storedNominations);
     }
   }, [localStorage]);
+
+  useEffect(() => {
+    if (isLoading) {
+      document.getElementById("search-bar").scrollIntoView({
+        behavior: "smooth",
+      });
+    }
+  }, [isLoading, page]);
 
   return (
     <AppMain>
@@ -121,10 +141,11 @@ function App() {
           setNominations={setNominations}
           page={page}
           setPage={setPage}
+          totalResults={totalResults}
         />
       </Suspense>
 
-      <NominationsBanner nominations={nominations} />
+      <NominationsBanner numOfNominations={nominations.size} />
       <HoverButton
         aria-label="go back to your nominations"
         name="Your Nominations"
@@ -146,6 +167,7 @@ function App() {
 function AppWithQueryClient() {
   return (
     <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
       <App />
     </QueryClientProvider>
   );

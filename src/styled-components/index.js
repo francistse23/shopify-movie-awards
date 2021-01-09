@@ -33,7 +33,7 @@ export const AppMain = styled.div`
   }
 
   @media ${device.laptopL} {
-    padding-bottom: 10%;
+    // padding-bottom: 10%;
   }
 `;
 
@@ -114,7 +114,7 @@ export const MovieContainerDiv = styled.div`
   }
 
   @media ${device.laptopL} {
-    flex: 0 0 ${(props) => (props.isNominations ? 17 : 40)}%;
+    flex: 0 0 ${(props) => (props.isNominations ? 14 : 40)}%;
     padding: ${dimensions.spacing * 3}px ${dimensions.spacing * 6}px;
   }
 `;
@@ -217,7 +217,10 @@ export const NominationsFooter = styled.footer`
   background-color: ${colors.lighterColor};
   border-radius: ${dimensions.fontSize * 0.75}px ${dimensions.fontSize * 0.75}px
     0 0;
+  bottom: 0;
+  position: fixed;
   overflow-y: hidden;
+  width: 100%;
 `;
 
 export const PageButton = styled.button`

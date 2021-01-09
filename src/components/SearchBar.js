@@ -5,7 +5,7 @@ import { dimensions } from "../constants";
 
 export default function SearchBar({ inputText, setInputText }) {
   return (
-    <SearchBarContainer>
+    <SearchBarContainer id="search-bar">
       <label
         htmlFor="search"
         id="search"

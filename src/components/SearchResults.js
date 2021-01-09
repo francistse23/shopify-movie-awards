@@ -14,6 +14,7 @@ export default function SearchResults({
   setNominations,
   page,
   setPage,
+  totalResults,
 }) {
   return (
     <SectionDiv>
@@ -48,7 +49,7 @@ export default function SearchResults({
               width: "100%",
               justifyContent: "center",
             }}
-            classNames="movies"
+            // classNames="movies"
             timeout={500}
           >
             {searchResults?.map(
@@ -70,11 +71,11 @@ export default function SearchResults({
         </>
       )}
 
-      {searchResults?.result?.totalResults && (
+      {totalResults && (
         <PaginationFooter
           page={page}
           setPage={setPage}
-          totalResults={Number(searchResults?.result?.totalResults)}
+          totalResults={Number(totalResults)}
         />
       )}
     </SectionDiv>
