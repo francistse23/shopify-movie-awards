@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-function useDebounce(value, delay = 500) {
+export default function useDebounce(value, delay = 500) {
   const [debouncedValue, setDebouncedValue] = useState(value);
   const [typing, setTyping] = useState(false);
 
@@ -21,5 +21,3 @@ function useDebounce(value, delay = 500) {
     typing,
   };
 }
-
-export default useDebounce;
