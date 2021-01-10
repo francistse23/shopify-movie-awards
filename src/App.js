@@ -45,32 +45,32 @@ function App() {
 
   return (
     <AppMain>
-      <Suspense fallback={<Loading loading={true} />}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          position: "relative",
+          height: "100%",
+        }}
+      >
+        <AppTitle>The Shoppies</AppTitle>
         <div
           style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            position: "relative",
-            height: "100%",
+            backgroundColor: colors.mainColor,
+            width: "100%",
           }}
         >
-          <AppTitle>The Shoppies</AppTitle>
-          <div
-            style={{
-              backgroundColor: colors.mainColor,
-              width: "100%",
-            }}
-          >
+          <Suspense fallback={<Loading loading={true} />}>
             <Nominations
               nominations={nominations}
               setNominations={setNominations}
             />
+          </Suspense>
 
-            <SearchBar inputText={inputText} setInputText={setInputText} />
-          </div>
+          <SearchBar inputText={inputText} setInputText={setInputText} />
         </div>
-      </Suspense>
+      </div>
 
       {/* <Suspense fallback={<Loading loading={true} />}> */}
       <SearchResults
