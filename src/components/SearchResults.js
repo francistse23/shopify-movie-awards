@@ -5,17 +5,67 @@ import Movie from "./Movie";
 import PaginationFooter from "./PaginationFooter";
 import React from "react";
 import { TransitionGroup } from "react-transition-group";
+import { useQuery } from "react-query";
+
+const OMDB_KEY = process.env.REACT_APP_OMDB_KEY;
+
+async function searchMovies(inputText, page) {
+  try {
+    const res = await (
+      await fetch(
+        `https://www.omdbapi.com/?apikey=${OMDB_KEY}&s=${inputText}&type=movie&page=${page}`
+      )
+    ).json();
+
+    // using short plots to minimize scrolling
+    // if needed, can change plot=full to get a detailed plot
+    const moviesWithPlot = await Promise.all(
+      res.Search?.map(async ({ imdbID }) => {
+        const movie = (
+          await fetch(
+            `https://www.omdbapi.com/?apikey=${OMDB_KEY}&i=${imdbID}&type=movie&plot=short`
+          )
+        ).json();
+
+        return movie;
+      })
+    );
+
+    res.Search = moviesWithPlot;
+
+    return res;
+  } catch (err) {
+    throw new Error(err);
+  }
+}
 
 export default function SearchResults({
-  queryState: { isLoading, isError, typing },
+  typing,
   inputText,
-  searchResults,
   nominations,
   setNominations,
   page,
   setPage,
-  totalResults,
 }) {
+  const queriedResult = useQuery(
+    [inputText, page],
+    () => searchMovies(inputText, page),
+    {
+      enabled: !!inputText && inputText.length > 2,
+      // going back in page
+      // resulting in new/old page data/all data
+      keepPreviousData: true,
+      staleTime: 5000,
+      // cacheTime: 1000 * 60 * 30,
+    }
+  );
+
+  const {
+    data: { Search: searchResults, totalResults } = {},
+    isLoading = true,
+    isError,
+  } = queriedResult;
+
   return (
     <SectionDiv>
       {!inputText.length ? (
@@ -47,6 +97,7 @@ export default function SearchResults({
               }`,
               flexWrap: "wrap",
               width: "100%",
+              maxWidth: "1920px",
               justifyContent: "center",
             }}
             // classNames="movies"

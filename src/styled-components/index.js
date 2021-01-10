@@ -62,6 +62,10 @@ export const FooterContainer = styled.footer`
   @media ${device.laptop} {
     width: 30%;
   }
+
+  @media ${device.desktopL} {
+    width: 20%;
+  }
 `;
 
 export const HoverButton = styled.button`
@@ -77,6 +81,10 @@ export const HoverButton = styled.button`
 
   :hover {
     box-shadow: 0 0 5px 5px ${colors.lighterColor};
+  }
+
+  @media ${device.desktopL} {
+    padding: 0.5%;
   }
 `;
 
@@ -115,6 +123,11 @@ export const MovieContainerDiv = styled.div`
 
   @media ${device.laptopL} {
     flex: 0 0 ${(props) => (props.isNominations ? 14 : 40)}%;
+    padding: ${dimensions.spacing * 3}px ${dimensions.spacing * 6}px;
+  }
+
+  @media ${device.desktopL} {
+    flex: 0 0 ${(props) => (props.isNominations ? 12 : 40)}%;
     padding: ${dimensions.spacing * 3}px ${dimensions.spacing * 6}px;
   }
 `;
@@ -266,8 +279,8 @@ export const PosterImage = styled.img`
   }
 
   @media${device.laptop} {
-    height: ${(props) => (props.nominated ? "112px" : "336px")};
-    width: ${(props) => (props.nominated ? "75px" : "225px")};
+    height: ${(props) => (props.nominated ? "112px" : "286px")};
+    width: ${(props) => (props.nominated ? "75px" : "190px")};
   }
 `;
 

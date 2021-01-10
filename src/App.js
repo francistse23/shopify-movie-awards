@@ -1,7 +1,7 @@
 import "./App.css";
 
 import { AppMain, AppTitle, HoverButton } from "./styled-components";
-import { QueryClient, QueryClientProvider, useQuery } from "react-query";
+import { QueryClient, QueryClientProvider } from "react-query";
 import React, { Suspense, useEffect, useState } from "react";
 import { replacer, reviver } from "./lib/JSONHelper";
 
@@ -9,12 +9,12 @@ import Loading from "./components/Loading";
 import NominationsBanner from "./components/NominationsBanner";
 import { ReactQueryDevtools } from "react-query/devtools";
 import SearchBar from "./components/SearchBar";
+import SearchResults from "./components/SearchResults";
 import { colors } from "./constants";
 import useDebounce from "./components/useDebounce";
 
 const Nominations = React.lazy(() => import("./components/Nominations"));
-const SearchResults = React.lazy(() => import("./components/SearchResults"));
-const OMDB_KEY = process.env.REACT_APP_OMDB_KEY;
+// const SearchResults = React.lazy(() => import("./components/SearchResults"));
 const queryClient = new QueryClient();
 
 function App() {
@@ -24,56 +24,7 @@ function App() {
 
   const { debouncedValue: debouncedInputText, typing } = useDebounce(inputText);
 
-  async function searchMovies(inputText, page) {
-    try {
-      const res = await (
-        await fetch(
-          `https://www.omdbapi.com/?apikey=${OMDB_KEY}&s=${inputText}&type=movie&page=${page}`
-        )
-      ).json();
-
-      const moviesWithPlot = await Promise.all(
-        res.Search?.map(async ({ imdbID }) => {
-          const movie = (
-            await fetch(
-              `https://www.omdbapi.com/?apikey=${OMDB_KEY}&i=${imdbID}&type=movie&plot=full`
-            )
-          ).json();
-
-          return movie;
-        })
-      );
-
-      res.Search = moviesWithPlot;
-
-      return res;
-    } catch (err) {
-      throw new Error(err);
-    }
-  }
-
-  const queriedResult = useQuery(
-    [inputText, page],
-    () => searchMovies(inputText, page),
-    {
-      enabled: !!debouncedInputText && debouncedInputText.length > 2,
-      // going back in page
-      // resulting in new/old page data/all data
-      keepPreviousData: true,
-      refetchOnMount: true,
-      staleTime: 1000 * 60 * 30,
-    }
-  );
-
-  const {
-    data: { Search: searchResults, totalResults } = {},
-    isLoading = true,
-    isError,
-  } = queriedResult;
-
   const { localStorage } = window;
-
-  console.log(queriedResult);
 
   useEffect(() => {
     if (
@@ -92,17 +43,9 @@ function App() {
     }
   }, [localStorage]);
 
-  useEffect(() => {
-    if (isLoading) {
-      document.getElementById("search-bar").scrollIntoView({
-        behavior: "smooth",
-      });
-    }
-  }, [isLoading, page]);
-
   return (
     <AppMain>
-      <Suspense fallback={<Loading loading={isLoading} />}>
+      <Suspense fallback={<Loading loading={true} />}>
         <div
           style={{
             display: "flex",
@@ -129,26 +72,21 @@ function App() {
         </div>
       </Suspense>
 
-      <Suspense
-        fallback={<Loading loading={isLoading} />}
-        style={{ display: "flex", flexDirection: "column" }}
-      >
-        <SearchResults
-          queryState={{ isLoading, isError, typing }}
-          inputText={inputText}
-          searchResults={searchResults}
-          nominations={nominations}
-          setNominations={setNominations}
-          page={page}
-          setPage={setPage}
-          totalResults={totalResults}
-        />
-      </Suspense>
+      {/* <Suspense fallback={<Loading loading={true} />}> */}
+      <SearchResults
+        typing={typing}
+        inputText={debouncedInputText}
+        nominations={nominations}
+        setNominations={setNominations}
+        page={page}
+        setPage={setPage}
+      />
+      {/* </Suspense> */}
 
       <NominationsBanner numOfNominations={nominations.size} />
       <HoverButton
         aria-label="go back to your nominations"
-        name="Your Nominations"
+        name="Go To Your Nominations"
         onClick={(e) => {
           e.preventDefault();
           document.getElementById("nominations").scrollIntoView({
