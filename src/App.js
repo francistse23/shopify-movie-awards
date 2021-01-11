@@ -14,7 +14,6 @@ import { colors } from "./constants";
 import useDebounce from "./components/useDebounce";
 
 const Nominations = React.lazy(() => import("./components/Nominations"));
-// const SearchResults = React.lazy(() => import("./components/SearchResults"));
 const queryClient = new QueryClient();
 
 function App() {
@@ -72,7 +71,6 @@ function App() {
         </div>
       </div>
 
-      {/* <Suspense fallback={<Loading loading={true} />}> */}
       <SearchResults
         typing={typing}
         inputText={debouncedInputText}
@@ -81,7 +79,6 @@ function App() {
         page={page}
         setPage={setPage}
       />
-      {/* </Suspense> */}
 
       <NominationsBanner numOfNominations={nominations.size} />
       <HoverButton

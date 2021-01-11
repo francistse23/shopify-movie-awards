@@ -6,8 +6,10 @@ import {
 
 import Movie from "./Movie";
 import React from "react";
-import { TransitionGroup } from "react-transition-group";
 import { colors } from "../constants";
+
+// import { TransitionGroup } from "react-transition-group";
+
 
 export default function Nominations({ nominations, setNominations }) {
   return (
@@ -20,15 +22,12 @@ export default function Nominations({ nominations, setNominations }) {
       </SectionTitle>
 
       {nominations.size === 0 ? (
-        <TransitionGroup
-          // classNames="movies"
-          timeout={500}
-        >
+        <>
           <p key="no-nominations">
             You don't have any nominations for The Shoppies yet.
           </p>
           <p key="max-nominations">You can add at most 5 nominations</p>
-        </TransitionGroup>
+        </>
       ) : (
         <NominationsContainer>
           {[...nominations.values()].map(({ Title, Year, Poster, imdbID }) => (

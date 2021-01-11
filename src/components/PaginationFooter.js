@@ -4,12 +4,22 @@ import { FooterContainer } from "../styled-components";
 import React from "react";
 
 export default function PaginationFooter({ page, setPage, totalResults }) {
+  function reposition(e) {
+    e.preventDefault();
+    document.getElementById("search-results").scrollIntoView({
+      behavior: "smooth",
+    });
+  }
+
   return (
     <FooterContainer>
       {page > 1 ? (
         <PaginationButton
           aria-label="previous page"
-          onClick={() => setPage((page) => page - 1)}
+          onClick={(e) => {
+            setPage((page) => page - 1);
+            reposition(e);
+          }}
         >{`<`}</PaginationButton>
       ) : (
         <div
@@ -47,7 +57,11 @@ export default function PaginationFooter({ page, setPage, totalResults }) {
               page={page}
               pageNumber={pageNumber}
               aria-label={`navigate to page ${pageNumber}`}
-              onClick={() => setPage(pageNumber)}
+              onClick={(e) => {
+                setPage(pageNumber);
+
+                reposition(e);
+              }}
             >
               {pageNumber}
             </PageButton>
@@ -57,7 +71,10 @@ export default function PaginationFooter({ page, setPage, totalResults }) {
       {10 * page < totalResults ? (
         <PaginationButton
           aria-label="next page"
-          onClick={() => setPage((page) => page + 1)}
+          onClick={(e) => {
+            setPage((page) => page + 1);
+            reposition(e);
+          }}
         >{`>`}</PaginationButton>
       ) : (
         <div

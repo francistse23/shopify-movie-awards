@@ -1,11 +1,12 @@
+import React, { useEffect } from "react";
 import { SectionDiv, SectionTitle } from "../styled-components";
 
 import Loading from "./Loading";
 import Movie from "./Movie";
 import PaginationFooter from "./PaginationFooter";
-import React from "react";
-import { TransitionGroup } from "react-transition-group";
 import { useQuery } from "react-query";
+
+// import { TransitionGroup } from "react-transition-group";
 
 const OMDB_KEY = process.env.REACT_APP_OMDB_KEY;
 
@@ -66,8 +67,15 @@ export default function SearchResults({
     isError,
   } = queriedResult;
 
+  useEffect(() => {
+    if (isLoading)
+      document.getElementById("search-results").scrollIntoView({
+        behavior: "smooth",
+      });
+  }, [isLoading, page]);
+
   return (
-    <SectionDiv>
+    <SectionDiv id="search-results">
       {!inputText.length ? (
         <SectionTitle>
           Try searching and adding some movies to your nominations list!
@@ -89,7 +97,7 @@ export default function SearchResults({
           {inputText && (
             <SectionTitle>{`Results for "${inputText}"`}</SectionTitle>
           )}
-          <TransitionGroup
+          <div
             style={{
               display: "flex",
               flexDirection: `${
@@ -100,8 +108,6 @@ export default function SearchResults({
               maxWidth: "1920px",
               justifyContent: "center",
             }}
-            // classNames="movies"
-            timeout={500}
           >
             {searchResults?.map(
               ({ Plot, Ratings, Title, Year, Poster, imdbID }) => (
@@ -118,7 +124,7 @@ export default function SearchResults({
                 />
               )
             )}
-          </TransitionGroup>
+          </div>
         </>
       )}
 
