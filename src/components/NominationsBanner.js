@@ -1,15 +1,17 @@
-import "./NominationsBanner.css";
-
 import { NominationsFooter, Subtitle } from "../styled-components";
 
+import { CSSTransition } from "react-transition-group";
 import React from "react";
-
-// import { TransitionGroup } from "react-transition-group";
 
 export default function NominationsBanner({ numOfNominations }) {
   return (
-    numOfNominations === 5 && (
-      <NominationsFooter key="nominations-footer">
+    <CSSTransition
+      in={numOfNominations === 5}
+      timeout={500}
+      unmountOnExit
+      classNames="nominations-footer"
+    >
+      <NominationsFooter>
         <Subtitle style={{ fontWeight: "600" }}>
           You have made all 5 nominations!{" "}
           <span aria-label="nominations" role="img">
@@ -17,6 +19,6 @@ export default function NominationsBanner({ numOfNominations }) {
           </span>
         </Subtitle>
       </NominationsFooter>
-    )
+    </CSSTransition>
   );
 }

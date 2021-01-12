@@ -53,11 +53,8 @@ export default function SearchResults({
     () => searchMovies(inputText, page),
     {
       enabled: !!inputText && inputText.length > 2,
-      // going back in page
-      // resulting in new/old page data/all data
       keepPreviousData: true,
       staleTime: 5000,
-      // cacheTime: 1000 * 60 * 30,
     }
   );
 

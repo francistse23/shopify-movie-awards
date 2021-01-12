@@ -99,11 +99,14 @@ export default function Movie({
       isNominations={isNominations}
     >
       <MovieDetailsDiv>
-        <MovieTitle isNominations={isNominations}>
+        <MovieTitle
+          aria-label="movie name and year"
+          isNominations={isNominations}
+        >
           {Title} ({Year})
         </MovieTitle>
 
-        <MoviePlot>{Plot}</MoviePlot>
+        <MoviePlot aria-label={`${Title} plot`}>{Plot}</MoviePlot>
 
         <NominationButtonsContainer>
           {!isNominations ? (

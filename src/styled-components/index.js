@@ -63,8 +63,8 @@ export const FooterContainer = styled.footer`
     width: 30%;
   }
 
-  @media ${device.desktopL} {
-    width: 20%;
+  @media ${device.desktop} {
+    width: 25%;
   }
 `;
 
@@ -74,7 +74,7 @@ export const HoverButton = styled.button`
   border-radius: 50%;
   bottom: 5%;
   cursor: pointer;
-  padding: 1%;
+  padding: 2%;
   position: fixed;
   right: 2.5%;
   outline-style: none;
@@ -83,8 +83,9 @@ export const HoverButton = styled.button`
     box-shadow: 0 0 5px 5px ${colors.lighterColor};
   }
 
-  @media ${device.desktopL} {
-    padding: 0.5%;
+  @media ${device.desktop} {
+    bottom: ${(props) => (props.numOfNominations ? "10%" : "3.5%")};
+    padding: 0.75%;
   }
 `;
 
@@ -126,9 +127,8 @@ export const MovieContainerDiv = styled.div`
     padding: ${dimensions.spacing * 3}px ${dimensions.spacing * 6}px;
   }
 
-  @media ${device.desktopL} {
-    flex: 0 0 ${(props) => (props.isNominations ? 12 : 40)}%;
-    padding: ${dimensions.spacing * 3}px ${dimensions.spacing * 6}px;
+  @media ${device.desktop} {
+    flex: 0 0 ${(props) => (props.isNominations ? 13 : 40)}%;
   }
 `;
 
@@ -227,6 +227,7 @@ export const NominationsContainer = styled.div`
 `;
 
 export const NominationsFooter = styled.footer`
+  align-items: center;
   background-color: ${colors.lighterColor};
   border-radius: ${dimensions.fontSize * 0.75}px ${dimensions.fontSize * 0.75}px
     0 0;
@@ -234,6 +235,27 @@ export const NominationsFooter = styled.footer`
   position: fixed;
   overflow-y: hidden;
   width: 100%;
+
+  &.nominations-footer-enter {
+    max-height: 0;
+  }
+
+  &.nominations-footer-enter-active {
+    max-height: 65px;
+  }
+
+  &.nominations-footer-exit {
+    max-height: 65px;
+  }
+
+  &.nominations-footer-exit-active {
+    max-height: 0;
+  }
+
+  &.nominations-footer-enter-active,
+  &.nominations-footer-exit-active {
+    transition: max-height 300ms ease-in;
+  }
 `;
 
 export const PageButton = styled.button`
