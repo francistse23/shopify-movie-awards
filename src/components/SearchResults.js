@@ -1,12 +1,14 @@
-import { SectionDiv, SectionTitle } from "../styled-components";
+import {
+  MoviesContainer,
+  SectionDiv,
+  SectionTitle,
+} from "../styled-components";
 
 import Loading from "./Loading";
 import Movie from "./Movie";
 import PaginationFooter from "./PaginationFooter";
 import React from "react";
 import { useQuery } from "react-query";
-
-// import { TransitionGroup } from "react-transition-group";
 
 const OMDB_KEY = process.env.REACT_APP_OMDB_KEY;
 
@@ -87,18 +89,7 @@ export default function SearchResults({
           {inputText && (
             <SectionTitle>{`Results for "${inputText}"`}</SectionTitle>
           )}
-          <div
-            style={{
-              display: "flex",
-              flexDirection: `${
-                window.screen.width >= 1024 ? "row" : "column"
-              }`,
-              flexWrap: "wrap",
-              width: "100%",
-              maxWidth: "1920px",
-              justifyContent: "center",
-            }}
-          >
+          <MoviesContainer>
             {searchResults?.map(
               ({ Plot, Ratings, Title, Year, Poster, imdbID }) => (
                 <Movie
@@ -114,7 +105,7 @@ export default function SearchResults({
                 />
               )
             )}
-          </div>
+          </MoviesContainer>
         </>
       )}
 

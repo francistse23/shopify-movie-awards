@@ -1,6 +1,6 @@
 import {
-  MovieContainerDiv,
-  MovieDetailsDiv,
+  MovieContainer,
+  MovieDetails,
   MoviePlot,
   MoviePosterDiv,
   MovieRating,
@@ -55,11 +55,11 @@ export default function Movie({
   }
 
   return isNominations ? (
-    <MovieContainerDiv
+    <MovieContainer
       isInNominations={isInNominations}
       isNominations={isNominations}
     >
-      <MovieDetailsDiv isNominations={isNominations}>
+      <MovieDetails isNominations={isNominations}>
         <MovieTitle isNominations={isNominations}>
           {Title} ({Year})
         </MovieTitle>
@@ -78,7 +78,7 @@ export default function Movie({
             />
           )}
         </MoviePosterDiv>
-      </MovieDetailsDiv>
+      </MovieDetails>
 
       <NominationButtonsContainer>
         <NominationButton
@@ -92,13 +92,13 @@ export default function Movie({
           Un-nominate
         </NominationButton>
       </NominationButtonsContainer>
-    </MovieContainerDiv>
+    </MovieContainer>
   ) : (
-    <MovieContainerDiv
+    <MovieContainer
       isInNominations={isInNominations}
       isNominations={isNominations}
     >
-      <MovieDetailsDiv>
+      <MovieDetails>
         <MovieTitle
           aria-label="movie name and year"
           isNominations={isNominations}
@@ -132,7 +132,7 @@ export default function Movie({
             Un-nominate
           </NominationButton>
         </NominationButtonsContainer>
-      </MovieDetailsDiv>
+      </MovieDetails>
 
       <MoviePosterDiv>
         {Poster === "N/A" ? (
@@ -168,6 +168,6 @@ export default function Movie({
           ))}
         </MovieRatings>
       </MoviePosterDiv>
-    </MovieContainerDiv>
+    </MovieContainer>
   );
 }

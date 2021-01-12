@@ -84,7 +84,7 @@ function App() {
       <HoverButton
         aria-label="go back to your nominations"
         name="Go To Your Nominations"
-        numOfNominations={nominations.size === 5}
+        maxNominations={nominations.size === 5}
         onClick={(e) => {
           e.preventDefault();
           document.getElementById("nominations").scrollIntoView({
