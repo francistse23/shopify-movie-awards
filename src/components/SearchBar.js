@@ -1,7 +1,9 @@
-import { SearchBarContainer, SearchBarInput } from "../styled-components";
+import * as SC from "../styled-components";
 
 import React from "react";
 import { dimensions } from "../constants";
+
+const { SearchBarContainer, SearchBarInput } = SC;
 
 export default function SearchBar({ inputText, setInputText }) {
   return (

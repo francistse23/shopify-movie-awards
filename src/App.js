@@ -1,6 +1,7 @@
 import "./App.css";
 
-import { AppMain, AppTitle, HoverButton } from "./styled-components";
+import * as SC from "./styled-components";
+
 import { QueryClient, QueryClientProvider } from "react-query";
 import React, { Suspense, useEffect, useRef, useState } from "react";
 import { replacer, reviver } from "./lib/JSONHelper";
@@ -12,6 +13,8 @@ import SearchBar from "./components/SearchBar";
 import { colors } from "./constants";
 import useDebounce from "./components/useDebounce";
 
+const { AppMain, AppTitle, HoverButton } = SC;
+
 const Nominations = React.lazy(() => import("./components/Nominations"));
 const SearchResults = React.lazy(() => import("./components/SearchResults"));
 const queryClient = new QueryClient();
@@ -21,6 +24,7 @@ function App() {
   const [inputText, setInputText] = useState("");
   const [page, setPage] = useState(1);
   const [showButton, setShowButton] = useState(false);
+  const nominationsRef = useRef(null);
 
   const { debouncedValue: debouncedInputText, typing } = useDebounce(inputText);
 
@@ -43,8 +47,6 @@ function App() {
     }
   }, [localStorage]);
 
-  const nominationsRef = useRef(null);
-
   useEffect(() => {
     function enableButton() {
       if (
@@ -59,8 +61,6 @@ function App() {
 
     return () => window.removeEventListener("scroll", enableButton);
   }, [showButton]);
-
-  console.log(showButton);
 
   return (
     <AppMain>

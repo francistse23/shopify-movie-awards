@@ -1,7 +1,8 @@
-import { PageButton, PaginationButton } from "../styled-components";
+import * as SC from "../styled-components";
 
-import { FooterContainer } from "../styled-components";
 import React from "react";
+
+const { FooterContainer, PageButton, PaginationButton } = SC;
 
 export default function PaginationFooter({ page, setPage, totalResults }) {
   function reposition(e) {

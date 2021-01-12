@@ -1,7 +1,9 @@
-import { NominationsFooter, Subtitle } from "../styled-components";
+import * as SC from "../styled-components";
 
 import { CSSTransition } from "react-transition-group";
 import React from "react";
+
+const { NominationsFooter, Subtitle } = SC;
 
 export default function NominationsBanner({ numOfNominations }) {
   return (

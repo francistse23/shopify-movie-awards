@@ -1,12 +1,10 @@
-import {
-  NominationsContainer,
-  SectionDiv,
-  SectionTitle,
-} from "../styled-components";
+import * as SC from "../styled-components";
 
 import Movie from "./Movie";
 import React from "react";
 import { colors } from "../constants";
+
+const { NominationsContainer, SectionDiv, SectionTitle } = SC;
 
 export default function Nominations({
   nominations,

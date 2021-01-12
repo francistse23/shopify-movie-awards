@@ -1,14 +1,12 @@
-import {
-  MoviesContainer,
-  SectionDiv,
-  SectionTitle,
-} from "../styled-components";
+import * as SC from "../styled-components";
 
 import Loading from "./Loading";
 import Movie from "./Movie";
 import PaginationFooter from "./PaginationFooter";
 import React from "react";
 import { useQuery } from "react-query";
+
+const { MoviesContainer, SectionDiv, SectionTitle } = SC;
 
 const OMDB_KEY = process.env.REACT_APP_OMDB_KEY;
 

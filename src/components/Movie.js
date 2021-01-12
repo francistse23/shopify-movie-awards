@@ -1,4 +1,9 @@
-import {
+import * as SC from "../styled-components";
+
+import React from "react";
+import { replacer } from "../lib/JSONHelper";
+
+const {
   MovieContainer,
   MovieDetails,
   MoviePlot,
@@ -9,10 +14,7 @@ import {
   NominationButton,
   NominationButtonsContainer,
   PosterImage,
-} from "../styled-components";
-
-import React from "react";
-import { replacer } from "../lib/JSONHelper";
+} = SC;
 
 export default function Movie({
   nominations,
