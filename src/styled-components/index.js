@@ -108,14 +108,20 @@ export const MovieContainer = styled.div`
       ? `0px 0px 10px 5px ${colors.lightColor}`
       : "none"};
   display: flex;
-  flex: 0 0 ${(props) => (props.isNominations ? 25 : 90)}%;
+  flex: 0 0 ${(props) => (props.isNominations ? 35 : 90)}%;
   flex-direction: ${(props) => (props.isNominations ? "column" : "row")};
   justify-content: space-between;
   margin: ${dimensions.spacing * 4}px;
   overflow-y: hidden;
   padding: ${dimensions.spacing}px ${dimensions.spacing * 4}px;
 
+  @media ${device.mobileS} {
+    flex: 0 0 90%;
+    padding: ${dimensions.spacing * 4}px;
+  }
+
   @media ${device.tablet} {
+    flex: 0 0 ${(props) => (props.isNominations ? 25 : 90)}%;
     margin: ${dimensions.spacing * 4}px;
     padding: ${dimensions.spacing * 4}px;
   }
@@ -379,10 +385,14 @@ export const SectionDiv = styled.section`
 `;
 
 export const SectionTitle = styled.h2`
-  font-size: ${dimensions.fontSize * 1.5}px;
+  font-size: ${dimensions.fontSize}px;
   font-weight: 600;
   line-height: ${dimensions.fontSize * 2.5}px;
   width: 100%;
+
+  @media ${device.laptop} {
+    font-size: ${dimensions.fontSize * 1.5}px;
+  }
 `;
 
 export const Subtitle = styled.p`

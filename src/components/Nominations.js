@@ -8,12 +8,17 @@ import Movie from "./Movie";
 import React from "react";
 import { colors } from "../constants";
 
-// import { TransitionGroup } from "react-transition-group";
-
-
-export default function Nominations({ nominations, setNominations }) {
+export default function Nominations({
+  nominations,
+  setNominations,
+  reference,
+}) {
   return (
-    <SectionDiv backgroundColor={colors.mainColor} id="nominations">
+    <SectionDiv
+      backgroundColor={colors.mainColor}
+      id="nominations"
+      ref={reference}
+    >
       <SectionTitle>
         Your Nominations{" "}
         <span aria-label="trophy" role="img">
