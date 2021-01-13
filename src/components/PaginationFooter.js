@@ -60,7 +60,6 @@ export default function PaginationFooter({ page, setPage, totalResults }) {
               aria-label={`navigate to page ${pageNumber}`}
               onClick={(e) => {
                 setPage(pageNumber);
-
                 reposition(e);
               }}
             >

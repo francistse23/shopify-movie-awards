@@ -23,6 +23,7 @@ export const MovieContainer = styled.div`
   margin: ${dimensions.spacing * 4}px;
   overflow-y: hidden;
   padding: ${dimensions.spacing}px ${dimensions.spacing * 4}px;
+  transition: 0.75s;
 
   @media ${device.mobileS} {
     flex: 0 0 90%;
@@ -40,7 +41,7 @@ export const MovieContainer = styled.div`
   }
 
   @media ${device.laptopL} {
-    flex: 0 0 ${(props) => (props.isNominations ? 14 : 40)}%;
+    flex: 0 0 ${(props) => (props.isNominations ? 16 : 40)}%;
     padding: ${dimensions.spacing * 3}px ${dimensions.spacing * 6}px;
   }
 
@@ -59,8 +60,19 @@ export const MovieDetails = styled.div`
 `;
 
 export const MoviePlot = styled.p`
-  font-size: ${Math.ceil(dimensions.fontSize * 0.85)}px;
   text-align: justify;
+
+  @media ${device.mobileS} {
+    font-size: ${Math.ceil(dimensions.fontSize * 0.75)}px;
+  }
+
+  @media ${device.tablet} {
+    font-size: ${Math.ceil(dimensions.fontSize * 0.85)}px;
+  }
+
+  @media ${device.laptopL} {
+    font-size: ${Math.ceil(dimensions.fontSize)}px;
+  }
 `;
 
 export const MoviePosterDiv = styled.div`
@@ -75,12 +87,20 @@ export const MovieRating = styled.li`
   align-items: center;
   justify-content: space-between;
   margin: ${dimensions.spacing * 2}px 0;
+
+  @media ${device.mobileS} {
+    font-size: ${Math.ceil(dimensions.fontSize * 0.85)}px;
+  }
 `;
 
 export const MovieRatings = styled.ul`
   list-style-type: none;
   padding: 0;
   width: 50%;
+
+  @media ${device.mobileS} {
+    width: 100%;
+  }
 
   @media ${device.tablet} {
     width: 70%;
@@ -106,7 +126,7 @@ export const MovieTitle = styled.h3`
   @media ${device.laptop} {
     font-size: ${(props) =>
       props.isNominations
-        ? dimensions.fontSize * 0.9
+        ? dimensions.fontSize * 0.8
         : dimensions.fontSize * 1.25}px;
   }
 `;
@@ -157,6 +177,16 @@ export const PosterImage = styled.img`
   @media${device.laptop} {
     height: ${(props) => (props.nominated ? "150px" : "300px")};
     width: ${(props) => (props.nominated ? "100px" : "200px")};
+  }
+`;
+
+export const RatingIcon = styled.img`
+  height: 24px;
+  width: 24px;
+
+  @media ${device.mobileS} {
+    height: 18px;
+    width: 18px;
   }
 `;
 

@@ -14,6 +14,7 @@ const {
   NominationButton,
   NominationButtonsContainer,
   PosterImage,
+  RatingIcon,
 } = SC;
 
 export default function Movie({
@@ -154,7 +155,7 @@ export default function Movie({
         <MovieRatings>
           {Ratings.map(({ Source, Value }) => (
             <MovieRating key={Source}>
-              <img
+              <RatingIcon
                 src={
                   Source.includes("Tomatoes")
                     ? require("../assets/rotten-tomatoes.png")
@@ -163,7 +164,6 @@ export default function Movie({
                     : require("../assets/imdb.png")
                 }
                 alt={`${Source} Icon`}
-                style={{ height: "24px", width: "24px" }}
               />{" "}
               {Value}
             </MovieRating>

@@ -19,6 +19,9 @@ export const NominationButton = styled.button`
     background-color: ${(props) => !props.disabled && colors.lightColor};
   }
 
+  @media ${device.mobileS} {
+    font-size: ${dimensions.fontSize * 0.65}px;
+  }
   @media ${device.laptop} {
     font-size: ${dimensions.fontSize * 0.75}px;
   }

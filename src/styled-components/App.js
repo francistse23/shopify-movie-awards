@@ -15,8 +15,8 @@ export const AppMain = styled.div`
   text-align: center;
   width: 100%;
 
-  @media ${device.tablet} {
-    padding-bottom: 8%;
+  @media ${device.mobileS} {
+    padding-bottom: 12%;
   }
 
   @media ${device.laptop} {
@@ -46,6 +46,9 @@ export const FooterContainer = styled.footer`
   padding: ${dimensions.spacing * 4}px 0;
   width: 50%;
 
+  @media ${device.mobileS} {
+    width: 90%;
+  }
   @media ${device.laptop} {
     width: 30%;
   }
@@ -70,13 +73,22 @@ export const HoverButton = styled.button`
     box-shadow: 0 0 5px 5px ${colors.lighterColor};
   }
 
-  @media ${device.tablet} {
-    bottom: ${(props) => (props.maxNominations ? "5%" : "2.5%")};
+  @media ${device.mobileS} {
+    bottom: 20%;
+    padding: 3%;
   }
 
-  @media ${device.desktop} {
-    bottom: ${(props) => (props.maxNominations ? "10%" : "3.5%")};
-    padding: 0.75%;
+  @media ${device.mobileM} {
+    bottom: 22.5%;
+  }
+
+  @media ${device.mobileL} {
+    bottom: 25%;
+  }
+
+  @media ${device.tablet} {
+    bottom: ${(props) => (props.maxNominations ? "12.5%" : "5%")};
+    padding: 1%;
   }
 `;
 
@@ -96,7 +108,6 @@ export const SectionDiv = styled.section`
     flex-direction: column;
     height: 100%;
     overflow-x: hidden;
-    // padding: 0 ${dimensions.spacing * 4}px;
     width: 100%;
   }
 `;
@@ -105,7 +116,8 @@ export const SectionTitle = styled.h2`
   font-size: ${dimensions.fontSize}px;
   font-weight: 600;
   line-height: ${dimensions.fontSize * 2.5}px;
-  width: 100%;
+  // padding: 0 ${dimensions.spacing * 10}px;
+  width: 90%;
 
   @media ${device.laptop} {
     font-size: ${dimensions.fontSize * 1.5}px;
@@ -113,7 +125,18 @@ export const SectionTitle = styled.h2`
 `;
 
 export const Subtitle = styled.p`
-  font-size: ${dimensions.fontSize * 1.25}px;
   font-weight: 500;
   line-height: ${dimensions.fontSize * 1.5}px;
+
+  @media ${device.mobileS} {
+    font-size: ${dimensions.fontSize * 0.85}px;
+  }
+
+  @media ${device.tablet} {
+    font-size: ${dimensions.fontSize}px;
+  }
+
+  @media ${device.laptopL} {
+    font-size: ${dimensions.fontSize * 1.25}px;
+  }
 `;

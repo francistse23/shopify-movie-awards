@@ -54,6 +54,7 @@ export default function SearchResults({
     {
       enabled: !!inputText && inputText.length > 2,
       keepPreviousData: true,
+      retry: 2,
       staleTime: 5000,
     }
   );
@@ -88,21 +89,22 @@ export default function SearchResults({
             <SectionTitle>{`Results for "${inputText}"`}</SectionTitle>
           )}
           <MoviesContainer>
-            {searchResults?.map(
-              ({ Plot, Ratings, Title, Year, Poster, imdbID }) => (
-                <Movie
-                  key={imdbID}
-                  Plot={Plot}
-                  Ratings={Ratings}
-                  Title={Title}
-                  Year={Year}
-                  Poster={Poster}
-                  imdbID={imdbID}
-                  nominations={nominations}
-                  setNominations={setNominations}
-                />
-              )
-            )}
+            {inputText &&
+              searchResults?.map(
+                ({ Plot, Ratings, Title, Year, Poster, imdbID }) => (
+                  <Movie
+                    key={imdbID}
+                    Plot={Plot}
+                    Ratings={Ratings}
+                    Title={Title}
+                    Year={Year}
+                    Poster={Poster}
+                    imdbID={imdbID}
+                    nominations={nominations}
+                    setNominations={setNominations}
+                  />
+                )
+              )}
           </MoviesContainer>
         </>
       )}
