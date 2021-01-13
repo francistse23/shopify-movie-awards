@@ -62,6 +62,8 @@ function App() {
     return () => window.removeEventListener("scroll", enableButton);
   }, [showButton]);
 
+  useEffect(() => setPage(1), [inputText]);
+
   return (
     <AppMain>
       <div
@@ -104,7 +106,7 @@ function App() {
       </Suspense>
 
       <NominationsBanner numOfNominations={nominations.size} />
-      {nominations.size > 1 && showButton && (
+      {nominations.size > 0 && showButton && (
         <HoverButton
           aria-label="go back to your nominations"
           name="Go To Your Nominations"
