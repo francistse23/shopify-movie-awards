@@ -24,6 +24,7 @@ export const MovieContainer = styled.div`
   overflow-y: hidden;
   padding: ${dimensions.spacing}px ${dimensions.spacing * 4}px;
   transition: 0.75s;
+  width: 100%;
 
   @media ${device.mobileS} {
     flex: 0 0 90%;
@@ -44,10 +45,6 @@ export const MovieContainer = styled.div`
     flex: 0 0 ${(props) => (props.isNominations ? 16 : 40)}%;
     padding: ${dimensions.spacing * 3}px ${dimensions.spacing * 6}px;
   }
-
-  @media ${device.desktop} {
-    flex: 0 0 ${(props) => (props.isNominations ? 13 : 40)}%;
-  }
 `;
 
 export const MovieDetails = styled.div`
@@ -57,6 +54,7 @@ export const MovieDetails = styled.div`
   height: 100%;
   justify-content: space-between;
   padding: 0 2.5%;
+  width: 100%;
 `;
 
 export const MoviePlot = styled.p`
@@ -126,7 +124,7 @@ export const MovieTitle = styled.h3`
   @media ${device.laptop} {
     font-size: ${(props) =>
       props.isNominations
-        ? dimensions.fontSize * 0.8
+        ? dimensions.fontSize * 0.9
         : dimensions.fontSize * 1.25}px;
   }
 `;

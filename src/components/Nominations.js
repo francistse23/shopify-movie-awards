@@ -25,12 +25,12 @@ export default function Nominations({
       </SectionTitle>
 
       {nominations.size === 0 ? (
-        <>
+        <div style={{ width: "90%" }}>
           <p key="no-nominations">
             You don't have any nominations for The Shoppies yet.
           </p>
           <p key="max-nominations">You can add at most 5 nominations</p>
-        </>
+        </div>
       ) : (
         <NominationsContainer>
           {[...nominations.values()].map(({ Title, Year, Poster, imdbID }) => (

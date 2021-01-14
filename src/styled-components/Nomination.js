@@ -53,8 +53,7 @@ export const NominationsContainer = styled.div`
 export const NominationsFooter = styled.footer`
   align-items: center;
   background-color: ${colors.lighterColor};
-  border-radius: ${dimensions.fontSize * 0.75}px ${dimensions.fontSize * 0.75}px
-    0 0;
+  border-radius: ${dimensions.fontSize}px ${dimensions.fontSize}px 0 0;
   bottom: 0;
   position: fixed;
   overflow-y: hidden;
