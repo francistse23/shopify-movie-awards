@@ -17,6 +17,40 @@ const {
   RatingIcon,
 } = SC;
 
+function addToNominations(
+  Title,
+  Year,
+  Poster,
+  imdbID,
+  isInNominations,
+  setNominations
+) {
+  if (!isInNominations) {
+    setNominations((nominations) => {
+      const newNominations = new Map(nominations);
+      newNominations.set(imdbID, { Title, Year, Poster, imdbID });
+      const str = JSON.stringify(newNominations, replacer);
+      localStorage.setItem("shopify_the_shoppies_nominations", str);
+
+      return newNominations;
+    });
+  }
+}
+
+function removeFromNominations(imdbID, isInNominations, setNominations) {
+  if (isInNominations) {
+    setNominations((nominations) => {
+      const newNominations = new Map(nominations);
+      newNominations.delete(imdbID);
+
+      const str = JSON.stringify(newNominations, replacer);
+
+      localStorage.setItem("shopify_the_shoppies_nominations", str);
+      return newNominations;
+    });
+  }
+}
+
 export default function Movie({
   nominations,
   Plot = "",
@@ -29,33 +63,6 @@ export default function Movie({
   isNominations = false,
 }) {
   const isInNominations = nominations.has(imdbID);
-
-  function addToNominations(Title, Year, Poster, imdbID) {
-    if (!isInNominations) {
-      setNominations((nominations) => {
-        const newNominations = new Map(nominations);
-        newNominations.set(imdbID, { Title, Year, Poster, imdbID });
-        const str = JSON.stringify(newNominations, replacer);
-        localStorage.setItem("shopify_the_shoppies_nominations", str);
-
-        return newNominations;
-      });
-    }
-  }
-
-  function removeFromNominations(imdbID) {
-    if (isInNominations) {
-      setNominations((nominations) => {
-        const newNominations = new Map(nominations);
-        newNominations.delete(imdbID);
-
-        const str = JSON.stringify(newNominations, replacer);
-
-        localStorage.setItem("shopify_the_shoppies_nominations", str);
-        return newNominations;
-      });
-    }
-  }
 
   return isNominations ? (
     <MovieContainer
@@ -116,7 +123,16 @@ export default function Movie({
             <NominationButton
               aria-label="Add to nomination"
               disabled={nominations.size >= 5 || isInNominations}
-              onClick={() => addToNominations(Title, Year, Poster, imdbID)}
+              onClick={() =>
+                addToNominations(
+                  Title,
+                  Year,
+                  Poster,
+                  imdbID,
+                  isInNominations,
+                  setNominations
+                )
+              }
             >
               <span role="img" aria-label="Ballot box emoji">
                 🗳️
@@ -127,7 +143,9 @@ export default function Movie({
           <NominationButton
             aria-label="Remove from nomination"
             disabled={!isInNominations}
-            onClick={() => removeFromNominations(imdbID)}
+            onClick={() =>
+              removeFromNominations(imdbID, isInNominations, setNominations)
+            }
           >
             <span role="img" aria-label="Remove emoji">
               ❌

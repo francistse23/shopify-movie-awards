@@ -6,7 +6,7 @@ import { replacer, reviver } from "./lib/JSONHelper";
 
 import Loading from "./components/Loading";
 import NominationsBanner from "./components/NominationsBanner";
-import { ReactQueryDevtools } from "react-query/devtools";
+// import { ReactQueryDevtools } from "react-query/devtools";
 import SearchBar from "./components/SearchBar";
 import { colors } from "./constants";
 import useDebounce from "./components/useDebounce";
@@ -16,6 +16,15 @@ const { AppHeader, AppMain, AppTitle, HoverButton } = SC;
 const Nominations = React.lazy(() => import("./components/Nominations"));
 const SearchResults = React.lazy(() => import("./components/SearchResults"));
 const queryClient = new QueryClient();
+
+export function enableButton(nominationsRef, setShowButton) {
+  if (
+    window.scrollY >
+    nominationsRef.current?.offsetHeight + nominationsRef.current?.offsetTop
+  )
+    setShowButton(true);
+  else setShowButton(false);
+}
 
 function App() {
   const [nominations, setNominations] = useState(new Map());
@@ -46,18 +55,16 @@ function App() {
   }, [localStorage]);
 
   useEffect(() => {
-    function enableButton() {
-      if (
-        window.scrollY >
-        nominationsRef.current?.offsetHeight + nominationsRef.current?.offsetTop
-      )
-        setShowButton(true);
-      else setShowButton(false);
-    }
+    window.addEventListener(
+      "scroll",
+      enableButton(nominationsRef, setShowButton)
+    );
 
-    window.addEventListener("scroll", enableButton);
-
-    return () => window.removeEventListener("scroll", enableButton);
+    return () =>
+      window.removeEventListener(
+        "scroll",
+        enableButton(nominationsRef, setShowButton)
+      );
   }, [showButton]);
 
   useEffect(() => setPage(1), [inputText]);
@@ -65,7 +72,7 @@ function App() {
   return (
     <AppMain>
       <AppHeader>
-        <AppTitle>The Shoppies</AppTitle>
+        <AppTitle data-testid="app-title">The Shoppies</AppTitle>
         <div
           style={{
             backgroundColor: colors.mainColor,
@@ -99,6 +106,7 @@ function App() {
       {nominations.size > 0 && showButton && (
         <HoverButton
           aria-label="go back to your nominations"
+          data-testid="hover-button"
           name="Go To Your Nominations"
           maxNominations={nominations.size === 5}
           onClick={(e) => {
@@ -120,7 +128,7 @@ function App() {
 function AppWithQueryClient() {
   return (
     <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false} />
+      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
       <App />
     </QueryClientProvider>
   );
