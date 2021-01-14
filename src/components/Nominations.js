@@ -1,4 +1,4 @@
-import * as SC from "../styled-components";
+import * as SC from "../styledComponents";
 
 import Movie from "./Movie";
 import React from "react";

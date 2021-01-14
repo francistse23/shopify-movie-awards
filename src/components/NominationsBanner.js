@@ -1,4 +1,4 @@
-import * as SC from "../styled-components";
+import * as SC from "../styledComponents";
 
 import { CSSTransition } from "react-transition-group";
 import React from "react";

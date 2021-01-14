@@ -1,4 +1,4 @@
-import * as SC from "../styled-components";
+import * as SC from "../styledComponents";
 
 import Loading from "./Loading";
 import Movie from "./Movie";

@@ -1,0 +1,41 @@
+{
+  "roots": ["<rootDir>/src"],
+
+  "globals": {
+    "__DEV__": true
+  },
+
+  "transform": {
+    "\\.(js|jsx)?$": "babel-jest"
+  },
+
+  "setupFiles": ["jest-localstorage-mock"],
+
+  "setupFilesAfterEnv": ["@testing-library/jest-dom/extend-expect"],
+
+  "testRegex": "(/__tests__/.*.(test|spec)).(ts|tsx|jsx|js)?$",
+
+  "moduleFileExtensions": ["js", "jsx", "json", "node", "css"],
+
+  "moduleDirectories": ["<rootDir>/src", "node_modules"],
+
+  "moduleNameMapper": {
+    "^@root(.*)$": "<rootDir>/src$1",
+    "^@components/(.*)$": "<rootDir>/src/components/$1",
+    "^@assets/(.*)$": "<rootDir>/src/assets/$1"
+  },
+
+  "collectCoverage": true,
+  "coverageReporters": ["lcov"],
+  "coverageDirectory": "test-coverage",
+  "coverageThreshold": {
+    "global": {
+      "branches": 0,
+      "functions": 0,
+      "lines": 0,
+      "statements": 0
+    }
+  },
+
+  "verbose": true
+}

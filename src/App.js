@@ -1,6 +1,4 @@
-import "./App.css";
-
-import * as SC from "./styled-components";
+import * as SC from "./styledComponents";
 
 import { QueryClient, QueryClientProvider } from "react-query";
 import React, { Suspense, useEffect, useRef, useState } from "react";
@@ -13,7 +11,7 @@ import SearchBar from "./components/SearchBar";
 import { colors } from "./constants";
 import useDebounce from "./components/useDebounce";
 
-const { AppMain, AppTitle, HoverButton } = SC;
+const { AppHeader, AppMain, AppTitle, HoverButton } = SC;
 
 const Nominations = React.lazy(() => import("./components/Nominations"));
 const SearchResults = React.lazy(() => import("./components/SearchResults"));
@@ -66,15 +64,7 @@ function App() {
 
   return (
     <AppMain>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          position: "relative",
-          height: "100%",
-        }}
-      >
+      <AppHeader>
         <AppTitle>The Shoppies</AppTitle>
         <div
           style={{
@@ -92,7 +82,7 @@ function App() {
 
           <SearchBar inputText={inputText} setInputText={setInputText} />
         </div>
-      </div>
+      </AppHeader>
 
       <Suspense fallback={<Loading loading={true} />}>
         <SearchResults

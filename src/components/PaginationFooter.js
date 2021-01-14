@@ -1,4 +1,4 @@
-import * as SC from "../styled-components";
+import * as SC from "../styledComponents";
 
 import React from "react";
 

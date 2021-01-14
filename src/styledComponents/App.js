@@ -2,6 +2,14 @@ import { colors, device, dimensions } from "../constants";
 
 import styled from "styled-components";
 
+export const AppHeader = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  height: 100%;
+`;
+
 export const AppMain = styled.div`
   box-sizing: border-box;
   color: ${colors.fontColor};
