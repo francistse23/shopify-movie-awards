@@ -2,23 +2,21 @@ import "jest-styled-components";
 
 import * as React from "react";
 
-import App, { enableButton } from "../App";
 import { replacer, reviver } from "../lib/JSONHelper";
 
+import App from "../App";
 import { render } from "@testing-library/react";
 
 describe("App tests", () => {
   const KEY = "shopify_the_shoppies_nominations";
   const useEffect = jest.spyOn(React, "useEffect");
-  let component;
 
   beforeEach(async () => {
     await localStorage.clear();
-    component = render(<App />);
   });
 
   test("checks if title is being rendered", async () => {
-    const { getByTestId } = component;
+    const { getByTestId } = render(<App />);
 
     const appTitle = await getByTestId("app-title");
 

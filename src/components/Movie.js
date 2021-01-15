@@ -163,7 +163,7 @@ export default function Movie({
 
         <MovieRatings>
           {Ratings.map(({ Source, Value }) => (
-            <MovieRating key={Source} data-testid={`${Source}-rating`}>
+            <MovieRating key={Source}>
               <RatingIcon
                 src={
                   Source.includes("Tomatoes")

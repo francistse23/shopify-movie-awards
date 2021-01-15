@@ -10,14 +10,41 @@ import Movie, {
 import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
+// following Avoid Hasty Abstraction (AHA) principle
+// duplication over abstraction
+// abstraction causing errors
 describe("Movie component tests", () => {
-  const KEY = "shopify_the_shoppies_nominations";
-  let nominations;
-  let movie;
+  let nominations = new Map([
+      [
+        "tt0371746",
+        {
+          Title: "Iron Man",
+          Year: "2008",
+          Poster:
+            "https://m.media-amazon.com/images/M/MV5BMTczNTI2ODUwOF5BMl5BanBnXkFtZTcwMTU0NTIzMw@@._V1_SX300.jpg",
+          imdbID: "tt0371746",
+          Ratings: [
+            { Source: "Internet Movie Database", Value: "7.9/10" },
+            { Source: "Rotten Tomatoes", Value: "94%" },
+            { Source: "Metacritic", Value: "79/100" },
+          ],
+        },
+      ],
+      [
+        "tt1228705",
+        {
+          Title: "Iron Man 2",
+          Year: "2010",
+          Poster:
+            "https://m.media-amazon.com/images/M/MV5BMTM0MDgwNjMyMl5BMl5BanBnXkFtZTcwNTg3NzAzMw@@._V1_SX300.jpg",
+          imdbID: "tt1228705",
+        },
+      ],
+    ]),
+    movie = nominations.get("tt0371746");
   let setState = jest.fn(),
     useStateSpy = jest.spyOn(React, "useState");
   useStateSpy.mockImplementation((init) => [init, setState]);
-  let component;
 
   const newMovie = {
     Plot:
@@ -37,40 +64,10 @@ describe("Movie component tests", () => {
   describe("If Movie isNominations=true", () => {
     beforeEach(() => {
       setState.mockClear();
+    });
 
-      nominations = new Map([
-        [
-          "tt0371746",
-          {
-            Title: "Iron Man",
-            Year: "2008",
-            Poster:
-              "https://m.media-amazon.com/images/M/MV5BMTczNTI2ODUwOF5BMl5BanBnXkFtZTcwMTU0NTIzMw@@._V1_SX300.jpg",
-            imdbID: "tt0371746",
-            Ratings: [
-              { Source: "Internet Movie Database", Value: "7.9/10" },
-              { Source: "Rotten Tomatoes", Value: "94%" },
-              { Source: "Metacritic", Value: "79/100" },
-            ],
-          },
-        ],
-        [
-          "tt1228705",
-          {
-            Title: "Iron Man 2",
-            Year: "2010",
-            Poster:
-              "https://m.media-amazon.com/images/M/MV5BMTM0MDgwNjMyMl5BMl5BanBnXkFtZTcwNTg3NzAzMw@@._V1_SX300.jpg",
-            imdbID: "tt1228705",
-          },
-        ],
-      ]);
-
-      localStorage.setItem(KEY, JSON.stringify(nominations));
-
-      movie = nominations.get("tt0371746");
-
-      component = render(
+    test("renders Movie component", async () => {
+      const { queryByText } = render(
         <Movie
           nominations={nominations}
           Ratings={movie.Ratings}
@@ -82,9 +79,6 @@ describe("Movie component tests", () => {
           isNominations={true}
         />
       );
-    });
-    test("renders Movie component (isNominations)", async () => {
-      const { queryByText } = component;
 
       const button = queryByText(/Nominate/);
 
@@ -92,7 +86,7 @@ describe("Movie component tests", () => {
     });
 
     test("Placeholder image should display if poster path is N/A", async () => {
-      component = await render(
+      const { getByAltText } = render(
         <Movie
           nominations={nominations}
           Ratings={movie.Ratings}
@@ -105,7 +99,6 @@ describe("Movie component tests", () => {
         />
       );
 
-      const { getByAltText } = component;
       const placeholderImage = await getByAltText(
         "Poster unavailable at this time"
       );
@@ -114,7 +107,18 @@ describe("Movie component tests", () => {
     });
 
     test("Nomination button should not be on screen after adding movie to nominations", async () => {
-      const { queryByText } = component;
+      const { queryByText } = render(
+        <Movie
+          nominations={nominations}
+          Ratings={movie.Ratings}
+          Title={movie.Title}
+          Year={movie.Year}
+          Poster={movie.Poster}
+          imdbID={movie.imdbID}
+          setNominations={setState}
+          isNominations={true}
+        />
+      );
 
       const button = queryByText(/Nominate/);
 
@@ -122,8 +126,19 @@ describe("Movie component tests", () => {
     });
 
     test("Simulate remove nomination click", async () => {
-      const { queryByRole } = component;
-      const removeNominationButton = await queryByRole("button", {
+      const { getByRole } = render(
+        <Movie
+          nominations={nominations}
+          Ratings={movie.Ratings}
+          Title={movie.Title}
+          Year={movie.Year}
+          Poster={movie.Poster}
+          imdbID={movie.imdbID}
+          setNominations={setState}
+          isNominations={true}
+        />
+      );
+      const removeNominationButton = await getByRole("button", {
         name: "Remove from nomination",
       });
       userEvent.click(removeNominationButton);
@@ -164,11 +179,11 @@ describe("Movie component tests", () => {
         ],
       ]);
 
-      localStorage.setItem(KEY, JSON.stringify(nominations));
-
       movie = nominations.get("tt0371746");
+    });
 
-      component = render(
+    test("renders Movie component", () => {
+      const { queryByText } = render(
         <Movie
           nominations={nominations}
           Ratings={movie.Ratings}
@@ -180,10 +195,6 @@ describe("Movie component tests", () => {
           isNominations={false}
         />
       );
-    });
-
-    test("renders Movie component (is not nominations)", () => {
-      const { queryByText } = component;
 
       const button = queryByText(/Nominate/);
 
@@ -191,7 +202,7 @@ describe("Movie component tests", () => {
     });
 
     test("Placeholder image should display if poster path is N/A", async () => {
-      await component.rerender(
+      const { getByAltText } = render(
         <Movie
           nominations={nominations}
           Title={newMovie.Title}
@@ -202,8 +213,6 @@ describe("Movie component tests", () => {
           isNominations={false}
         />
       );
-
-      const { getByAltText } = component;
       const placeholderImage = await getByAltText(
         "Poster unavailable at this time"
       );
@@ -211,8 +220,27 @@ describe("Movie component tests", () => {
       expect(placeholderImage).toBeInTheDocument();
     });
 
+    test("3 movie ratings rendered", async () => {
+      const { getAllByAltText } = render(
+        <Movie
+          nominations={nominations}
+          Ratings={movie.Ratings}
+          Title={movie.Title}
+          Year={movie.Year}
+          Poster={movie.Poster}
+          imdbID={movie.imdbID}
+          setNominations={setState}
+          isNominations={false}
+        />
+      );
+
+      const ratings = await getAllByAltText(/Icon/);
+
+      expect(ratings).toHaveLength(3);
+    });
+
     test("Nomination button should not be on screen after adding movie to nominations", async () => {
-      await component.rerender(
+      const component = render(
         <Movie
           nominations={nominations}
           Title={newMovie.Title}
@@ -249,20 +277,24 @@ describe("Movie component tests", () => {
       expect(setState).toHaveBeenCalledTimes(1);
     });
 
-    test("3 movie ratings rendered", async () => {
-      const { getAllByTestId } = component;
-      const ratings = await getAllByTestId(/[-ratings]/gi);
-      // RTL not cleaning up properly
-      ratings.shift();
-
-      expect(ratings).toHaveLength(3);
-    });
-
     test("Simulate remove nomination click", async () => {
-      const { queryByRole } = component;
-      const removeNominationButton = await queryByRole("button", {
+      const { getByRole } = render(
+        <Movie
+          nominations={nominations}
+          Ratings={movie.Ratings}
+          Title={movie.Title}
+          Year={movie.Year}
+          Poster={movie.Poster}
+          imdbID={movie.imdbID}
+          setNominations={setState}
+          isNominations={false}
+        />
+      );
+
+      const removeNominationButton = await getByRole("button", {
         name: "Remove from nomination",
       });
+
       userEvent.click(removeNominationButton);
 
       expect(setState).toHaveBeenCalled();
