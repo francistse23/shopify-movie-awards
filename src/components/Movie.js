@@ -50,6 +50,7 @@ export default function Movie({
 
   return isNominations ? (
     <MovieContainer
+      data-testid={`${imdbID}-movie-test-id`}
       isInNominations={isInNominations}
       isNominations={isNominations}
     >

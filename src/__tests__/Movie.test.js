@@ -6,16 +6,16 @@ import Movie, {
   addToNominations,
   removeFromNominations,
 } from "../components/Movie";
-import { render, screen } from "@testing-library/react";
 
+import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 describe("Movie component tests", () => {
   const KEY = "shopify_the_shoppies_nominations";
   let nominations;
   let movie;
-  const setState = jest.fn();
-  const useStateSpy = jest.spyOn(React, "useState");
+  let setState = jest.fn(),
+    useStateSpy = jest.spyOn(React, "useState");
   useStateSpy.mockImplementation((init) => [init, setState]);
   let component;
 
@@ -34,60 +34,46 @@ describe("Movie component tests", () => {
     imdbID: "tt0848228",
   };
 
-  beforeEach(async () => {
-    setState.mockClear();
-
-    nominations = new Map([
-      [
-        "tt0371746",
-        {
-          Title: "Iron Man",
-          Year: "2008",
-          Poster:
-            "https://m.media-amazon.com/images/M/MV5BMTczNTI2ODUwOF5BMl5BanBnXkFtZTcwMTU0NTIzMw@@._V1_SX300.jpg",
-          imdbID: "tt0371746",
-          Ratings: [
-            { Source: "Internet Movie Database", Value: "7.9/10" },
-            { Source: "Rotten Tomatoes", Value: "94%" },
-            { Source: "Metacritic", Value: "79/100" },
-          ],
-        },
-      ],
-      [
-        "tt1228705",
-        {
-          Title: "Iron Man 2",
-          Year: "2010",
-          Poster:
-            "https://m.media-amazon.com/images/M/MV5BMTM0MDgwNjMyMl5BMl5BanBnXkFtZTcwNTg3NzAzMw@@._V1_SX300.jpg",
-          imdbID: "tt1228705",
-        },
-      ],
-    ]);
-
-    localStorage.setItem(KEY, JSON.stringify(nominations));
-
-    movie = nominations.get("tt0371746");
-
-    component = await render(
-      <Movie
-        nominations={nominations}
-        Ratings={movie.Ratings}
-        Title={movie.Title}
-        Year={movie.Year}
-        Poster={movie.Poster}
-        imdbID={movie.imdbID}
-        setNominations={setState}
-        isNominations={false}
-      />
-    );
-  });
-
   describe("If Movie isNominations=true", () => {
-    test("renders Movie component (isNominations)", async () => {
-      await component.rerender(
+    beforeEach(() => {
+      setState.mockClear();
+
+      nominations = new Map([
+        [
+          "tt0371746",
+          {
+            Title: "Iron Man",
+            Year: "2008",
+            Poster:
+              "https://m.media-amazon.com/images/M/MV5BMTczNTI2ODUwOF5BMl5BanBnXkFtZTcwMTU0NTIzMw@@._V1_SX300.jpg",
+            imdbID: "tt0371746",
+            Ratings: [
+              { Source: "Internet Movie Database", Value: "7.9/10" },
+              { Source: "Rotten Tomatoes", Value: "94%" },
+              { Source: "Metacritic", Value: "79/100" },
+            ],
+          },
+        ],
+        [
+          "tt1228705",
+          {
+            Title: "Iron Man 2",
+            Year: "2010",
+            Poster:
+              "https://m.media-amazon.com/images/M/MV5BMTM0MDgwNjMyMl5BMl5BanBnXkFtZTcwNTg3NzAzMw@@._V1_SX300.jpg",
+            imdbID: "tt1228705",
+          },
+        ],
+      ]);
+
+      localStorage.setItem(KEY, JSON.stringify(nominations));
+
+      movie = nominations.get("tt0371746");
+
+      component = render(
         <Movie
           nominations={nominations}
+          Ratings={movie.Ratings}
           Title={movie.Title}
           Year={movie.Year}
           Poster={movie.Poster}
@@ -96,7 +82,8 @@ describe("Movie component tests", () => {
           isNominations={true}
         />
       );
-
+    });
+    test("renders Movie component (isNominations)", async () => {
       const { queryByText } = component;
 
       const button = queryByText(/Nominate/);
@@ -105,13 +92,14 @@ describe("Movie component tests", () => {
     });
 
     test("Placeholder image should display if poster path is N/A", async () => {
-      await component.rerender(
+      component = await render(
         <Movie
           nominations={nominations}
-          Title={newMovie.Title}
-          Year={newMovie.Year}
+          Ratings={movie.Ratings}
+          Title={movie.Title}
+          Year={movie.Year}
           Poster="N/A"
-          imdbID={newMovie.imdbID}
+          imdbID={movie.imdbID}
           setNominations={setState}
           isNominations={true}
         />
@@ -126,18 +114,6 @@ describe("Movie component tests", () => {
     });
 
     test("Nomination button should not be on screen after adding movie to nominations", async () => {
-      await component.rerender(
-        <Movie
-          nominations={nominations}
-          Title={newMovie.Title}
-          Year={newMovie.Year}
-          Poster={newMovie.Poster}
-          imdbID={newMovie.imdbID}
-          setNominations={setState}
-          isNominations={true}
-        />
-      );
-
       const { queryByText } = component;
 
       const button = queryByText(/Nominate/);
@@ -146,20 +122,10 @@ describe("Movie component tests", () => {
     });
 
     test("Simulate remove nomination click", async () => {
-      await component.rerender(
-        <Movie
-          nominations={nominations}
-          Title={movie.Title}
-          Year={movie.Year}
-          Poster={movie.Poster}
-          imdbID={movie.imdbID}
-          setNominations={setState}
-          isNominations={true}
-        />
-      );
-
-      const { getByTestId } = component;
-      const removeNominationButton = await getByTestId("remove-nomination");
+      const { queryByRole } = component;
+      const removeNominationButton = await queryByRole("button", {
+        name: "Remove from nomination",
+      });
       userEvent.click(removeNominationButton);
 
       expect(setState).toHaveBeenCalled();
@@ -167,6 +133,55 @@ describe("Movie component tests", () => {
   });
 
   describe("If Movie isNominations=false", () => {
+    beforeEach(() => {
+      setState.mockClear();
+
+      nominations = new Map([
+        [
+          "tt0371746",
+          {
+            Title: "Iron Man",
+            Year: "2008",
+            Poster:
+              "https://m.media-amazon.com/images/M/MV5BMTczNTI2ODUwOF5BMl5BanBnXkFtZTcwMTU0NTIzMw@@._V1_SX300.jpg",
+            imdbID: "tt0371746",
+            Ratings: [
+              { Source: "Internet Movie Database", Value: "7.9/10" },
+              { Source: "Rotten Tomatoes", Value: "94%" },
+              { Source: "Metacritic", Value: "79/100" },
+            ],
+          },
+        ],
+        [
+          "tt1228705",
+          {
+            Title: "Iron Man 2",
+            Year: "2010",
+            Poster:
+              "https://m.media-amazon.com/images/M/MV5BMTM0MDgwNjMyMl5BMl5BanBnXkFtZTcwNTg3NzAzMw@@._V1_SX300.jpg",
+            imdbID: "tt1228705",
+          },
+        ],
+      ]);
+
+      localStorage.setItem(KEY, JSON.stringify(nominations));
+
+      movie = nominations.get("tt0371746");
+
+      component = render(
+        <Movie
+          nominations={nominations}
+          Ratings={movie.Ratings}
+          Title={movie.Title}
+          Year={movie.Year}
+          Poster={movie.Poster}
+          imdbID={movie.imdbID}
+          setNominations={setState}
+          isNominations={false}
+        />
+      );
+    });
+
     test("renders Movie component (is not nominations)", () => {
       const { queryByText } = component;
 
@@ -244,8 +259,10 @@ describe("Movie component tests", () => {
     });
 
     test("Simulate remove nomination click", async () => {
-      const { getByTestId } = component;
-      const removeNominationButton = await getByTestId("remove-nomination");
+      const { queryByRole } = component;
+      const removeNominationButton = await queryByRole("button", {
+        name: "Remove from nomination",
+      });
       userEvent.click(removeNominationButton);
 
       expect(setState).toHaveBeenCalled();

@@ -9,7 +9,7 @@ const { NominationsContainer, SectionDiv, SectionTitle } = SC;
 export default function Nominations({
   nominations,
   setNominations,
-  reference,
+  reference = null,
 }) {
   return (
     <SectionDiv
