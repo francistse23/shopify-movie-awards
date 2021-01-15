@@ -3,8 +3,9 @@ import "jest-styled-components";
 import * as React from "react";
 
 import App, { enableButton } from "../App";
-import { render, screen } from "@testing-library/react";
 import { replacer, reviver } from "../lib/JSONHelper";
+
+import { render } from "@testing-library/react";
 
 describe("App tests", () => {
   const KEY = "shopify_the_shoppies_nominations";

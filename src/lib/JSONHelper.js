@@ -16,4 +16,6 @@ export const reviver = function (key, value) {
       return new Map(value.value);
     }
   }
+
+  return value;
 };

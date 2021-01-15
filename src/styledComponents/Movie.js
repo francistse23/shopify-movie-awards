@@ -54,7 +54,7 @@ export const MovieDetails = styled.div`
   height: 100%;
   justify-content: space-between;
   padding: 0 2.5%;
-  width: 100%;
+  width: ${(props) => (props.isNominations ? "70%" : "100%")};
 `;
 
 export const MoviePlot = styled.p`

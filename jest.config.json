@@ -22,7 +22,8 @@
   "moduleNameMapper": {
     "^@root(.*)$": "<rootDir>/src$1",
     "^@components/(.*)$": "<rootDir>/src/components/$1",
-    "^@assets/(.*)$": "<rootDir>/src/assets/$1"
+    "^@assets/(.*)$": "<rootDir>/src/assets/$1",
+    "\\.(jpg|png)$": "<rootDir>/__mocks__/fileMock.js"
   },
 
   "collectCoverage": true,

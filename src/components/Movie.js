@@ -17,38 +17,22 @@ const {
   RatingIcon,
 } = SC;
 
-function addToNominations(
-  Title,
-  Year,
-  Poster,
-  imdbID,
-  isInNominations,
-  setNominations
-) {
-  if (!isInNominations) {
-    setNominations((nominations) => {
-      const newNominations = new Map(nominations);
-      newNominations.set(imdbID, { Title, Year, Poster, imdbID });
-      const str = JSON.stringify(newNominations, replacer);
-      localStorage.setItem("shopify_the_shoppies_nominations", str);
+export function addToNominations(Title, Year, Poster, imdbID, nominations) {
+  const newNominations = new Map(nominations);
+  newNominations.set(imdbID, { Title, Year, Poster, imdbID });
+  const str = JSON.stringify(newNominations, replacer);
+  localStorage.setItem("shopify_the_shoppies_nominations", str);
 
-      return newNominations;
-    });
-  }
+  return newNominations;
 }
 
-function removeFromNominations(imdbID, isInNominations, setNominations) {
-  if (isInNominations) {
-    setNominations((nominations) => {
-      const newNominations = new Map(nominations);
-      newNominations.delete(imdbID);
+export function removeFromNominations(imdbID, nominations) {
+  const newNominations = new Map(nominations);
+  newNominations.delete(imdbID);
+  const str = JSON.stringify(newNominations, replacer);
+  localStorage.setItem("shopify_the_shoppies_nominations", str);
 
-      const str = JSON.stringify(newNominations, replacer);
-
-      localStorage.setItem("shopify_the_shoppies_nominations", str);
-      return newNominations;
-    });
-  }
+  return newNominations;
 }
 
 export default function Movie({
@@ -76,8 +60,8 @@ export default function Movie({
         <MoviePosterDiv>
           {Poster === "N/A" ? (
             <PosterImage
-              src={require("../assets/poster-placeholder.png")}
-              alt={`Poster unavailable at this time`}
+              src={require("../assets/poster-placeholder.png").default}
+              alt="Poster unavailable at this time"
               nominated={isNominations}
             />
           ) : (
@@ -93,8 +77,14 @@ export default function Movie({
       <NominationButtonsContainer>
         <NominationButton
           aria-label="Remove from nomination"
+          data-testid="remove-nomination"
           disabled={!isInNominations}
-          onClick={() => removeFromNominations(imdbID)}
+          name="Remove from nomination"
+          onClick={() =>
+            setNominations((nominations) =>
+              removeFromNominations(imdbID, nominations)
+            )
+          }
         >
           <span role="img" aria-label="Remove emoji">
             ❌
@@ -119,18 +109,14 @@ export default function Movie({
         <MoviePlot aria-label={`${Title} plot`}>{Plot}</MoviePlot>
 
         <NominationButtonsContainer>
-          {!isNominations ? (
+          {!isNominations && (
             <NominationButton
               aria-label="Add to nomination"
               disabled={nominations.size >= 5 || isInNominations}
+              name="Add to nomination"
               onClick={() =>
-                addToNominations(
-                  Title,
-                  Year,
-                  Poster,
-                  imdbID,
-                  isInNominations,
-                  setNominations
+                setNominations((nominations) =>
+                  addToNominations(Title, Year, Poster, imdbID, nominations)
                 )
               }
             >
@@ -139,12 +125,16 @@ export default function Movie({
               </span>{" "}
               Nominate
             </NominationButton>
-          ) : null}
+          )}
           <NominationButton
             aria-label="Remove from nomination"
+            data-testid="remove-nomination"
             disabled={!isInNominations}
+            name="Remove from nomination"
             onClick={() =>
-              removeFromNominations(imdbID, isInNominations, setNominations)
+              setNominations((nominations) =>
+                removeFromNominations(imdbID, nominations)
+              )
             }
           >
             <span role="img" aria-label="Remove emoji">
@@ -158,8 +148,8 @@ export default function Movie({
       <MoviePosterDiv>
         {Poster === "N/A" ? (
           <PosterImage
-            src={require("../assets/poster-placeholder.png")}
-            alt={`Poster unavailable at this time`}
+            src={require("../assets/poster-placeholder.png").default}
+            alt="Poster unavailable at this time"
             nominated={isNominations}
           />
         ) : (
@@ -172,14 +162,14 @@ export default function Movie({
 
         <MovieRatings>
           {Ratings.map(({ Source, Value }) => (
-            <MovieRating key={Source}>
+            <MovieRating key={Source} data-testid={`${Source}-rating`}>
               <RatingIcon
                 src={
                   Source.includes("Tomatoes")
-                    ? require("../assets/rotten-tomatoes.png")
+                    ? require("../assets/rotten-tomatoes.png").default
                     : Source.includes("Metacritic")
-                    ? require("../assets/metacritic.png")
-                    : require("../assets/imdb.png")
+                    ? require("../assets/metacritic.png").default
+                    : require("../assets/imdb.png").default
                 }
                 alt={`${Source} Icon`}
               />{" "}
