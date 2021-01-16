@@ -2,9 +2,8 @@ import "jest-styled-components";
 
 import * as React from "react";
 
-import { fireEvent, render } from "@testing-library/react";
-
 import SearchBar from "../components/SearchBar";
+import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 describe("SearchBar component tests", () => {
@@ -36,7 +35,5 @@ describe("SearchBar component tests", () => {
     userEvent.type(searchBarInput, "avengers");
 
     expect(setInputText).toHaveBeenCalledTimes(8);
-    // value not updating
-    // expect(searchBarInput).toHaveValue("avengers");
   });
 });

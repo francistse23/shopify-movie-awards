@@ -2,13 +2,42 @@ import "jest-styled-components";
 
 import * as React from "react";
 
-import App, { searchMovies } from "../App";
-import { replacer, reviver } from "../lib/JSONHelper";
+import { QueryClient, QueryClientProvider } from "react-query";
 
+import SearchResults from "../components/SearchResults";
 import { render } from "@testing-library/react";
 
-describe("App tests", () => {
-  const KEY = "shopify_the_shoppies_nominations";
+describe("SearchResults component tests", () => {
+  const setPage = jest.fn();
+  const setNominations = jest.fn();
+  const nominations = new Map([
+    [
+      "tt0371746",
+      {
+        Title: "Iron Man",
+        Year: "2008",
+        Poster:
+          "https://m.media-amazon.com/images/M/MV5BMTczNTI2ODUwOF5BMl5BanBnXkFtZTcwMTU0NTIzMw@@._V1_SX300.jpg",
+        imdbID: "tt0371746",
+        Ratings: [
+          { Source: "Internet Movie Database", Value: "7.9/10" },
+          { Source: "Rotten Tomatoes", Value: "94%" },
+          { Source: "Metacritic", Value: "79/100" },
+        ],
+      },
+    ],
+    [
+      "tt1228705",
+      {
+        Title: "Iron Man 2",
+        Year: "2010",
+        Poster:
+          "https://m.media-amazon.com/images/M/MV5BMTM0MDgwNjMyMl5BMl5BanBnXkFtZTcwNTg3NzAzMw@@._V1_SX300.jpg",
+        imdbID: "tt1228705",
+      },
+    ],
+  ]);
+  const queryClient = new QueryClient();
 
   const resolvedObject = {
     Search: [
@@ -86,99 +115,89 @@ describe("App tests", () => {
     Response: "True",
   };
 
-  beforeEach(async () => {
-    await localStorage.clear();
-  });
-
   global.fetch = jest.fn(() =>
     Promise.resolve({
       json: () => Promise.resolve(resolvedObject),
     })
   );
 
-  test("checks if title is being rendered", async () => {
-    const { getByTestId } = render(<App />);
+  let page = 1;
 
-    const appTitle = await getByTestId("app-title");
-
-    expect(appTitle).toBeInTheDocument();
+  beforeEach(() => {
+    fetch.mockClear();
+    setPage.mockClear();
+    setNominations.mockClear();
+    page = 1;
   });
 
-  test("mock local storage does NOT have nominations", () => {
-    const str = JSON.stringify(new Map(), replacer);
+  test("should NOT display title if there's some input text", () => {
+    const { queryByText } = render(
+      <QueryClientProvider client={queryClient}>
+        <SearchResults
+          isLoading={false}
+          error=""
+          searchResults={resolvedObject.Search}
+          totalResults={resolvedObject.totalResults}
+          typing={true}
+          inputText="avengers"
+          nominations={nominations}
+          setNominations={setNominations}
+          page={page}
+          setPage={setPage}
+        />
+      </QueryClientProvider>
+    );
 
-    localStorage.setItem(KEY, str);
+    const sectionTitle = queryByText(
+      "Try searching and adding some movies to your nominations list!"
+    );
 
-    expect(localStorage.getItem(KEY)).toBe(str);
+    expect(sectionTitle).not.toBeInTheDocument();
   });
 
-  test("mock local storage has nominations", () => {
-    const nominations = {
-      dataType: "Map",
-      value: [
-        [
-          "tt0371746",
-          {
-            Title: "Iron Man",
-            Year: "2008",
-            Poster:
-              "https://m.media-amazon.com/images/M/MV5BMTczNTI2ODUwOF5BMl5BanBnXkFtZTcwMTU0NTIzMw@@._V1_SX300.jpg",
-            imdbID: "tt0371746",
-          },
-        ],
-        [
-          "tt1228705",
-          {
-            Title: "Iron Man 2",
-            Year: "2010",
-            Poster:
-              "https://m.media-amazon.com/images/M/MV5BMTM0MDgwNjMyMl5BMl5BanBnXkFtZTcwNTg3NzAzMw@@._V1_SX300.jpg",
-            imdbID: "tt1228705",
-          },
-        ],
-      ],
-    };
+  test("should display Results title is user is NOT typing", async () => {
+    const { queryByText } = render(
+      <QueryClientProvider client={queryClient}>
+        <SearchResults
+          isLoading={false}
+          error=""
+          searchResults={resolvedObject.Search}
+          totalResults={resolvedObject.totalResults}
+          typing={false}
+          inputText="avengers"
+          nominations={nominations}
+          setNominations={setNominations}
+          page={page}
+          setPage={setPage}
+        />
+      </QueryClientProvider>
+    );
 
-    localStorage.setItem(KEY, JSON.stringify(nominations));
+    const resultsTitle = await queryByText(/Results for/);
 
-    expect(localStorage.getItem(KEY)).toBe(JSON.stringify(nominations));
+    expect(resultsTitle).toBeInTheDocument();
   });
 
-  test("testing reviver function", () => {
-    const nominations = {
-      dataType: "Map",
-      value: [
-        [
-          "tt0371746",
-          {
-            Title: "Iron Man",
-            Year: "2008",
-            Poster:
-              "https://m.media-amazon.com/images/M/MV5BMTczNTI2ODUwOF5BMl5BanBnXkFtZTcwMTU0NTIzMw@@._V1_SX300.jpg",
-            imdbID: "tt0371746",
-          },
-        ],
-        [
-          "tt1228705",
-          {
-            Title: "Iron Man 2",
-            Year: "2010",
-            Poster:
-              "https://m.media-amazon.com/images/M/MV5BMTM0MDgwNjMyMl5BMl5BanBnXkFtZTcwNTg3NzAzMw@@._V1_SX300.jpg",
-            imdbID: "tt1228705",
-          },
-        ],
-      ],
-    };
+  test("should NOT display Results title is user is typing", async () => {
+    const { queryByText } = render(
+      <QueryClientProvider client={queryClient}>
+        <SearchResults
+          isLoading={false}
+          error=""
+          searchResults={resolvedObject.Search}
+          totalResults={resolvedObject.totalResults}
+          typing={true}
+          inputText="avengers"
+          nominations={nominations}
+          setNominations={setNominations}
+          page={page}
+          setPage={setPage}
+        />
+      </QueryClientProvider>
+    );
 
-    const revivedObject = reviver(KEY, nominations);
+    const resultsTitle = await queryByText(/Results for/);
 
-    expect([...revivedObject.keys()]).toEqual(["tt0371746", "tt1228705"]);
-  });
-
-  test("Search movie function should return 79 movies with the search term 'iron man' and at page '1'", async () => {
-    const results = await searchMovies("iron man", 1);
-
-    expect(results.totalResults).toBe("79");
+    expect(resultsTitle).not.toBeInTheDocument();
   });
 });

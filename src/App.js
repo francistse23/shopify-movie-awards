@@ -1,6 +1,6 @@
 import * as SC from "./styledComponents";
 
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 import React, { Suspense, useEffect, useRef, useState } from "react";
 import { replacer, reviver } from "./lib/JSONHelper";
 
@@ -15,6 +15,7 @@ const { AppHeader, AppMain, AppTitle, HoverButton } = SC;
 const Nominations = React.lazy(() => import("./components/Nominations"));
 const SearchResults = React.lazy(() => import("./components/SearchResults"));
 const queryClient = new QueryClient();
+const OMDB_KEY = process.env.REACT_APP_OMDB_KEY;
 
 export function enableButton(nominationsRef, setShowButton) {
   if (
@@ -23,6 +24,51 @@ export function enableButton(nominationsRef, setShowButton) {
   )
     setShowButton(true);
   else setShowButton(false);
+}
+
+const useQueryHook = (inputText, page) => {
+  const queriedResult = useQuery(
+    [inputText, page],
+    () => searchMovies(inputText, page),
+    {
+      enabled: !!inputText && inputText.length > 2,
+      keepPreviousData: true,
+      retry: 1,
+      staleTime: 5000,
+    }
+  );
+
+  return queriedResult;
+};
+
+export async function searchMovies(inputText, page) {
+  try {
+    const res = await (
+      await fetch(
+        `https://www.omdbapi.com/?apikey=${OMDB_KEY}&s=${inputText}&type=movie&page=${page}`
+      )
+    ).json();
+
+    // using short plots to minimize scrolling
+    // if needed, can change plot=full to get a detailed plot
+    const moviesWithPlot = await Promise.all(
+      res.Search?.map(async ({ imdbID }) => {
+        const movie = (
+          await fetch(
+            `https://www.omdbapi.com/?apikey=${OMDB_KEY}&i=${imdbID}&type=movie&plot=short`
+          )
+        ).json();
+
+        return movie;
+      })
+    );
+
+    res.Search = moviesWithPlot;
+
+    return res;
+  } catch (err) {
+    throw new Error(err);
+  }
 }
 
 function App() {
@@ -35,6 +81,12 @@ function App() {
   const { debouncedValue: debouncedInputText, typing } = useDebounce(inputText);
 
   const { localStorage } = window;
+
+  const {
+    data: { Search: searchResults, totalResults } = {},
+    isLoading = true,
+    error,
+  } = useQueryHook(inputText, page);
 
   useEffect(() => {
     if (
@@ -92,6 +144,10 @@ function App() {
 
       <Suspense fallback={<Loading loading={true} />}>
         <SearchResults
+          error={error}
+          isLoading={isLoading}
+          searchResults={searchResults}
+          totalResults={totalResults}
           typing={typing}
           inputText={debouncedInputText}
           nominations={nominations}
