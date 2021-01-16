@@ -6,7 +6,6 @@ import { replacer, reviver } from "./lib/JSONHelper";
 
 import Loading from "./components/Loading";
 import NominationsBanner from "./components/NominationsBanner";
-// import { ReactQueryDevtools } from "react-query/devtools";
 import SearchBar from "./components/SearchBar";
 import { colors } from "./constants";
 import useDebounce from "./components/useDebounce";
@@ -128,7 +127,6 @@ function App() {
 function AppWithQueryClient() {
   return (
     <QueryClientProvider client={queryClient}>
-      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
       <App />
     </QueryClientProvider>
   );
