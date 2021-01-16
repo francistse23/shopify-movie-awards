@@ -112,10 +112,6 @@ export const MoviesContainer = styled.div`
   max-width: 1920px;
   justify-content: center;
   width: 100%;
-
-  // @media ${device.tablet} {
-  //   max-width: ${device.tablet};
-  // }
 `;
 
 export const MovieTitle = styled.h3`
