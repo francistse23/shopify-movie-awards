@@ -37,7 +37,6 @@ describe("SearchResults component tests", () => {
       },
     ],
   ]);
-  const queryClient = new QueryClient();
 
   const resolvedObject = {
     Search: [
@@ -115,29 +114,30 @@ describe("SearchResults component tests", () => {
     Response: "True",
   };
 
+  let queryClient,
+    page = 1,
+    component;
+
   global.fetch = jest.fn(() =>
     Promise.resolve({
       json: () => Promise.resolve(resolvedObject),
     })
   );
 
-  let page = 1;
-
   beforeEach(() => {
     fetch.mockClear();
     setPage.mockClear();
     setNominations.mockClear();
     page = 1;
-  });
+    queryClient = new QueryClient();
 
-  test("should NOT display title if there's some input text", () => {
-    const { queryByText } = render(
+    component = render(
       <QueryClientProvider client={queryClient}>
         <SearchResults
           queriedResult={{
             data: resolvedObject,
-            isLoading: false,
             error: "",
+            isLoading: false,
           }}
           typing={true}
           inputText="avengers"
@@ -148,6 +148,10 @@ describe("SearchResults component tests", () => {
         />
       </QueryClientProvider>
     );
+  });
+
+  test("should NOT display title if there's some input text", () => {
+    const { queryByText } = component;
 
     const sectionTitle = queryByText(
       "Try searching and adding some movies to your nominations list!"
@@ -181,23 +185,7 @@ describe("SearchResults component tests", () => {
   });
 
   test("should NOT display Results title is user is typing", async () => {
-    const { queryByText } = render(
-      <QueryClientProvider client={queryClient}>
-        <SearchResults
-          queriedResult={{
-            data: resolvedObject,
-            error: "",
-            isLoading: false,
-          }}
-          typing={true}
-          inputText="avengers"
-          nominations={nominations}
-          setNominations={setNominations}
-          page={page}
-          setPage={setPage}
-        />
-      </QueryClientProvider>
-    );
+    const { queryByText } = component;
 
     const resultsTitle = await queryByText(/Results for/);
 

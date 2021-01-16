@@ -38,7 +38,7 @@ export const MovieContainer = styled.div`
   }
 
   @media ${device.laptop} {
-    flex: 0 0 ${(props) => (props.isNominations ? 30 : 50)}%;
+    flex: 0 0 ${(props) => (props.isNominations ? 30 : 70)}%;
   }
 
   @media ${device.laptopL} {
