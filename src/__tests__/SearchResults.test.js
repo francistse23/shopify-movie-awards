@@ -134,10 +134,11 @@ describe("SearchResults component tests", () => {
     const { queryByText } = render(
       <QueryClientProvider client={queryClient}>
         <SearchResults
-          isLoading={false}
-          error=""
-          searchResults={resolvedObject.Search}
-          totalResults={resolvedObject.totalResults}
+          queriedResult={{
+            data: resolvedObject,
+            isLoading: false,
+            error: "",
+          }}
           typing={true}
           inputText="avengers"
           nominations={nominations}
@@ -159,10 +160,11 @@ describe("SearchResults component tests", () => {
     const { queryByText } = render(
       <QueryClientProvider client={queryClient}>
         <SearchResults
-          isLoading={false}
-          error=""
-          searchResults={resolvedObject.Search}
-          totalResults={resolvedObject.totalResults}
+          queriedResult={{
+            data: resolvedObject,
+            error: "",
+            isLoading: false,
+          }}
           typing={false}
           inputText="avengers"
           nominations={nominations}
@@ -182,10 +184,11 @@ describe("SearchResults component tests", () => {
     const { queryByText } = render(
       <QueryClientProvider client={queryClient}>
         <SearchResults
-          isLoading={false}
-          error=""
-          searchResults={resolvedObject.Search}
-          totalResults={resolvedObject.totalResults}
+          queriedResult={{
+            data: resolvedObject,
+            error: "",
+            isLoading: false,
+          }}
           typing={true}
           inputText="avengers"
           nominations={nominations}

@@ -97,9 +97,9 @@ describe("App tests", () => {
   );
 
   test("checks if title is being rendered", async () => {
-    const { getByTestId } = render(<App />);
+    const { getByText } = render(<App />);
 
-    const appTitle = await getByTestId("app-title");
+    const appTitle = await getByText("The Shoppies");
 
     expect(appTitle).toBeInTheDocument();
   });

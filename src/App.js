@@ -17,15 +17,6 @@ const SearchResults = React.lazy(() => import("./components/SearchResults"));
 const queryClient = new QueryClient();
 const OMDB_KEY = process.env.REACT_APP_OMDB_KEY;
 
-export function enableButton(nominationsRef, setShowButton) {
-  if (
-    window.scrollY >
-    nominationsRef.current?.offsetHeight + nominationsRef.current?.offsetTop
-  )
-    setShowButton(true);
-  else setShowButton(false);
-}
-
 const useQueryHook = (inputText, page) => {
   const queriedResult = useQuery(
     [inputText, page],
@@ -33,7 +24,7 @@ const useQueryHook = (inputText, page) => {
     {
       enabled: !!inputText && inputText.length > 2,
       keepPreviousData: true,
-      retry: 1,
+      retry: 2,
       staleTime: 5000,
     }
   );
@@ -82,11 +73,7 @@ function App() {
 
   const { localStorage } = window;
 
-  const {
-    data: { Search: searchResults, totalResults } = {},
-    isLoading = true,
-    error,
-  } = useQueryHook(inputText, page);
+  const queriedResult = useQueryHook(debouncedInputText, page);
 
   useEffect(() => {
     if (
@@ -106,24 +93,31 @@ function App() {
   }, [localStorage]);
 
   useEffect(() => {
-    window.addEventListener(
-      "scroll",
+    function enableButton(nominationsRef, setShowButton) {
+      if (
+        window.scrollY >
+        nominationsRef.current?.offsetHeight + nominationsRef.current?.offsetTop
+      ) {
+        setShowButton(true);
+      } else setShowButton(false);
+    }
+
+    window.addEventListener("scroll", (e) =>
       enableButton(nominationsRef, setShowButton)
     );
 
     return () =>
-      window.removeEventListener(
-        "scroll",
+      window.removeEventListener("scroll", (e) =>
         enableButton(nominationsRef, setShowButton)
       );
-  }, [showButton]);
+  }, [nominationsRef, showButton]);
 
   useEffect(() => setPage(1), [inputText]);
 
   return (
     <AppMain>
       <AppHeader>
-        <AppTitle data-testid="app-title">The Shoppies</AppTitle>
+        <AppTitle>The Shoppies</AppTitle>
         <div
           style={{
             backgroundColor: colors.mainColor,
@@ -144,10 +138,7 @@ function App() {
 
       <Suspense fallback={<Loading loading={true} />}>
         <SearchResults
-          error={error}
-          isLoading={isLoading}
-          searchResults={searchResults}
-          totalResults={totalResults}
+          queriedResult={queriedResult}
           typing={typing}
           inputText={debouncedInputText}
           nominations={nominations}

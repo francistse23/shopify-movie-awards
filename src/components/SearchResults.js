@@ -8,10 +8,11 @@ import React from "react";
 const { MoviesContainer, SectionDiv, SectionTitle } = SC;
 
 export default function SearchResults({
-  isLoading,
-  error,
-  searchResults,
-  totalResults,
+  queriedResult: {
+    data: { Search: searchResults, totalResults } = {},
+    isLoading = true,
+    error,
+  },
   typing,
   inputText,
   nominations,
@@ -27,9 +28,7 @@ export default function SearchResults({
         </SectionTitle>
       ) : null}
 
-      {isLoading || typing ? (
-        <Loading data-testid="loading" loading={isLoading} />
-      ) : error ? (
+      {error ? (
         <div style={{ display: "flex", flexDirection: "column" }}>
           <SectionTitle>{`Hmm... we cannot find any movie title that includes "${inputText}".`}</SectionTitle>
           <SectionTitle>
@@ -37,14 +36,15 @@ export default function SearchResults({
             to nominate.
           </SectionTitle>
         </div>
+      ) : isLoading || typing ? (
+        <Loading loading={true} />
       ) : (
-        <>
-          {inputText && (
+        inputText.length > 2 && (
+          <>
             <SectionTitle>{`Results for "${inputText}"`}</SectionTitle>
-          )}
-          <MoviesContainer>
-            {inputText &&
-              searchResults?.map(
+
+            <MoviesContainer>
+              {searchResults?.map(
                 ({ Plot, Ratings, Title, Year, Poster, imdbID }) => (
                   <Movie
                     key={`${Title}-${imdbID}`}
@@ -59,16 +59,15 @@ export default function SearchResults({
                   />
                 )
               )}
-          </MoviesContainer>
+            </MoviesContainer>
 
-          {totalResults && (
             <PaginationFooter
               page={page}
               setPage={setPage}
               totalResults={Number(totalResults)}
             />
-          )}
-        </>
+          </>
+        )
       )}
     </SectionDiv>
   );
