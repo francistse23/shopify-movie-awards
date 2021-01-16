@@ -39,7 +39,6 @@ describe("PaginationFooter component tests", () => {
       },
     ],
   ]);
-  const queryClient = new QueryClient();
   const resolvedObject = {
     Search: [
       {
@@ -115,14 +114,16 @@ describe("PaginationFooter component tests", () => {
     totalResults: "79",
     Response: "True",
   };
-  let page;
+  let page, queryClient;
+
+  window.HTMLElement.prototype.scrollIntoView = jest.fn();
 
   beforeEach(() => {
     setPage.mockClear();
     setNominations.mockClear();
 
     page = 1;
-    window.HTMLElement.prototype.scrollIntoView = jest.fn();
+    queryClient = new QueryClient();
   });
 
   test("Previous Page Button rendering, page = 2", async () => {
@@ -142,7 +143,11 @@ describe("PaginationFooter component tests", () => {
           page={page}
           setPage={setPage}
         />
-        <PaginationFooter page={page} setPage={setPage} totalResults={79} />
+        <PaginationFooter
+          page={page}
+          setPage={setPage}
+          totalResults={resolvedObject.totalResults}
+        />
       </QueryClientProvider>
     );
 
@@ -169,7 +174,11 @@ describe("PaginationFooter component tests", () => {
           page={page}
           setPage={setPage}
         />
-        <PaginationFooter page={page} setPage={setPage} totalResults={79} />
+        <PaginationFooter
+          page={page}
+          setPage={setPage}
+          totalResults={resolvedObject.totalResults}
+        />
       </QueryClientProvider>
     );
 
@@ -197,7 +206,11 @@ describe("PaginationFooter component tests", () => {
           page={page}
           setPage={setPage}
         />
-        <PaginationFooter page={page} setPage={setPage} totalResults={79} />
+        <PaginationFooter
+          page={page}
+          setPage={setPage}
+          totalResults={resolvedObject.totalResults}
+        />
       </QueryClientProvider>
     );
 
@@ -225,7 +238,11 @@ describe("PaginationFooter component tests", () => {
           page={page}
           setPage={setPage}
         />
-        <PaginationFooter page={page} setPage={setPage} totalResults={79} />
+        <PaginationFooter
+          page={page}
+          setPage={setPage}
+          totalResults={resolvedObject.totalResults}
+        />
       </QueryClientProvider>
     );
 
@@ -253,7 +270,11 @@ describe("PaginationFooter component tests", () => {
           page={page}
           setPage={setPage}
         />
-        <PaginationFooter page={page} setPage={setPage} totalResults={79} />
+        <PaginationFooter
+          page={page}
+          setPage={setPage}
+          totalResults={resolvedObject.totalResults}
+        />
       </QueryClientProvider>
     );
 
@@ -278,7 +299,11 @@ describe("PaginationFooter component tests", () => {
           page={page}
           setPage={setPage}
         />
-        <PaginationFooter page={page} setPage={setPage} totalResults={79} />
+        <PaginationFooter
+          page={page}
+          setPage={setPage}
+          totalResults={resolvedObject.totalResults}
+        />
       </QueryClientProvider>
     );
 
