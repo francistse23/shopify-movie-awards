@@ -4,7 +4,7 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/a6062da0-1e50-4964-98ec-42e62cebd122/deploy-status)](https://app.netlify.com/sites/francis-tse-the-shoppies/deploys)
 
-![Website preview](https://i.ibb.co/tYXrfJr/the-shoppies-demo.gif)
+![Website preview](src/assets/the-shoppies-demo)
 
 ## Built With
 
